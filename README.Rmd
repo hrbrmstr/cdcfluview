@@ -45,10 +45,10 @@ library(statebins)
 packageVersion("cdcfluview")
 
 flu <- get_flu_data("hhs", sub_region=1:10, "ilinet", years=2014)
+glimpse(flu)
 
 state_flu <- get_state_data()
-
-dplyr::glimpse(flu)
+glimpse(state_flu)
 
 gg <- ggplot(flu, aes(x=WEEK, y=X..WEIGHTED.ILI, group=REGION))
 gg <- gg + geom_line()

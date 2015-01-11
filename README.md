@@ -60,10 +60,7 @@ packageVersion("cdcfluview")
 
 ``` r
 flu <- get_flu_data("hhs", sub_region=1:10, "ilinet", years=2014)
-
-state_flu <- get_state_data()
-
-dplyr::glimpse(flu)
+glimpse(flu)
 ```
 
     ## Observations: 140
@@ -83,6 +80,22 @@ dplyr::glimpse(flu)
     ## $ AGE.25.49         (int) 44, 351, 451, 187, 181, 469, 42, 87, 202, 7, 37, 338, 461, 248, 182, 509, 54, 87, 216, 20...
     ## $ AGE.50.64         (int) 13, 150, 126, 80, 80, 121, 15, 19, 101, 1, 24, 148, 131, 73, 105, 187, 17, 23, 117, 10, 2...
     ## $ AGE.65            (int) 9, 108, 90, 46, 64, 78, 13, 8, 105, 1, 17, 110, 75, 64, 48, 100, 11, 12, 97, 3, 8, 108, 8...
+
+``` r
+state_flu <- get_state_data()
+glimpse(state_flu)
+```
+
+    ## Observations: 2809
+    ## Variables:
+    ## $ STATENAME            (chr) "Alabama", "Alabama", "Alabama", "Alabama", "Alabama", "Alabama", "Alabama", "Alabama"...
+    ## $ URL                  (chr) "http://adph.org/influenza/", "http://adph.org/influenza/", "http://adph.org/influenza...
+    ## $ WEBSITE              (chr) "Influenza Surveillance", "Influenza Surveillance", "Influenza Surveillance", "Influen...
+    ## $ ACTIVITY.LEVEL       (chr) "Level 1", "Level 1", "Level 1", "Level 1", "Level 1", "Level 1", "Level 5", "Level 10...
+    ## $ ACTIVITY.LEVEL.LABEL (chr) "Minimal", "Minimal", "Minimal", "Minimal", "Minimal", "Minimal", "Low", "High", "High...
+    ## $ WEEKEND              (chr) "Oct-04-2014", "Oct-11-2014", "Oct-18-2014", "Oct-25-2014", "Nov-01-2014", "Nov-08-201...
+    ## $ WEEK                 (int) 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,...
+    ## $ SEASON               (chr) "2014-15", "2014-15", "2014-15", "2014-15", "2014-15", "2014-15", "2014-15", "2014-15"...
 
 ``` r
 gg <- ggplot(flu, aes(x=WEEK, y=X..WEIGHTED.ILI, group=REGION))
@@ -116,7 +129,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Sun Jan 11 11:01:29 2015"
+    ## [1] "Sun Jan 11 11:04:51 2015"
 
 ``` r
 test_dir("tests/")
