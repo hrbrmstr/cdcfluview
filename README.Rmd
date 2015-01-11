@@ -69,7 +69,7 @@ gg_s <- state_flu %>%
   statebins(brewer_pal="RdPu", breaks=4, 
             labels=c("Minimal", "Low", "Moderate", "High"),
             legend_position="bottom", legend_title="ILI Activity Level") +
-  ggtitle("CDC State FluView (2014-01-03)")
+  ggtitle("CDC State FluView (2015-01-03)")
 ```
 
 ```{r echo=FALSE, fig.height=5, fig.width=7}

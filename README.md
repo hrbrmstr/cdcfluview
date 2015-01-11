@@ -56,7 +56,7 @@ library(statebins)
 packageVersion("cdcfluview")
 ```
 
-    ## [1] '0.1'
+    ## [1] '0.2'
 
 ``` r
 flu <- get_flu_data("hhs", sub_region=1:10, "ilinet", years=2014)
@@ -102,7 +102,7 @@ gg_s <- state_flu %>%
   statebins(brewer_pal="RdPu", breaks=4, 
             labels=c("Minimal", "Low", "Moderate", "High"),
             legend_position="bottom", legend_title="ILI Activity Level") +
-  ggtitle("CDC State FluView (2014-01-03)")
+  ggtitle("CDC State FluView (2015-01-03)")
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
@@ -116,7 +116,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Sun Jan 11 10:53:36 2015"
+    ## [1] "Sun Jan 11 11:01:29 2015"
 
 ``` r
 test_dir("tests/")
