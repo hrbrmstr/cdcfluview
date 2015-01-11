@@ -1,8 +1,8 @@
 Package: cdcfluview
 Type: Package
 Title: cdcfluview is package that retrieves the data behind the CDC's FluView portal
-Version: 0.1
-Date: 2015-01-10
+Version: 0.2
+Date: 2015-01-11
 Author: Bob Rudis (@hrbrmstr)
 Maintainer: Bob Rudis <bob@rudis.net>
 Description: The CDC's FluView is a Flash portal and the only way to get flu season

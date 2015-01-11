@@ -2,13 +2,15 @@ The CDC's FluView is a Flash portal and the only way to get flu season data is t
 
 The following functions are implemented:
 
--   `get_flu_data` : retrieve flu data
+-   `get_flu_data` : retrieve flu data (national, by various region/sub-region types)
+-   `get_state_data` : retrieve state-level flu data
 
 The following data sets are included:
 
 ### News
 
 -   Version 0.1 released
+-   Version 0.2 releases : added state-level data retrieval
 
 ### Installation
 
@@ -26,7 +28,30 @@ library(cdcfluview)
 
 ``` r
 library(ggplot2)
+library(dplyr)
+```
 
+    ## 
+    ## Attaching package: 'dplyr'
+    ## 
+    ## The following object is masked from 'package:stats':
+    ## 
+    ##     filter
+    ## 
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+``` r
+library(statebins)
+```
+
+    ## Loading required package: grid
+    ## Loading required package: scales
+    ## Loading required package: gridExtra
+    ## Loading required package: RColorBrewer
+
+``` r
 # current verison
 packageVersion("cdcfluview")
 ```
@@ -36,9 +61,12 @@ packageVersion("cdcfluview")
 ``` r
 flu <- get_flu_data("hhs", sub_region=1:10, "ilinet", years=2014)
 
+state_flu <- get_state_data()
+
 dplyr::glimpse(flu)
 ```
 
+    ## Observations: 140
     ## Variables:
     ## $ REGION.TYPE       (chr) "HHS Regions", "HHS Regions", "HHS Regions", "HHS Regions", "HHS Regions", "HHS Regions",...
     ## $ REGION            (chr) "Region 1", "Region 2", "Region 3", "Region 4", "Region 5", "Region 6", "Region 7", "Regi...
@@ -65,6 +93,20 @@ gg <- gg + theme_bw()
 
 ![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
+``` r
+gg_s <- state_flu %>%
+  filter(WEEKEND=="Jan-03-2015") %>%
+  select(state=STATENAME, value=ACTIVITY.LEVEL) %>%
+  filter(!(state %in% c("Puerto Rico", "New York City"))) %>% # need to add PR to statebins
+  mutate(value=as.numeric(gsub("Level ", "", value))) %>%
+  statebins(brewer_pal="RdPu", breaks=4, 
+            labels=c("Minimal", "Low", "Moderate", "High"),
+            legend_position="bottom", legend_title="ILI Activity Level") +
+  ggtitle("CDC State FluView (2014-01-03)")
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
+
 ### Test Results
 
 ``` r
@@ -74,7 +116,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Sat Jan 10 20:25:05 2015"
+    ## [1] "Sun Jan 11 10:53:36 2015"
 
 ``` r
 test_dir("tests/")

@@ -1,7 +1,7 @@
 ---
 title: "README"
 author: "Bob Rudis"
-date: January 10, 2015
+date: January 11, 2015
 output:
   md_document:
     variant: markdown_github
@@ -13,13 +13,15 @@ uses the same API the portal does to programmatically retrieve data.
 
 The following functions are implemented:
 
-- `get_flu_data` : retrieve flu data
+- `get_flu_data` : retrieve flu data (national, by various region/sub-region types)
+- `get_state_data` : retrieve state-level flu data
 
 The following data sets are included:
 
 ### News
 
 - Version 0.1 released
+- Version 0.2 releases : added state-level data retrieval
 
 ### Installation
 
@@ -36,11 +38,15 @@ options(width=120)
 ```{r}
 library(cdcfluview)
 library(ggplot2)
+library(dplyr)
+library(statebins)
 
 # current verison
 packageVersion("cdcfluview")
 
 flu <- get_flu_data("hhs", sub_region=1:10, "ilinet", years=2014)
+
+state_flu <- get_state_data()
 
 dplyr::glimpse(flu)
 
@@ -52,6 +58,22 @@ gg <- gg + theme_bw()
 
 ```{r echo=FALSE, fig.height=10, fig.width=6}
 gg
+```
+
+```{r}
+gg_s <- state_flu %>%
+  filter(WEEKEND=="Jan-03-2015") %>%
+  select(state=STATENAME, value=ACTIVITY.LEVEL) %>%
+  filter(!(state %in% c("Puerto Rico", "New York City"))) %>% # need to add PR to statebins
+  mutate(value=as.numeric(gsub("Level ", "", value))) %>%
+  statebins(brewer_pal="RdPu", breaks=4, 
+            labels=c("Minimal", "Low", "Moderate", "High"),
+            legend_position="bottom", legend_title="ILI Activity Level") +
+  ggtitle("CDC State FluView (2014-01-03)")
+```
+
+```{r echo=FALSE, fig.height=5, fig.width=7}
+gg_s
 ```
 
 ### Test Results
