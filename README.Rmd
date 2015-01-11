@@ -1,0 +1,67 @@
+---
+title: "README"
+author: "Bob Rudis"
+date: January 10, 2015
+output:
+  md_document:
+    variant: markdown_github
+---
+
+The CDC's FluView is a Flash portal and the only way to get flu season
+data is to use GUI controls, making it tedious to retrieve updates. This package
+uses the same API the portal does to programmatically retrieve data.
+
+The following functions are implemented:
+
+- `get_flu_data` : retrieve flu data
+
+The following data sets are included:
+
+### News
+
+- Version 0.1 released
+
+### Installation
+
+```{r eval=FALSE}
+devtools::install_github("hrbrmstr/cdcfluview")
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+options(width=120)
+```
+
+### Usage
+
+```{r}
+library(cdcfluview)
+library(ggplot2)
+
+# current verison
+packageVersion("cdcfluview")
+
+flu <- get_flu_data("hhs", sub_region=1:10, "ilinet", years=2014)
+
+dplyr::glimpse(flu)
+
+gg <- ggplot(flu, aes(x=WEEK, y=X..WEIGHTED.ILI, group=REGION))
+gg <- gg + geom_line()
+gg <- gg + facet_wrap(~REGION, ncol=2)
+gg <- gg + theme_bw()
+```
+
+```{r echo=FALSE, fig.height=10, fig.width=6}
+gg
+```
+
+### Test Results
+
+```{r}
+library(cdcfluview)
+library(testthat)
+
+date()
+
+test_dir("tests/")
+```
+
