@@ -36,10 +36,10 @@ options(width=120)
 ### Usage
 
 ```{r}
-library(cdcfluview)
-library(ggplot2)
-library(dplyr)
-library(statebins)
+suppressPackageStartupMessages(library(cdcfluview))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(statebins))
 
 # current verison
 packageVersion("cdcfluview")

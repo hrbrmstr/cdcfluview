@@ -21,37 +21,11 @@ devtools::install_github("hrbrmstr/cdcfluview")
 ### Usage
 
 ``` r
-library(cdcfluview)
-```
+suppressPackageStartupMessages(library(cdcfluview))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(statebins))
 
-    ## Loading required package: httr
-
-``` r
-library(ggplot2)
-library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-    ## 
-    ## The following object is masked from 'package:stats':
-    ## 
-    ##     filter
-    ## 
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
-library(statebins)
-```
-
-    ## Loading required package: grid
-    ## Loading required package: scales
-    ## Loading required package: gridExtra
-    ## Loading required package: RColorBrewer
-
-``` r
 # current verison
 packageVersion("cdcfluview")
 ```
@@ -129,7 +103,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Sun Jan 11 11:04:51 2015"
+    ## [1] "Sun Jan 11 11:05:26 2015"
 
 ``` r
 test_dir("tests/")
