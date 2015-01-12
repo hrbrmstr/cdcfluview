@@ -15,7 +15,7 @@ The following data sets are included:
 
 -   Version 0.1 released
 -   Version 0.2 released : added state-level data retrieval
--   Version 0.2.1 released : bumped up `httr` version \# requirement in `DESCRIPTION`
+-   Version 0.2.1 released : bumped up `httr` version \# requirement in `DESCRIPTION` (via Issue [1](https://github.com/hrbrmstr/cdcfluview/issues/1))
 
 ### Installation
 
@@ -108,7 +108,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Mon Jan 12 14:22:33 2015"
+    ## [1] "Mon Jan 12 14:25:21 2015"
 
 ``` r
 test_dir("tests/")
