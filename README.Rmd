@@ -25,7 +25,8 @@ The following data sets are included:
 ### News
 
 - Version 0.1 released
-- Version 0.2 releases : added state-level data retrieval
+- Version 0.2 released : added state-level data retrieval
+- Version 0.2.1 released : bumped up `httr` version # requirement in `DESCRIPTION` 
 
 ### Installation
 

@@ -1,7 +1,7 @@
 Package: cdcfluview
 Type: Package
 Title: cdcfluview is package that retrieves the data behind the CDC's FluView portal
-Version: 0.2
+Version: 0.2.1
 Date: 2015-01-11
 Author: Bob Rudis (@hrbrmstr)
 Maintainer: Bob Rudis <bob@rudis.net>
@@ -15,4 +15,4 @@ Suggests:
     testthat
 Depends:
     R (>= 3.0.0),
-    httr (>= 0.3.0)
+    httr (>= 0.5.0)

@@ -14,7 +14,8 @@ The following data sets are included:
 ### News
 
 -   Version 0.1 released
--   Version 0.2 releases : added state-level data retrieval
+-   Version 0.2 released : added state-level data retrieval
+-   Version 0.2.1 released : bumped up `httr` version \# requirement in `DESCRIPTION`
 
 ### Installation
 
@@ -34,7 +35,7 @@ suppressPackageStartupMessages(library(statebins))
 packageVersion("cdcfluview")
 ```
 
-    ## [1] '0.2'
+    ## [1] '0.2.1'
 
 ``` r
 flu <- get_flu_data("hhs", sub_region=1:10, "ilinet", years=2014)
@@ -107,7 +108,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Sun Jan 11 19:42:51 2015"
+    ## [1] "Mon Jan 12 14:22:33 2015"
 
 ``` r
 test_dir("tests/")
