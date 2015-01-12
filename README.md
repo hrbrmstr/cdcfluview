@@ -1,4 +1,4 @@
-**NOTE** If there's a particular data set from <http://www.cdc.gov/flu/weekly/fluviewinteractive.htm> that you want and that isn't in the pacakge, please file it as an issue and be as specific as you can (screen shot if possible).
+**NOTE** If there's a particular data set from <http://www.cdc.gov/flu/weekly/fluviewinteractive.htm> that you want and that isn't in the package, please file it as an issue and be as specific as you can (screen shot if possible).
 
 ------------------------------------------------------------------------
 
@@ -107,7 +107,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Sun Jan 11 19:41:02 2015"
+    ## [1] "Sun Jan 11 19:42:51 2015"
 
 ``` r
 test_dir("tests/")
