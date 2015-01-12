@@ -30,6 +30,7 @@ suppressPackageStartupMessages(library(cdcfluview))
 suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(statebins))
+suppressPackageStartupMessages(library(magrittr))
 
 # current verison
 packageVersion("cdcfluview")
@@ -86,6 +87,54 @@ gg <- gg + theme_bw()
 ![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
 ``` r
+dat <- get_flu_data(region="hhs", 
+                    sub_region=1:10, 
+                    data_source="ilinet", 
+                    years=2000:2014)
+ 
+dat %<>%
+  mutate(REGION=factor(REGION,
+                       levels=unique(REGION),
+                       labels=c("Boston", "New York",
+                                "Philadelphia", "Atlanta",
+                                "Chicago", "Dallas",
+                                "Kansas City", "Denver",
+                                "San Francisco", "Seattle"),
+                       ordered=TRUE)) %>%
+  mutate(season_week=ifelse(WEEK>=40, WEEK-40, WEEK),
+         season=ifelse(WEEK<40,
+                       sprintf("%d-%d", YEAR-1, YEAR),
+                       sprintf("%d-%d", YEAR, YEAR+1)))
+ 
+prev_years <- dat %>% filter(season != "2014-2015")
+curr_year <- dat %>% filter(season == "2014-2015")
+ 
+curr_week <- tail(dat, 1)$season_week
+ 
+gg <- ggplot()
+gg <- gg + geom_point(data=prev_years,
+                      aes(x=season_week, y=X..WEIGHTED.ILI, group=season),
+                      color="#969696", size=1, alpa=0.25)
+gg <- gg + geom_point(data=curr_year,
+                      aes(x=season_week, y=X..WEIGHTED.ILI, group=season),
+                      color="red", size=1.25, alpha=1)
+gg <- gg + geom_line(data=curr_year, 
+                     aes(x=season_week, y=X..WEIGHTED.ILI, group=season),
+                     size=1.25, color="#d7301f")
+gg <- gg + geom_vline(xintercept=curr_week, color="#d7301f", size=0.5, linetype="dashed", alpha=0.5)
+gg <- gg + facet_wrap(~REGION, ncol=3)
+gg <- gg + labs(x=NULL, y="Weighted ILI Index", 
+                title="ILINet - 1999-2015 year weighted flu index history by CDC region\nWeek Ending Jan 3, 2015 (Red == current season)\n")
+gg <- gg + theme_bw()
+gg <- gg + theme(panel.grid=element_blank())
+gg <- gg + theme(strip.background=element_blank())
+gg <- gg + theme(axis.ticks.x=element_blank())
+gg <- gg + theme(axis.text.x=element_blank())
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
+
+``` r
 gg_s <- state_flu %>%
   filter(WEEKEND=="Jan-03-2015") %>%
   select(state=STATENAME, value=ACTIVITY.LEVEL) %>%
@@ -97,18 +146,18 @@ gg_s <- state_flu %>%
   ggtitle("CDC State FluView (2015-01-03)")
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
 ### Test Results
 
 ``` r
-library(cdcfluview)
-library(testthat)
+suppressPackageStartupMessages(library(cdcfluview))
+suppressPackageStartupMessages(library(testthat))
 
 date()
 ```
 
-    ## [1] "Mon Jan 12 14:25:21 2015"
+    ## [1] "Mon Jan 12 14:39:51 2015"
 
 ``` r
 test_dir("tests/")
