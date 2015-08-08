@@ -2,5 +2,5 @@
 #' @name cdcfluview
 #' @docType package
 #' @author Bob Rudis (@@hrbrmstr)
-#' @import httr
+#' @import httr pbapply
 NULL

@@ -12,7 +12,7 @@
 #'        For "\code{hhs}", should be a vector between \code{1:10}.\cr
 #'        For "\code{census}", should be a vector between \code{1:9}
 #' @param data_source either of "\code{who}" (for WHO NREVSS) or "\code{ilinet}" or "\code{all}" (for both)
-#' @param years a vector of years to retrieve data for (i.e. \code{2014} for CDC flu seasn 2014-2015)
+#' @param years a vector of years to retrieve data for (i.e. \code{2014} for CDC flu season 2014-2015)
 #' @return If only a single \code{data_source} is specified, then a single \code{data.frame} is
 #'         returned, otherwise a named list with each \code{data.frame} is returned.
 #' @export
@@ -51,10 +51,10 @@ get_flu_data <- function(region="hhs", sub_region=1:10,
   data_source <- gsub("who", "WHO_NREVSS", data_source)
   data_source <- gsub("ilinet", "ILINet", data_source)
 
-  params <- list(SubRegionsList=sub_region,
+  params <- list(SubRegionsList=paste0(sub_region, collapse=","),
                  DataSources=data_source,
                  RegionID=reg,
-                 SeasonsList=years)
+                 SeasonsList=paste0(years, collapse=","))
 
   out_file <- tempfile(fileext=".zip")
 
@@ -71,7 +71,7 @@ get_flu_data <- function(region="hhs", sub_region=1:10,
 
   files <- unzip(out_file, exdir=out_dir, overwrite=TRUE)
 
-  file_list <- lapply(files, function(x) {
+  file_list <- pblapply(files, function(x) {
     ct <- ifelse(grepl("who", x, ignore.case=TRUE), 0, 1)
     read.csv(x, header=TRUE, skip=ct, stringsAsFactors=FALSE)
   })
@@ -85,48 +85,3 @@ get_flu_data <- function(region="hhs", sub_region=1:10,
   }
 
 }
-
-#' Retrieves the state-level data from the CDC's FluView Portal
-#'
-#' Uses the data source from the CDC' State-levelFluView \url{http://gis.cdc.gov/grasp/fluview/main.html}
-#' and provides state flu reporting data as a single data frame
-#'
-#' @param years a vector of years to retrieve data for (i.e. \code{2014} for CDC flu seasn 2014-2015)
-#' @return A \code{data.frame} of state-level data for the specified seasons
-#' @export
-#' @examples \dontrun{
-#' get_state_dat(2014)
-#' get_state_data(c(2013,2014))
-#' }
-get_state_data <- function(years=2014) {
-
-  if (any(years < 1997))
-    stop("Error: years should be > 1997")
-
-  years <- years - 1960
-
-  out_file <- tempfile(fileext=".zip")
-
-  params <- list(EndMMWRID=0,
-                 StartMMWRID=0,
-                 QueryType=1,
-                 DataMode="STATE",
-                 SeasonsList=years)
-
-  tmp <- POST("http://gis.cdc.gov/grasp/fluview/FluViewPhase1CustomDownload.ashx",
-              body=params,
-              write_disk(out_file))
-
-  stop_for_status(tmp)
-
-  if (!(file.exists(out_file)))
-    stop("Error: cannot process downloaded data")
-
-  out_dir <- tempdir()
-
-  files <- unzip(out_file, exdir=out_dir, overwrite=TRUE)
-
-  read.csv(files, header=TRUE, stringsAsFactors=FALSE)
-
-}
-
