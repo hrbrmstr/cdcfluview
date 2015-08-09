@@ -34,10 +34,11 @@ The following functions are implemented:
 The following data sets are included:
 
 - `hhs_regions`	HHS Region Table (a data frame with 59 rows and 4 variables)
+- `census_regions`	Census Region Table (a data frame with 51 rows and 2 variables)
 
 ### News
 
-- Version 0.4.0.999 released : another fix for the CDC API (for region parameter); added data file for region lookups; added weekly high-level flu report retrieval
+- Version 0.4.0.999 released : another fix for the CDC API (for region parameter); added data files for HHS/Census region lookups; added weekly high-level flu report retrieval
 - Version 0.3 released : fix for the CDC API (it changed how year & region params are encoded in the request)
 - Version 0.2.1 released : bumped up `httr` version # requirement in `DESCRIPTION` (via Issue [1](https://github.com/hrbrmstr/cdcfluview/issues/1))
 - Version 0.2 released : added state-level data retrieval

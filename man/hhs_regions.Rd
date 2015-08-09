@@ -9,7 +9,7 @@
 data(hhs_regions)
 }
 \description{
-This dataset contains the names, numbers, regional offices for
+This dataset contains the names, numbers, regional offices for-,
              and states/territories belonging to the (presently) 10 HHS U.S.
              regions in "long" format. It consists of a \code{data.frame}
              with the following columns:

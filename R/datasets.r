@@ -1,5 +1,5 @@
 #' @title HHS Region Table
-#' @description This dataset contains the names, numbers, regional offices for
+#' @description This dataset contains the names, numbers, regional offices for-,
 #'              and states/territories belonging to the (presently) 10 HHS U.S.
 #'              regions in "long" format. It consists of a \code{data.frame}
 #'              with the following columns:
@@ -19,4 +19,24 @@
 #' @usage data(hhs_regions)
 #' @note Last updated 2015-08-09.
 #' @format A data frame with 59 rows and 4 variables
+NULL
+
+#' @title Census Region Table
+#' @description This dataset contains the states belonging to the (presently) 4
+#'              U.S. Census regions in "long" format. It consists of a \code{data.frame}
+#'              with the following columns:
+#'
+#' \itemize{
+#'   \item \code{region}: the official Census region name (e.g. "\code{East}")
+#'   \item \code{state}: state belonging to the region
+#' }
+#'
+#' @docType data
+#' @keywords datasets
+#' @name census_regions
+#'
+#' @references \url{http://www.cdc.gov/std/stats12/images/CensusMap.png}
+#' @usage data(census_regions)
+#' @note Last updated 2015-08-09.
+#' @format A data frame with 51 rows and 2 variables
 NULL

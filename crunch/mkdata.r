@@ -23,4 +23,15 @@ do.call(rbind.data.frame, lapply(1:nrow(hhs_regions), function(i) {
 
 str(hhs_regions)
 
-devtools::use_data(hhs_regions, overwrite=TRUE)
+library(rvest)
+library(magrittr)
+
+pg <- html("http://www.cdc.gov/std/stats11/census.htm")
+pg %>% html_table() %>% extract2(1) %>% as.list -> cens
+do.call(rbind.data.frame, lapply(names(cens), function(x) {
+  data.frame(region=x,
+             state=cens[[x]][cens[[x]]!=""],
+             stringsAsFactors=FALSE)
+})) -> census_regions
+
+devtools::use_data(hhs_regions, census_regions, overwrite=TRUE)
