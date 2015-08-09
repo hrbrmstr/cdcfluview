@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_weekly_flu_report.r
 \name{get_weekly_flu_report}
 \alias{get_weekly_flu_report}
-\title{Retrieves weekly influenza surveillance report from the CDC}
+\title{Retrieves (high-level) weekly influenza surveillance report from the CDC}
 \usage{
 get_weekly_flu_report()
 }

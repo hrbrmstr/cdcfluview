@@ -1,4 +1,4 @@
-#' Retrieves weekly influenza surveillance report from the CDC
+#' Retrieves (high-level) weekly influenza surveillance report from the CDC
 #'
 #' The CDC publishes a \href{http://www.cdc.gov/flu/weekly/usmap.htm}{weekly
 #' influenza report} detailing high-level flu activity per-state. They also

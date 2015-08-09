@@ -9,7 +9,7 @@ The U.S. Centers for Disease Control (CDC) maintains a [portal](http://gis.cdc.g
 The following functions are implemented:
 
 -   `get_flu_data`: Retrieves state, regional or national influenza statistics from the CDC
--   `get_state_data`: Retrieves state/territory-level influenza statistics from the CDC
+-   `get_state_data`: Retrieves (high-level) state/territory-level influenza statistics from the CDC
 -   `get_weekly_flu_report`: Retrieves weekly influenza surveillance report from the CDC
 
 The following data sets are included:
