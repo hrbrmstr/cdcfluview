@@ -2,24 +2,40 @@
 % Please edit documentation in R/get_state_data.r
 \name{get_state_data}
 \alias{get_state_data}
-\title{Retrieves the state-level data from the CDC's FluView Portal}
+\title{Retrieves state/territory-level influenza statistics from the CDC}
 \usage{
-get_state_data(years = 2014)
+get_state_data(years = as.numeric(format(Sys.Date(), "\%Y")))
 }
 \arguments{
-\item{years}{a vector of years to retrieve data for (i.e. \code{2014} for CDC flu season 2014-2015)}
+\item{years}{a vector of years to retrieve data for (i.e. \code{2014} for CDC
+flu season 2014-2015). Default value is the current year and all
+\code{years} values should be > \code{1997}}
 }
 \value{
 A \code{data.frame} of state-level data for the specified seasons
+        (also classed as \code{cdcstatedata})
 }
 \description{
-Uses the data source from the CDC' State-levelFluView \url{http://gis.cdc.gov/grasp/fluview/main.html}
-and provides state flu reporting data as a single data frame
+Uses the data source from the CDC' State-levelFluView
+\url{http://gis.cdc.gov/grasp/fluview/main.html} and provides state flu
+reporting data as a single data frame.\cr
+\cr
+This function provides similar data to \code{\link{get_weekly_flu_report}} but
+provides more metadata about the reporting sources and has access to more
+historical infomation.
+}
+\note{
+There is often a noticeable delay when making the API request to the CDC. This
+      is not due to a large download size, but the time it takes for their
+      servers to crunch the data. Wrap the function call in \code{httr::with_verbose}
+      if you would like to see what's going on.
 }
 \examples{
 \dontrun{
 get_state_dat(2014)
 get_state_data(c(2013, 2014))
+get_state_data(2010:2014)
+httr::with_verbose(get_state_data(2009:2015))
 }
 }
 

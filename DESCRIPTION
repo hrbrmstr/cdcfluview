@@ -1,20 +1,26 @@
 Package: cdcfluview
 Type: Package
-Title: cdcfluview is package that retrieves the data behind the CDC's FluView portal
-Version: 0.3
-Date: 2015-08-07
+Title: Retrieve Flu Season Data from the CDC FluView Portal
+Version: 0.4.0.9000
+Date: 2015-08-09
 Author: Bob Rudis (@hrbrmstr)
 Maintainer: Bob Rudis <bob@rudis.net>
-Description: The CDC's FluView is a Flash portal and the only way to get flu season
-    data is to use GUI controls, making it tedious to retrieve updates. This package
-    uses the same API the portal does to programmatically retrieve data.
+Description: The U.S. Centers for Disease Control (CDC) maintains a portal
+    <http://gis.cdc.gov/grasp/fluview/fluportaldashboard.html> for
+    accessing state, regional and national influenza statistics. The Flash
+    interface makes it difficult and time-consuming to select and retrieve
+    influenza data. This package provides functions to access the data provided
+    by portal's underlying API.
 URL: http://github.com/hrbrmstr/cdcfluview
 BugReports: https://github.com/hrbrmstr/cdcfluview/issues
 License: MIT + file LICENSE
+LazyData: TRUE
 Suggests:
     testthat
 Imports:
     httr (>= 0.3.0),
-    pbapply
+    pbapply,
+    xml2,
+    dplyr
 Depends:
     R (>= 3.0.0)
