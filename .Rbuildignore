@@ -2,6 +2,8 @@
 ^\.Rproj\.user$
 ^\.travis\.yml$
 ^.*md$
-crunch/
+^crunch/
+^crunch/.*
 ^README_files/
+^README_files/.*
 ^README-.*

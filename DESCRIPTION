@@ -1,7 +1,7 @@
 Package: cdcfluview
 Type: Package
 Title: Retrieve U.S. Flu Season Data from the CDC FluView Portal
-Version: 0.4.0.9000
+Version: 0.4.0
 Date: 2015-08-09
 Author: Bob Rudis (@hrbrmstr)
 Maintainer: Bob Rudis <bob@rudis.net>
@@ -10,11 +10,11 @@ Description: The U.S. Centers for Disease Control (CDC) maintains a portal
     accessing state, regional and national influenza statistics. The Flash
     interface makes it difficult and time-consuming to select and retrieve
     influenza data. This package provides functions to access the data provided
-    by portal's underlying API.
+    by the portal's underlying API.
 URL: http://github.com/hrbrmstr/cdcfluview
 BugReports: https://github.com/hrbrmstr/cdcfluview/issues
 License: MIT + file LICENSE
-LazyData: TRUE
+LazyData: true
 Suggests:
     testthat
 Imports:

@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 
 -----
 
-The U.S. Centers for Disease Control (CDC) maintains a [portal](http://gis.cdc.gov/grasp/fluview/fluportaldashboard.html) for accessing state, regional and national influenza statistics. The portal's Flash interface makes it difficult and time-consuming to select and retrieve influenza data. This package provides functions to access the data provided by portal's underlying API.
+The U.S. Centers for Disease Control (CDC) maintains a [portal](http://gis.cdc.gov/grasp/fluview/fluportaldashboard.html) for accessing state, regional and national influenza statistics. The portal's Flash interface makes it difficult and time-consuming to select and retrieve influenza data. This package provides functions to access the data provided by the portal's underlying API.
 
 The following functions are implemented:
 
