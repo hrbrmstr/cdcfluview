@@ -10,5 +10,5 @@
 #' @name cdcfluview
 #' @docType package
 #' @author Bob Rudis (@@hrbrmstr)
-#' @import httr pbapply xml2 dplyr
+#' @import httr pbapply xml2 dplyr utils
 NULL
