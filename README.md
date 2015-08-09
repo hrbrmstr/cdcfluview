@@ -1,5 +1,7 @@
 ### :mask: cdcfluview - Retrieve U.S. Flu Season Data from the CDC FluView Portal
 
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/cdcfluview)](http://cran.r-project.org/web/packages/cdcfluview)
+
 **NOTE** If there's a particular data set from <http://www.cdc.gov/flu/weekly/fluviewinteractive.htm> that you want and that isn't in the package, please file it as an issue and be as specific as you can (screen shot if possible).
 
 ------------------------------------------------------------------------
@@ -9,17 +11,17 @@ The U.S. Centers for Disease Control (CDC) maintains a [portal](http://gis.cdc.g
 The following functions are implemented:
 
 -   `get_flu_data`: Retrieves state, regional or national influenza statistics from the CDC
--   `get_state_data`: Retrieves (high-level) state/territory-level influenza statistics from the CDC
--   `get_weekly_flu_report`: Retrieves weekly influenza surveillance report from the CDC
+-   `get_state_data`: Retrieves state/territory-level influenza statistics from the CDC
+-   `get_weekly_flu_report`: Retrieves (high-level) weekly influenza surveillance report from the CDC
 
 The following data sets are included:
 
 -   `hhs_regions` HHS Region Table (a data frame with 59 rows and 4 variables)
--   `census_regions`	Census Region Table (a data frame with 51 rows and 2 variables)
-
+-   `census_regions` Census Region Table (a data frame with 51 rows and 2 variables)
 
 ### News
 
+-   Version 0.4.0 - [CRAN release](http://cran.r-project.org/web/packages/cdcfluview)
 -   Version 0.4.0.999 released : another fix for the CDC API (for region parameter); added data files for HHS/Census region lookups; added weekly high-level flu report retrieval
 -   Version 0.3 released : fix for the CDC API (it changed how year & region params are encoded in the request)
 -   Version 0.2.1 released : bumped up `httr` version \# requirement in `DESCRIPTION` (via Issue [1](https://github.com/hrbrmstr/cdcfluview/issues/1))
@@ -29,6 +31,8 @@ The following data sets are included:
 ### Installation
 
 ``` r
+install.packages("cdcfluview")
+# **OR**
 devtools::install_github("hrbrmstr/cdcfluview")
 ```
 
@@ -42,7 +46,7 @@ suppressPackageStartupMessages(library(statebins))
 
 # current verison
 packageVersion("cdcfluview")
-#> [1] '0.4.0.9000'
+#> [1] '0.4.1.9000'
 
 flu <- get_flu_data("hhs", sub_region=1:10, "ilinet", years=2014)
 glimpse(flu)
@@ -154,7 +158,7 @@ suppressPackageStartupMessages(library(cdcfluview))
 suppressPackageStartupMessages(library(testthat))
 
 date()
-#> [1] "Sun Aug  9 09:40:34 2015"
+#> [1] "Sun Aug  9 13:13:33 2015"
 
 test_dir("tests/")
 #> testthat results ========================================================================================================
