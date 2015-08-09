@@ -1,4 +1,4 @@
-### cdcfluview - Retrieve U.S. Flu Season Data from the CDC FluView Portal
+### :mask: cdcfluview - Retrieve U.S. Flu Season Data from the CDC FluView Portal
 
 **NOTE** If there's a particular data set from <http://www.cdc.gov/flu/weekly/fluviewinteractive.htm> that you want and that isn't in the package, please file it as an issue and be as specific as you can (screen shot if possible).
 
