@@ -24,4 +24,4 @@ Imports:
     dplyr,
     utils
 Depends:
-    R (>= 3.0.0)
+    R (>= 3.2.0)
