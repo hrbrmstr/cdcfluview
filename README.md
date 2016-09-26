@@ -88,11 +88,48 @@ gg <- ggplot(flu, aes(x=WEEK, y=`% WEIGHTED ILI`, group=REGION))
 gg <- gg + geom_line()
 gg <- gg + facet_wrap(~REGION, ncol=2)
 gg <- gg + theme_bw()
+gg
 ```
 
-<img src="README_files/README-unnamed-chunk-5-1.png" width="576" />
+<img src="README_files/README-unnamed-chunk-4-1.png" width="576" />
 
-<img src="README_files/README-unnamed-chunk-7-1.png" width="576" />
+``` r
+msd <- get_mortality_surveillance_data()
+
+mutate(msd$by_state, ym=as.Date(sprintf("%04d-%02d-1", Year, Week), "%Y-%U-%u")) %>% 
+  select(state, wk=ym, death_pct=`Percent of Deaths Due to Pneumonia and Influenza`) %>% 
+  mutate(death_pct=death_pct/100) -> df
+
+gg <- ggplot() + geom_smooth(data=df, aes(wk, death_pct, group=state), 
+                             se=FALSE, color="#2b2b2b", size=0.25) 
+
+gb <- ggplot_build(gg)
+
+gb$data[[1]] %>% 
+  arrange(desc(x)) %>% 
+  group_by(group) %>% 
+  slice(1) %>% 
+  ungroup() %>% 
+  arrange(desc(y)) %>% 
+  head(1) -> top
+
+top_state <- sort(unique(msd$by_state$state))[top$group]
+
+gg <- gg + geom_text(data=top, aes(as.Date(x, origin="1970-01-01"), y, label=top_state),
+                     hjust=1, family="Arial Narrow", size=3, nudge_x=-5, nudge_y=-0.001)
+gg <- gg + scale_x_date(expand=c(0,0))
+gg <- gg + scale_y_continuous(label=scales::percent)
+gg <- gg + labs(x=NULL, y=NULL,
+                title="Percent of In-State Deaths Due to Pneumonia and Pnfluenza (2010-Present)")
+gg <- gg + theme_bw(base_family="Arial Narrow")
+gg <- gg + theme(axis.text.x=element_text(margin=margin(0,0,0,0)))
+gg <- gg + theme(axis.text.y=element_text(margin=margin(0,0,0,0)))
+gg <- gg + theme(axis.ticks=element_blank())
+gg <- gg + theme(plot.title=element_text(face="bold", size=16))
+gg
+```
+
+<img src="README_files/README-unnamed-chunk-5-1.png" width="960" />
 
 ``` r
 gg_s <- state_flu %>%
@@ -104,9 +141,10 @@ gg_s <- state_flu %>%
             labels=c("Minimal", "Low", "Moderate", "High"),
             legend_position="bottom", legend_title="ILI Activity Level") +
   ggtitle("CDC State FluView (2015-01-03)")
+gg_s
 ```
 
-<img src="README_files/README-unnamed-chunk-9-1.png" width="672" />
+<img src="README_files/README-unnamed-chunk-7-1.png" width="672" />
 
 ### Test Results
 
@@ -115,7 +153,7 @@ library(cdcfluview)
 library(testthat)
 
 date()
-#> [1] "Mon Sep 26 01:39:06 2016"
+#> [1] "Mon Sep 26 11:16:43 2016"
 
 test_dir("tests/")
 #> testthat results ========================================================================================================
