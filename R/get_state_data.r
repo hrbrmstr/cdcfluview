@@ -19,7 +19,7 @@
 #'       servers to crunch the data. Wrap the function call in \code{httr::with_verbose}
 #'       if you would like to see what's going on.
 #' @examples \dontrun{
-#' get_state_dat(2014)
+#' get_state_data(2014)
 #' get_state_data(c(2013, 2014))
 #' get_state_data(2010:2014)
 #' httr::with_verbose(get_state_data(2009:2015))
@@ -39,7 +39,7 @@ get_state_data <- function(years=as.numeric(format(Sys.Date(), "%Y"))) {
                  DataMode="STATE",
                  SeasonsList=paste0(years, collapse=","))
 
-  tmp <- POST("http://gis.cdc.gov/grasp/fluview/FluViewPhase1CustomDownload.ashx",
+  tmp <- httr::POST("http://gis.cdc.gov/grasp/fluview/FluViewPhase1CustomDownload.ashx",
               body=params,
               write_disk(out_file))
 
@@ -52,7 +52,8 @@ get_state_data <- function(years=as.numeric(format(Sys.Date(), "%Y"))) {
 
   files <- unzip(out_file, exdir=out_dir, overwrite=TRUE)
 
-  out <- read.csv(files, header=TRUE, stringsAsFactors=FALSE)
+    out <- read.csv(files, header=TRUE, stringsAsFactors=FALSE)
+  # out <- readr::read_csv(files, col_types="cccccic")
 
   class(out) <- c("cdcstatedata", class(out))
 

@@ -51,8 +51,8 @@ get_flu_data <- function(region="hhs", sub_region=1:10,
   if ((region=="census") && !all(sub_region %in% 1:19))
     stop("Error: sub_region values must fall between 1:10 when region is 'census'")
 
-  if (!all(data_source %in% c("who", "ilinet")))
-    stop("Error: data_source must be either 'who', 'ilinet' or both")
+  if (!all(data_source %in% c("who", "ilinet", "all")))
+    stop("Error: data_source must be either 'who', 'ilinet', 'all' or c('who', 'ilinet')")
 
   if (any(years < 1997))
     stop("Error: years should be > 1997")
@@ -62,6 +62,9 @@ get_flu_data <- function(region="hhs", sub_region=1:10,
   years <- years - 1960
 
   reg <- as.numeric(c("hhs"=1, "census"=2, "national"=3)[[region]])
+
+  if ("all" %in% data_source) data_source <- c("who", "ilinet")
+
   data_source <- gsub("who", "WHO_NREVSS", data_source)
   data_source <- gsub("ilinet", "ILINet", data_source)
 
@@ -72,9 +75,9 @@ get_flu_data <- function(region="hhs", sub_region=1:10,
 
   out_file <- tempfile(fileext=".zip")
 
-  tmp <- POST("http://gis.cdc.gov/grasp/fluview/FluViewPhase2CustomDownload.ashx",
-              body=params,
-              write_disk(out_file))
+  tmp <- httr::POST("http://gis.cdc.gov/grasp/fluview/FluViewPhase2CustomDownload.ashx",
+                    body=params,
+                    write_disk(out_file))
 
   stop_for_status(tmp)
 
@@ -85,10 +88,12 @@ get_flu_data <- function(region="hhs", sub_region=1:10,
 
   files <- unzip(out_file, exdir=out_dir, overwrite=TRUE)
 
-  file_list <- pblapply(files, function(x) {
-    ct <- ifelse(grepl("who", x, ignore.case=TRUE), 0, 1)
-    read.csv(x, header=TRUE, skip=ct, stringsAsFactors=FALSE)
-  })
+  pb <- dplyr::progress_estimated(length(files))
+  purrr::map(files, function(x) {
+    pb$tick()$print()
+    ct <- ifelse(grepl("who", x, ignore.case=TRUE), 1, 1)
+    suppressMessages(readr::read_csv(x, skip=ct))
+  }) -> file_list
 
   names(file_list) <- substr(basename(files), 1, 3)
 

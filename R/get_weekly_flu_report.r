@@ -27,12 +27,15 @@ get_weekly_flu_report <- function() {
 
   # for each period extract the state information and
   # shove it all into a data frame
-  bind_rows(pblapply(periods, function(period) {
+  pb <- progress_estimated(length(periods))
+  purrr::map_df(periods, function(period) {
+
+    pb$tick()$print()
 
     tp <- sprintf("//timeperiod[@number='%s' and @year='%s']",
                   period["number"], period["year"])
 
-    weeks <- xml_find_one(doc, tp)
+    weeks <- xml_find_first(doc, tp)
     kids <- xml_children(weeks)
 
     abbrev <- xml_text(xml_find_all(kids, "abbrev"), TRUE)
@@ -46,7 +49,7 @@ get_weekly_flu_report <- function() {
                label=label,
                subtitle=period["subtitle"])
 
-  })) -> out
+  }) -> out
 
   class(out) <- c("cdcweeklyreport", class(out))
 
