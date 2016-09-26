@@ -58,7 +58,7 @@ options(width=120)
 
 ### Usage
 
-```{r message=FALSE, warning=FALSE, fig.height=10, fig.width=6}
+```{r state2015, message=FALSE, warning=FALSE, fig.height=10, fig.width=6}
 library(cdcfluview)
 library(ggplot2)
 library(dplyr)
@@ -70,7 +70,7 @@ packageVersion("cdcfluview")
 flu <- get_flu_data("hhs", sub_region=1:10, "ilinet", years=2014)
 glimpse(flu)
 
-state_flu <- get_state_data(years=2014)
+state_flu <- get_state_data(years=2015)
 glimpse(state_flu)
 
 gg <- ggplot(flu, aes(x=WEEK, y=`% WEIGHTED ILI`, group=REGION))
@@ -80,7 +80,7 @@ gg <- gg + theme_bw()
 gg
 ```
 
-```{r message=FALSE, warning=FALSE, fig.height=6, fig.width=10}
+```{r mortality, message=FALSE, warning=FALSE, fig.height=6, fig.width=10}
 msd <- get_mortality_surveillance_data()
 
 mutate(msd$by_state, ym=as.Date(sprintf("%04d-%02d-1", Year, Week), "%Y-%U-%u")) %>% 
@@ -116,7 +116,7 @@ gg <- gg + theme(plot.title=element_text(face="bold", size=16))
 gg
 ```
 
-```{r eval=FALSE, include=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+```{r region, eval=FALSE, include=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 dat <- get_flu_data(region="hhs", 
                     sub_region=1:10, 
                     data_source="ilinet", 
@@ -162,9 +162,9 @@ gg <- gg + theme(axis.ticks.x=element_blank())
 gg <- gg + theme(axis.text.x=element_blank())
 ```
 
-```{r message=FALSE, fig.height=5, fig.width=7}
+```{r bins, message=FALSE, fig.height=5, fig.width=7}
 gg_s <- state_flu %>%
-  filter(WEEKEND=="Jan-03-2015") %>%
+  filter(WEEKEND=="Jan-02-2016") %>%
   select(state=STATENAME, value=ACTIVITY.LEVEL) %>%
   filter(!(state %in% c("Puerto Rico", "New York City"))) %>% # need to add PR to statebins
   mutate(value=as.numeric(gsub("Level ", "", value))) %>%

@@ -71,18 +71,18 @@ glimpse(flu)
 #> $ NUM. OF PROVIDERS <int> 147, 285, 244, 305, 267, 241, 84, 120, 240, 55, 151, 275, 241, 311, 277, 250, 84, 116, 24...
 #> $ TOTAL PATIENTS    <int> 51688, 137157, 129302, 130419, 107261, 103975, 50272, 37725, 88772, 11172, 51169, 134995,...
 
-state_flu <- get_state_data(years=2014)
+state_flu <- get_state_data(years=2015)
 glimpse(state_flu)
-#> Observations: 2,809
+#> Observations: 2,756
 #> Variables: 8
 #> $ STATENAME            <chr> "Alabama", "Alabama", "Alabama", "Alabama", "Alabama", "Alabama", "Alabama", "Alabama"...
 #> $ URL                  <chr> "http://adph.org/influenza/", "http://adph.org/influenza/", "http://adph.org/influenza...
 #> $ WEBSITE              <chr> "Influenza Surveillance", "Influenza Surveillance", "Influenza Surveillance", "Influen...
-#> $ ACTIVITY.LEVEL       <chr> "Level 1", "Level 1", "Level 1", "Level 1", "Level 1", "Level 1", "Level 5", "Level 10...
-#> $ ACTIVITY.LEVEL.LABEL <chr> "Minimal", "Minimal", "Minimal", "Minimal", "Minimal", "Minimal", "Low", "High", "High...
-#> $ WEEKEND              <chr> "Oct-04-2014", "Oct-11-2014", "Oct-18-2014", "Oct-25-2014", "Nov-01-2014", "Nov-08-201...
-#> $ WEEK                 <int> 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,...
-#> $ SEASON               <chr> "2014-15", "2014-15", "2014-15", "2014-15", "2014-15", "2014-15", "2014-15", "2014-15"...
+#> $ ACTIVITY.LEVEL       <chr> "Level 1", "Level 1", "Level 1", "Level 1", "Level 1", "Level 1", "Level 1", "Level 3"...
+#> $ ACTIVITY.LEVEL.LABEL <chr> "Minimal", "Minimal", "Minimal", "Minimal", "Minimal", "Minimal", "Minimal", "Minimal"...
+#> $ WEEKEND              <chr> "Oct-10-2015", "Oct-17-2015", "Oct-24-2015", "Oct-31-2015", "Nov-07-2015", "Nov-14-201...
+#> $ WEEK                 <int> 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,...
+#> $ SEASON               <chr> "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16"...
 
 gg <- ggplot(flu, aes(x=WEEK, y=`% WEIGHTED ILI`, group=REGION))
 gg <- gg + geom_line()
@@ -91,7 +91,7 @@ gg <- gg + theme_bw()
 gg
 ```
 
-<img src="README_files/README-unnamed-chunk-4-1.png" width="576" />
+<img src="README_files/README-state2015-1.png" width="576" />
 
 ``` r
 msd <- get_mortality_surveillance_data()
@@ -129,11 +129,11 @@ gg <- gg + theme(plot.title=element_text(face="bold", size=16))
 gg
 ```
 
-<img src="README_files/README-unnamed-chunk-5-1.png" width="960" />
+<img src="README_files/README-mortality-1.png" width="960" />
 
 ``` r
 gg_s <- state_flu %>%
-  filter(WEEKEND=="Jan-03-2015") %>%
+  filter(WEEKEND=="Jan-02-2016") %>%
   select(state=STATENAME, value=ACTIVITY.LEVEL) %>%
   filter(!(state %in% c("Puerto Rico", "New York City"))) %>% # need to add PR to statebins
   mutate(value=as.numeric(gsub("Level ", "", value))) %>%
@@ -144,7 +144,7 @@ gg_s <- state_flu %>%
 gg_s
 ```
 
-<img src="README_files/README-unnamed-chunk-7-1.png" width="672" />
+<img src="README_files/README-bins-1.png" width="672" />
 
 ### Test Results
 
@@ -153,7 +153,7 @@ library(cdcfluview)
 library(testthat)
 
 date()
-#> [1] "Mon Sep 26 11:16:43 2016"
+#> [1] "Mon Sep 26 11:23:17 2016"
 
 test_dir("tests/")
 #> testthat results ========================================================================================================
