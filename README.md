@@ -1,7 +1,7 @@
 
 ### :mask: cdcfluview - Retrieve U.S. Flu Season Data from the CDC FluView Portal
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/cdcfluview)](https://cran.r-project.org/package=cdcfluview) [![Travis-CI Build Status](https://travis-ci.org/NA/NA.svg?branch=master)](https://travis-ci.org/NA/NA)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/cdcfluview)](https://cran.r-project.org/package=cdcfluview) [![Travis-CI Build Status](https://travis-ci.org/hrbrmstr/cdcfluview.svg?branch=master)](https://travis-ci.org/hrbrmstr/cdcfluview)
 
 **NOTE** If there's a particular data set from <https://www.cdc.gov/flu/weekly/fluviewinteractive.htm> that you want and that isn't in the package, please file it as an issue and be as specific as you can (screen shot if possible).
 
@@ -153,7 +153,7 @@ library(cdcfluview)
 library(testthat)
 
 date()
-#> [1] "Mon Dec  5 14:23:45 2016"
+#> [1] "Mon Dec  5 14:45:12 2016"
 
 test_dir("tests/")
 #> testthat results ========================================================================================================
