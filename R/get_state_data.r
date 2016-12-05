@@ -1,7 +1,7 @@
 #' Retrieves state/territory-level influenza statistics from the CDC
 #'
 #' Uses the data source from the CDC' State-levelFluView
-#' \url{http://gis.cdc.gov/grasp/fluview/main.html} and provides state flu
+#' \url{https://gis.cdc.gov/grasp/fluview/main.html} and provides state flu
 #' reporting data as a single data frame.\cr
 #' \cr
 #' This function provides similar data to \code{\link{get_weekly_flu_report}} but
@@ -39,7 +39,7 @@ get_state_data <- function(years=as.numeric(format(Sys.Date(), "%Y"))) {
                  DataMode="STATE",
                  SeasonsList=paste0(years, collapse=","))
 
-  tmp <- httr::POST("http://gis.cdc.gov/grasp/fluview/FluViewPhase1CustomDownload.ashx",
+  tmp <- httr::POST("https://gis.cdc.gov/grasp/fluview/FluViewPhase1CustomDownload.ashx",
               body=params,
               write_disk(out_file))
 

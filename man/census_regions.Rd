@@ -22,7 +22,7 @@ This dataset contains the states belonging to the (presently) 4
 Last updated 2015-08-09.
 }
 \references{
-\url{http://www.cdc.gov/std/stats12/images/CensusMap.png}
+\url{https://www.cdc.gov/std/stats12/images/CensusMap.png}
 }
 \keyword{datasets}
 

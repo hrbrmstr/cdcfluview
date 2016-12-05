@@ -12,7 +12,7 @@ get_weekly_flu_report()
         \code{label}, \code{subtitle}
 }
 \description{
-The CDC publishes a \href{http://www.cdc.gov/flu/weekly/usmap.htm}{weekly
+The CDC publishes a \href{https://www.cdc.gov/flu/weekly/usmap.htm}{weekly
 influenza report} detailing high-level flu activity per-state. They also
 publish a data file (see \code{References}) of historical report readings.
 This function reads that XML file and produces a long \code{data_frame}
@@ -27,6 +27,6 @@ get_weekly_flu_report()
 }
 }
 \references{
-\url{http://www.cdc.gov/flu/weekly/flureport.xml}
+\url{https://www.cdc.gov/flu/weekly/flureport.xml}
 }
 

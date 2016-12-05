@@ -29,7 +29,7 @@ If only a single \code{data_source} is specified, then a single
 }
 \description{
 Uses the data source from the
-\href{http://gis.cdc.gov/grasp/fluview/fluportaldashboard.html}{CDC FluView}
+\href{https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html}{CDC FluView}
 and provides flu reporting data as either a single data frame or a list of
 data frames (depending on whether either \code{WHO NREVSS} or \code{ILINet}
 (or both) is chosen.

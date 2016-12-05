@@ -15,7 +15,7 @@
 #' @keywords datasets
 #' @name hhs_regions
 #'
-#' @references \url{http://www.hhs.gov/iea/regional/}
+#' @references \url{https://www.hhs.gov/iea/regional/}
 #' @usage data(hhs_regions)
 #' @note Last updated 2015-08-09.
 #' @format A data frame with 59 rows and 4 variables
@@ -35,7 +35,7 @@ NULL
 #' @keywords datasets
 #' @name census_regions
 #'
-#' @references \url{http://www.cdc.gov/std/stats12/images/CensusMap.png}
+#' @references \url{https://www.cdc.gov/std/stats12/images/CensusMap.png}
 #' @usage data(census_regions)
 #' @note Last updated 2015-08-09.
 #' @format A data frame with 51 rows and 2 variables

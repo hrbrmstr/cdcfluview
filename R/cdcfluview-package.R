@@ -1,7 +1,7 @@
 #' Retrieve Flu Season Data from the CDC FluView Portal
 #'
 #' The U.S. Centers for Disease Control (CDC) maintains a portal
-#' \code{http://gis.cdc.gov/grasp/fluview/fluportaldashboard.html} for
+#' \code{https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html} for
 #' accessing state, regional and national influenza statistics as well as
 #' Mortality Surveillance Data. The Flash interface makes it difficult
 #' and time-consuming to select and retrieve influenza data. This package

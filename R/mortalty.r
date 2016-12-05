@@ -20,7 +20,7 @@
 #' counts will be released only after 20% of the expected number of deaths are reported
 #' through the system.
 #'
-#' @references \url{http://www.cdc.gov/flu/weekly/nchs.htm}
+#' @references \url{https://www.cdc.gov/flu/weekly/nchs.htm}
 #' @return a list of \code{tbl_df}s
 #' @export
 #' @examples \dontrun{
@@ -28,9 +28,9 @@
 #' }
 get_mortality_surveillance_data <- function() {
 
-  pg <- read_html("http://www.cdc.gov/flu/weekly/nchs.htm")
+  pg <- read_html("https://www.cdc.gov/flu/weekly/nchs.htm")
 
-  PREFIX <- "http://www.cdc.gov"
+  PREFIX <- "https://www.cdc.gov"
 
   xml_find_all(pg, ".//select[@id='State']/option[contains(@value, 'csv') and
                                                 contains(@value, 'State_')]") %>%

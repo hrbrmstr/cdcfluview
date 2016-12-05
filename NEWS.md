@@ -1,3 +1,7 @@
+# cscfluview 0.5.1
+
+* Replaced `http` URLs with `https` as `http` ones no longer work (fixes #6)
+
 # cdcfluview 0.5.0
 
 * Fixed issue with WHO data format change

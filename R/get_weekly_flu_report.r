@@ -1,6 +1,6 @@
 #' Retrieves (high-level) weekly influenza surveillance report from the CDC
 #'
-#' The CDC publishes a \href{http://www.cdc.gov/flu/weekly/usmap.htm}{weekly
+#' The CDC publishes a \href{https://www.cdc.gov/flu/weekly/usmap.htm}{weekly
 #' influenza report} detailing high-level flu activity per-state. They also
 #' publish a data file (see \code{References}) of historical report readings.
 #' This function reads that XML file and produces a long \code{data_frame}
@@ -9,7 +9,7 @@
 #' This function provides similar data to \code{\link{get_state_data}} but without
 #' the reporting source metadata and a limit on the historical flu information.
 #'
-#' @references \url{http://www.cdc.gov/flu/weekly/flureport.xml}
+#' @references \url{https://www.cdc.gov/flu/weekly/flureport.xml}
 #' @return \code{tbl_df} (also classed with \code{cdcweeklyreport}) with six
 #'         columns: \code{year}, \code{week_number}, \code{state}, \code{color},
 #'         \code{label}, \code{subtitle}
@@ -20,7 +20,7 @@
 get_weekly_flu_report <- function() {
 
   # grab the report
-  doc <- read_xml("http://www.cdc.gov/flu/weekly/flureport.xml")
+  doc <- read_xml("https://www.cdc.gov/flu/weekly/flureport.xml")
 
   # extract the time periods
   periods <- xml_attrs(xml_find_all(doc, "timeperiod"))

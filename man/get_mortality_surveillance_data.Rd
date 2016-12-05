@@ -37,6 +37,6 @@ get_mortality_surveillance_data()
 }
 }
 \references{
-\url{http://www.cdc.gov/flu/weekly/nchs.htm}
+\url{https://www.cdc.gov/flu/weekly/nchs.htm}
 }
 

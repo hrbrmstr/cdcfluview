@@ -17,7 +17,7 @@ A \code{data.frame} of state-level data for the specified seasons
 }
 \description{
 Uses the data source from the CDC' State-levelFluView
-\url{http://gis.cdc.gov/grasp/fluview/main.html} and provides state flu
+\url{https://gis.cdc.gov/grasp/fluview/main.html} and provides state flu
 reporting data as a single data frame.\cr
 \cr
 This function provides similar data to \code{\link{get_weekly_flu_report}} but

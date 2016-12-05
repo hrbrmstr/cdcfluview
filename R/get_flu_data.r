@@ -1,7 +1,7 @@
 #' Retrieves state, regional or national influenza statistics from the CDC
 #'
 #' Uses the data source from the
-#' \href{http://gis.cdc.gov/grasp/fluview/fluportaldashboard.html}{CDC FluView}
+#' \href{https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html}{CDC FluView}
 #' and provides flu reporting data as either a single data frame or a list of
 #' data frames (depending on whether either \code{WHO NREVSS} or \code{ILINet}
 #' (or both) is chosen.
@@ -75,7 +75,7 @@ get_flu_data <- function(region="hhs", sub_region=1:10,
 
   out_file <- tempfile(fileext=".zip")
 
-  tmp <- httr::POST("http://gis.cdc.gov/grasp/fluview/FluViewPhase2CustomDownload.ashx",
+  tmp <- httr::POST("https://gis.cdc.gov/grasp/fluview/FluViewPhase2CustomDownload.ashx",
                     body=params,
                     write_disk(out_file))
 

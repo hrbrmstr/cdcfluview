@@ -25,7 +25,7 @@ This dataset contains the names, numbers, regional offices for-,
 Last updated 2015-08-09.
 }
 \references{
-\url{http://www.hhs.gov/iea/regional/}
+\url{https://www.hhs.gov/iea/regional/}
 }
 \keyword{datasets}
 
