@@ -76,3 +76,4 @@ get_mortality_surveillance_data <- function() {
   )
 
 }
+

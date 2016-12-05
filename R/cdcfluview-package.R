@@ -13,4 +13,5 @@
 #' @import httr xml2 dplyr utils
 #' @importFrom purrr map map_df map_chr map_lgl discard keep
 #' @importFrom readr read_csv
+#' @import V8
 NULL

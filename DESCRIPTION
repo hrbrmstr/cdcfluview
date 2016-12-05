@@ -5,6 +5,7 @@ Version: 0.5.1
 Date: 2016-12-05
 Author: Bob Rudis (bob@rud.is)
 Maintainer: Bob Rudis <bob@rud.is>
+Encoding: UTF-8
 Description: The U.S. Centers for Disease Control (CDC) maintains a portal
     <http://gis.cdc.gov/grasp/fluview/fluportaldashboard.html> for
     accessing state, regional and national influenza statistics as well as
@@ -23,7 +24,8 @@ Imports:
     dplyr,
     utils,
     purrr,
-    readr
+    readr,
+    V8
 Depends:
     R (>= 3.2.0)
 RoxygenNote: 5.0.1

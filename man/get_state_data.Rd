@@ -9,7 +9,7 @@ get_state_data(years = as.numeric(format(Sys.Date(), "\%Y")))
 \arguments{
 \item{years}{a vector of years to retrieve data for (i.e. \code{2014} for CDC
 flu season 2014-2015). Default value is the current year and all
-\code{years} values should be > \code{1997}}
+\code{years} values should be >= \code{2008}}
 }
 \value{
 A \code{data.frame} of state-level data for the specified seasons
