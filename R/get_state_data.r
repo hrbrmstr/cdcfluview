@@ -38,8 +38,8 @@ get_state_data <- function(years=as.numeric(format(Sys.Date(), "%Y"))) {
 
   res <- httr::content(tmp, as="parsed")
 
-  ctx <- v8()
-  ctx$eval(JS(sprintf("var dat=%s;", res)))
+  ctx <- V8::v8()
+  ctx$eval(V8::JS(sprintf("var dat=%s;", res)))
   res <- ctx$get("dat", flatten=FALSE)
   out <- suppressMessages(readr::type_convert(res$datadownload))
 

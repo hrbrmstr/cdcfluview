@@ -7,3 +7,4 @@
 ^README_files/
 ^README_files/.*
 ^README-.*
+^cran-comments\.md$

@@ -10,8 +10,8 @@
 #' @name cdcfluview
 #' @docType package
 #' @author Bob Rudis (bob@@rud.is)
-#' @import httr xml2 dplyr utils
+#' @import httr xml2 dplyr utils V8
 #' @importFrom purrr map map_df map_chr map_lgl discard keep
-#' @importFrom readr read_csv
-#' @import V8
+#' @importFrom readr read_csv type_convert
+#' @importFrom jsonlite fromJSON
 NULL

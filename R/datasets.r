@@ -15,7 +15,7 @@
 #' @keywords datasets
 #' @name hhs_regions
 #'
-#' @references \url{https://www.hhs.gov/iea/regional/}
+#' @references \url{https://www.hhs.gov/about/agencies/iea/regional-offices/index.html}
 #' @usage data(hhs_regions)
 #' @note Last updated 2015-08-09.
 #' @format A data frame with 59 rows and 4 variables
