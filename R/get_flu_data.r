@@ -101,8 +101,8 @@ get_flu_data <- function(region="hhs", sub_region=1:10,
 
     file_list <- file_list[[1]]
 
-    if ((nrow(file_list) == 0) &
-        (length(years)==1) &
+    if ((nrow(file_list) == 0) &&
+        (length(years)==1) &&
         (years == (as.numeric(format(Sys.Date(), "%Y"))-1960))) {
 
       message("Adjusting [years] to get current season...")
