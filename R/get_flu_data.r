@@ -98,7 +98,19 @@ get_flu_data <- function(region="hhs", sub_region=1:10,
   names(file_list) <- substr(basename(files), 1, 3)
 
   if (length(file_list) == 1) {
-    return(file_list[[1]])
+
+    file_list <- file_list[[1]]
+
+    if ((nrow(file_list) == 0) &
+        (length(years)==1) &
+        (years == (as.numeric(format(Sys.Date(), "%Y"))-1960))) {
+
+      message("Adjusting [years] to get current season...")
+      return(get_flu_data(region=region, sub_region=sub_region,
+                          data_source=data_source, years=years+1960-1))
+    } else {
+      return(file_list)
+    }
   } else {
     return(file_list)
   }

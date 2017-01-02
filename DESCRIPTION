@@ -1,8 +1,8 @@
 Package: cdcfluview
 Type: Package
 Title: Retrieve U.S. Flu Season Data from the CDC FluView Portal
-Version: 0.5.1
-Date: 2016-12-06
+Version: 0.5.2
+Date: 2017-01-02
 Author: Bob Rudis (bob@rud.is)
 Maintainer: Bob Rudis <bob@rud.is>
 Encoding: UTF-8
