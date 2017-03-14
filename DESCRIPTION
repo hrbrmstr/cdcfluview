@@ -2,7 +2,7 @@ Package: cdcfluview
 Type: Package
 Title: Retrieve U.S. Flu Season Data from the CDC FluView Portal
 Version: 0.5.2
-Date: 2017-01-02
+Date: 2017-03-14
 Author: Bob Rudis (bob@rud.is)
 Maintainer: Bob Rudis <bob@rud.is>
 Encoding: UTF-8
@@ -17,7 +17,8 @@ BugReports: https://github.com/hrbrmstr/cdcfluview/issues
 License: MIT + file LICENSE
 LazyData: true
 Suggests:
-    testthat
+    testthat,
+    covr
 Imports:
     httr (>= 0.3.0),
     xml2,

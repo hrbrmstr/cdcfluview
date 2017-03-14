@@ -68,15 +68,17 @@ get_flu_data <- function(region="hhs", sub_region=1:10,
   data_source <- gsub("who", "WHO_NREVSS", data_source)
   data_source <- gsub("ilinet", "ILINet", data_source)
 
-  params <- list(SubRegionsList=paste0(sub_region, collapse=","),
-                 DataSources=paste0(data_source, collapse=","),
-                 RegionID=reg,
-                 SeasonsList=paste0(years, collapse=","))
+  params <- list(SubRegionsList = paste0(sub_region, collapse=","),
+                 DataSources = paste0(data_source, collapse=","),
+                 RegionID = reg,
+                 SeasonsList = paste0(years, collapse=","))
 
   out_file <- tempfile(fileext=".zip")
 
+  # CDC API returns a ZIP file so we grab, save & expand it to then read in CSVs
+
   tmp <- httr::POST("https://gis.cdc.gov/grasp/fluview/FluViewPhase2CustomDownload.ashx",
-                    body=params,
+                    body = params,
                     write_disk(out_file))
 
   stop_for_status(tmp)
@@ -97,9 +99,18 @@ get_flu_data <- function(region="hhs", sub_region=1:10,
 
   names(file_list) <- substr(basename(files), 1, 3)
 
+  # Depending on the parameters, there could be more than one
+  # file returned. When there's only one, return a more usable
+  # structure.
+
   if (length(file_list) == 1) {
 
     file_list <- file_list[[1]]
+
+    # when no rows, then it's likely the caller specified the
+    # current year and the flu season has technically not started yet.
+    # so help them out and move the year back and get current flu
+    # season data.
 
     if ((nrow(file_list) == 0) &&
         (length(years)==1) &&
@@ -111,6 +122,7 @@ get_flu_data <- function(region="hhs", sub_region=1:10,
     } else {
       return(file_list)
     }
+
   } else {
     return(file_list)
   }

@@ -19,3 +19,6 @@ notifications:
     channels:
       - "irc.rud.is#builds"
     nick: travisci
+
+after_success:
+  - Rscript -e 'covr::codecov()'

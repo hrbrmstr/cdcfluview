@@ -36,6 +36,9 @@ get_state_data <- function(years=as.numeric(format(Sys.Date(), "%Y"))) {
 
   stop_for_status(tmp)
 
+  # the API doesn't return actual JSON. It returns a JavaScript data structre
+  # which is why we need the assistance of the super handy V8 pkg.
+
   res <- httr::content(tmp, as="parsed")
 
   ctx <- V8::v8()

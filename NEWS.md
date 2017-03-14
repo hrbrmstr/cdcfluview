@@ -1,8 +1,9 @@
 # cdcfluview 0.5.2
 
-* Modified behavior of `get_flu_data()` to actually grab current flu season year
-  if a single year was specified and it is the current year and the return is a 0 length 
-  data frame  #7
+* Modified behavior of `get_flu_data()` to actually grab current flu season
+  year if a single year was specified and it is the current year and the
+  return is a 0 length data frame (fixes #7)
+* Added code coverage tests for all API functions.
   
 # cdcfluview 0.5.1
 

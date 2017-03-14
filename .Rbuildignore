@@ -8,3 +8,4 @@
 ^README_files/.*
 ^README-.*
 ^cran-comments\.md$
+^codecov\.yml$
