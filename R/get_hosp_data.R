@@ -113,6 +113,7 @@ get_hosp_data <- function(area="flusurvnet", age_group="overall",
     # so help them out and move the year back and get current flu
     # season data.
 
+
   return(file)
 
 }

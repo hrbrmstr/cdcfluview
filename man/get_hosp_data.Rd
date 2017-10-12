@@ -13,6 +13,7 @@ digit state abbreviation for an individual site. Exceptions are
 New York - Albany ("\code{nya}") and New York - Rochester
 ("\code{nyr}")}
 
+
 \item{age_group}{a vector of age groups to pull data for. Possible values are:
 "\code{overall}", "\code{0-4y}", "\code{5-17y}, "\code{18-49y},
 "\code{50-64y}, "\code{65+y}".}
