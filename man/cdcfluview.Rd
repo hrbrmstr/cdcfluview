@@ -16,4 +16,3 @@ provides functions to access the data provided by portal's underlying API.
 \author{
 Bob Rudis (bob@rud.is)
 }
-

@@ -25,4 +25,3 @@ Last updated 2015-08-09.
 \url{https://www.cdc.gov/std/stats12/images/CensusMap.png}
 }
 \keyword{datasets}
-
