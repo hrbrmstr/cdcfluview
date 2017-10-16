@@ -3,8 +3,8 @@ Type: Package
 Title: Retrieve U.S. Flu Season Data from the CDC FluView Portal
 Version: 0.5.2
 Date: 2017-03-14
-Author: Bob Rudis (bob@rud.is)
-Maintainer: Bob Rudis <bob@rud.is>
+Authors@R: c(person("Bob","Rudis", email = "bob@rud.is", role = c("aut", "cre")),
+  person("Craig", "McGowan", email = "mcgowan.cj@gmail.com", role = "ctb"))
 Encoding: UTF-8
 Description: The U.S. Centers for Disease Control (CDC) maintains a portal
     <http://gis.cdc.gov/grasp/fluview/fluportaldashboard.html> for
