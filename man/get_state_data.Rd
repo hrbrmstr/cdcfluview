@@ -38,4 +38,3 @@ get_state_data(2010:2014)
 httr::with_verbose(get_state_data(2009:2015))
 }
 }
-
