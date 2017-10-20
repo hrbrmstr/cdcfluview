@@ -29,4 +29,3 @@ get_weekly_flu_report()
 \references{
 \url{https://www.cdc.gov/flu/weekly/flureport.xml}
 }
-

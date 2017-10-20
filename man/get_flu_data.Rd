@@ -49,4 +49,3 @@ There is often a noticeable delay when making the API request to the CDC.
 flu <- get_flu_data("hhs", 1:10, c("who", "ilinet"), years=2000:2014)
 }
 }
-
