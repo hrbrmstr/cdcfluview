@@ -8,12 +8,15 @@ get_flu_data(region = "hhs", sub_region = 1:10, data_source = "ilinet",
   years = as.numeric(format(Sys.Date(), "\%Y")))
 }
 \arguments{
-\item{region}{one of "\code{hhs}", "\code{census}", "\code{national}"}
+\item{region}{one of "\code{hhs}", "\code{census}", "\code{national}",
+"\code{state}"}
 
 \item{sub_region}{depends on the \code{region_type}.\cr
 For "\code{national}", the \code{sub_region} should be \code{NA}.\cr
 For "\code{hhs}", should be a vector between \code{1:10}.\cr
-For "\code{census}", should be a vector between \code{1:9}}
+For "\code{census}", should be a vector between \code{1:9}.\cr
+For "\code{state}", should be a vector of state/territory names
+or "\code{all}".}
 
 \item{data_source}{either of "\code{who}" (for WHO NREVSS) or "\code{ilinet}"
 or "\code{all}" (for both)}
