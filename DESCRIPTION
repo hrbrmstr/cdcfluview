@@ -1,8 +1,8 @@
 Package: cdcfluview
 Type: Package
 Title: Retrieve U.S. Flu Season Data from the CDC FluView Portal
-Version: 0.5.2
-Date: 2017-03-14
+Version: 0.6.0
+Date: 2017-10-20
 Authors@R: c(person("Bob","Rudis", email = "bob@rud.is", role = c("aut", "cre")),
   person("Craig", "McGowan", email = "mcgowan.cj@gmail.com", role = "ctb"))
 Encoding: UTF-8
