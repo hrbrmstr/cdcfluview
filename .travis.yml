@@ -12,6 +12,7 @@ r:
  - release
  - devel
 
+<<<<<<< HEAD
 notifications:
   email:
     - bob@rud.is
@@ -22,3 +23,7 @@ notifications:
 
 after_success:
   - Rscript -e 'covr::codecov()'
+=======
+after_success:
+  - Rscript -e 'covr::codecov()'
+>>>>>>> c0ce51942c79090d1a9ae3fb95f7e2b292d9302e

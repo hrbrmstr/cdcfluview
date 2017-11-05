@@ -1,163 +1,101 @@
 
-### :mask: cdcfluview - Retrieve U.S. Flu Season Data from the CDC FluView Portal
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/cdcfluview)](https://cran.r-project.org/package=cdcfluview)
+[![Travis-CI Build
+Status](https://travis-ci.org/hrbrmstr/cdcfluview.svg?branch=master)](https://travis-ci.org/hrbrmstr/cdcfluview)
+[![Coverage
+Status](https://img.shields.io/codecov/c/github/hrbrmstr/cdcfluview/master.svg)](https://codecov.io/github/hrbrmstr/cdcfluview?branch=master)
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/cdcfluview)](https://cran.r-project.org/package=cdcfluview) [![Travis-CI Build Status](https://travis-ci.org/hrbrmstr/cdcfluview.svg?branch=master)](https://travis-ci.org/hrbrmstr/cdcfluview) [![Coverage Status](https://img.shields.io/codecov/c/github/hrbrmstr/cdcfluview/master.svg)](https://codecov.io/github/hrbrmstr/cdcfluview?branch=master)
+I M P O R T A N T
+=================
 
-**NOTE** If there's a particular data set from <https://www.cdc.gov/flu/weekly/fluviewinteractive.htm> that you want and that isn't in the package, please file it as an issue and be as specific as you can (screen shot if possible).
+The CDC migrated to a new non-Flash portal and back-end APIs changed.
+This is a complete reimagining of the package and — as such — all your
+code is going to break. Please use GitHub issues to identify previous
+API functionality you would like ported over. There’s a [release
+candidate for
+0.5.2](https://github.com/hrbrmstr/cdcfluview/releases/tag/v0.5.2) which
+uses the old API but it likely to break in the near future given the
+changes to the hidden API. You can do what with
+`devtools::install_github("hrbrmstr/cdcfluview", ref="58c172b")`.
 
-------------------------------------------------------------------------
+All folks providing feedback, code or suggestions will be added to the
+DESCRIPTION file. Please include how you would prefer to be cited in any
+issues you file.
 
-The U.S. Centers for Disease Control (CDC) maintains a [portal](https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html) for accessing state, regional and national influenza statistics. The portal's Flash interface makes it difficult and time-consuming to select and retrieve influenza data. This package provides functions to access the data provided by the portal's underlying API.
+If there’s a particular data set from
+<https://www.cdc.gov/flu/weekly/fluviewinteractive.htm> that you want
+and that isn’t in the package, please file it as an issue and be as
+specific as you can (screen shot if possible).
+
+:mask: cdcfluview
+=================
+
+Retrieve U.S. Flu Season Data from the CDC FluView Portal
+
+Description
+-----------
+
+The U.S. Centers for Disease Control (CDC) maintains a portal
+<http://gis.cdc.gov/grasp/fluview/fluportaldashboard.html> for accessing
+state, regional and national influenza statistics as well as Mortality
+Surveillance Data. The Flash interface makes it difficult and
+time-consuming to select and retrieve influenza data. This package
+provides functions to access the data provided by the portal’s
+underlying API.
+
+What’s Inside The Tin
+---------------------
 
 The following functions are implemented:
 
--   `get_flu_data`: Retrieves state, regional or national influenza statistics from the CDC
--   `get_state_data`: Retrieves state/territory-level influenza statistics from the CDC
--   `get_weekly_flu_report`: Retrieves (high-level) weekly influenza surveillance report from the CDC
--   `get_mortality_surveillance_data` : (fairly self explanatory but also pretty new to the pkg and uses data from: <https://www.cdc.gov/flu/weekly/nchs.htm>
+-   `agd_ipt`: Age Group Distribution of Influenza Positive Tests
+    Reported by Public Health Laboratories
+-   `cdcfluview`: Tools to Work with the ‘CDC’ ‘FluView’ ‘API’
+-   `cdc_coverage_map`: Retrieve CDC U.S. Coverage Map
+-   `geographic_spread`: State and Territorial Epidemiologists Reports
+    of Geographic Spread of Influenza
+-   `hospitalizations`: Laboratory-Confirmed Influenza Hospitalizations
+-   `ilinet`: Retrieve ILINet Surveillance Data
+-   `ili_weekly_activity_indicators`: Retrieve weekly state-level ILI
+    indicators per-state for a given season
+-   `pi_mortality`: Pneumonia and Influenza Mortality Surveillance
+-   `state_data_providers`: Retrieve metadat about U.S. State CDC
+    Provider Data
+-   `surveillance_areas`: Retrieve a list of valid sub-regions for each
+    surveillance area.
+-   `who_nrevss`: Retrieve WHO/NREVSS Surveillance Data
 
 The following data sets are included:
 
--   `hhs_regions` HHS Region Table (a data frame with 59 rows and 4 variables)
--   `census_regions` Census Region Table (a data frame with 51 rows and 2 variables)
+-   `hhs_regions` HHS Region Table (a data frame with 59 rows and 4
+    variables)
+-   `census_regions` Census Region Table (a data frame with 51 rows and
+    2 variables)
 
-### News
-
--   See NEWS
--   Version 0.4.0 - [CRAN release](http://cran.r-project.org/web/packages/cdcfluview)
--   Version 0.4.0.999 released : another fix for the CDC API (for region parameter); added data files for HHS/Census region lookups; added weekly high-level flu report retrieval
--   Version 0.3 released : fix for the CDC API (it changed how year & region params are encoded in the request)
--   Version 0.2.1 released : bumped up `httr` version \# requirement in `DESCRIPTION` (via Issue [1](https://github.com/hrbrmstr/cdcfluview/issues/1))
--   Version 0.2 released : added state-level data retrieval
--   Version 0.1 released
-
-### Installation
+Installation
+------------
 
 ``` r
-install.packages("cdcfluview")
-# **OR**
 devtools::install_github("hrbrmstr/cdcfluview")
 ```
 
-### Usage
+Usage
+-----
 
 ``` r
 library(cdcfluview)
-library(ggplot2)
-library(dplyr)
-library(statebins)
 
 # current verison
 packageVersion("cdcfluview")
-#> [1] '0.5.2'
-
-flu <- get_flu_data("hhs", sub_region=1:10, "ilinet", years=2014)
-glimpse(flu)
-#> Observations: 530
-#> Variables: 15
-#> $ REGION TYPE       <chr> "HHS Regions", "HHS Regions", "HHS Regions", "HHS Regions", "HHS Regions", "HHS Regions",...
-#> $ REGION            <chr> "Region 1", "Region 2", "Region 3", "Region 4", "Region 5", "Region 6", "Region 7", "Regi...
-#> $ YEAR              <int> 2014, 2014, 2014, 2014, 2014, 2014, 2014, 2014, 2014, 2014, 2014, 2014, 2014, 2014, 2014,...
-#> $ WEEK              <int> 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 42, 42, 4...
-#> $ % WEIGHTED ILI    <dbl> 0.830610, 1.795830, 1.162260, 0.828920, 0.744546, 1.604740, 0.697022, 0.635856, 1.793140,...
-#> $ %UNWEIGHTED ILI   <dbl> 0.681009, 1.649790, 1.321020, 0.911243, 1.013950, 1.647270, 0.437619, 0.813397, 1.501530,...
-#> $ AGE 0-4           <int> 101, 869, 395, 331, 358, 446, 50, 76, 310, 22, 109, 837, 403, 355, 338, 540, 57, 57, 335,...
-#> $ AGE 25-49         <int> 44, 363, 455, 187, 181, 410, 43, 49, 220, 7, 37, 349, 465, 244, 182, 451, 56, 87, 225, 20...
-#> $ AGE 25-64         <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ AGE 5-24          <int> 185, 757, 627, 530, 400, 636, 98, 154, 577, 30, 199, 676, 669, 772, 443, 741, 124, 148, 5...
-#> $ AGE 50-64         <int> 13, 157, 126, 80, 80, 111, 15, 19, 110, 1, 24, 151, 130, 74, 105, 168, 18, 23, 118, 10, 2...
-#> $ AGE 65            <int> 9, 107, 89, 46, 64, 77, 14, 8, 112, 1, 17, 115, 75, 64, 48, 97, 14, 12, 103, 3, 9, 114, 8...
-#> $ ILITOTAL          <int> 352, 2253, 1692, 1174, 1083, 1680, 220, 306, 1329, 61, 386, 2128, 1742, 1509, 1116, 1997,...
-#> $ NUM. OF PROVIDERS <int> 146, 276, 234, 299, 261, 226, 84, 119, 237, 55, 150, 265, 232, 306, 271, 235, 84, 115, 24...
-#> $ TOTAL PATIENTS    <int> 51688, 136563, 128083, 128835, 106810, 101987, 50272, 37620, 88510, 11172, 51169, 131884,...
-
-state_flu <- get_state_data(years=2015)
-glimpse(state_flu)
-#> Observations: 2,807
-#> Variables: 8
-#> $ statename            <chr> "Virgin Islands", "District of Columbia", "Virgin Islands", "District of Columbia", "V...
-#> $ url                  <chr> "http://doh.vi.gov/", "http://doh.dc.gov/page/influenza-season", "http://doh.vi.gov/",...
-#> $ website              <chr> "Influenza", "Influenza Information", "Influenza", "Influenza Information", "Influenza...
-#> $ activity_level       <int> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...
-#> $ activity_level_label <chr> "Insufficient Data", "Insufficient Data", "Insufficient Data", "Insufficient Data", "I...
-#> $ weekend              <chr> "Oct-10-2015", "Oct-17-2015", "Oct-17-2015", "Oct-24-2015", "Oct-24-2015", "Oct-31-201...
-#> $ season               <chr> "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16"...
-#> $ weeknumber           <int> 40, 41, 41, 42, 42, 43, 43, 44, 44, 45, 45, 46, 46, 47, 47, 48, 48, 49, 49, 50, 50, 51...
-
-gg <- ggplot(flu, aes(x=WEEK, y=`% WEIGHTED ILI`, group=REGION))
-gg <- gg + geom_line()
-gg <- gg + facet_wrap(~REGION, ncol=2)
-gg <- gg + theme_bw()
-gg
 ```
 
-<img src="README_files/README-state2015-1.png" width="576" />
+    ## [1] '0.7.0'
 
-``` r
-msd <- get_mortality_surveillance_data()
+### EXAMPLES COMING SOON
 
-mutate(msd$by_state, ym=as.Date(sprintf("%04d-%02d-1", Year, Week), "%Y-%U-%u")) %>% 
-  select(state, wk=ym, death_pct=`Percent of Deaths Due to Pneumonia and Influenza`) %>% 
-  mutate(death_pct=death_pct/100) -> df
+Code of Conduct
+---------------
 
-gg <- ggplot() + geom_smooth(data=df, aes(wk, death_pct, group=state), 
-                             se=FALSE, color="#2b2b2b", size=0.25) 
-
-gb <- ggplot_build(gg)
-
-gb$data[[1]] %>% 
-  arrange(desc(x)) %>% 
-  group_by(group) %>% 
-  slice(1) %>% 
-  ungroup() %>% 
-  arrange(desc(y)) %>% 
-  head(1) -> top
-
-top_state <- sort(unique(msd$by_state$state))[top$group]
-
-gg <- gg + geom_text(data=top, aes(as.Date(x, origin="1970-01-01"), y, label=top_state),
-                     hjust=1, family="Arial Narrow", size=3, nudge_x=-5, nudge_y=-0.001)
-gg <- gg + scale_x_date(expand=c(0,0))
-gg <- gg + scale_y_continuous(label=scales::percent)
-gg <- gg + labs(x=NULL, y=NULL,
-                title="Percent of In-State Deaths Due to Pneumonia and Pnfluenza (2010-Present)")
-gg <- gg + theme_bw(base_family="Arial Narrow")
-gg <- gg + theme(axis.text.x=element_text(margin=margin(0,0,0,0)))
-gg <- gg + theme(axis.text.y=element_text(margin=margin(0,0,0,0)))
-gg <- gg + theme(axis.ticks=element_blank())
-gg <- gg + theme(plot.title=element_text(face="bold", size=16))
-gg
-```
-
-<img src="README_files/README-mortality-1.png" width="960" />
-
-``` r
-gg_s <- state_flu %>%
-  filter(weekend=="Jan-02-2016") %>%
-  select(state=statename, value=activity_level) %>%
-  filter(!(state %in% c("Puerto Rico", "New York City"))) %>% # need to add PR to statebins
-  mutate(value=as.numeric(gsub("Level ", "", value))) %>%
-  statebins(brewer_pal="RdPu", breaks=4, 
-            labels=c("Minimal", "Low", "Moderate", "High"),
-            legend_position="bottom", legend_title="ILI Activity Level") +
-  ggtitle("CDC State FluView (2015-01-03)")
-gg_s
-```
-
-<img src="README_files/README-bins-1.png" width="672" />
-
-### Test Results
-
-``` r
-library(cdcfluview)
-library(testthat)
-
-date()
-#> [1] "Tue Mar 14 09:59:29 2017"
-
-test_dir("tests/")
-#> testthat results ========================================================================================================
-#> OK: 2 SKIPPED: 0 FAILED: 0
-#> 
-#> DONE ===================================================================================================================
-```
+Please note that this project is released with a [Contributor Code of
+Conduct](CONDUCT.md). By participating in this project you agree to
+abide by its terms.

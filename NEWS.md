@@ -1,3 +1,8 @@
+# cdcfluview 0.7.0
+
+* The CDC changed most of their API endpoints to support a new HTML interface.
+  There are many breaking changes but also many new data endpoints.
+
 # cdcfluview 0.5.2
 
 * Modified behavior of `get_flu_data()` to actually grab current flu season
@@ -18,3 +23,6 @@
   better this will break your scripts until you use the new
   column names.
 
+# cdcfluview 0.4.0
+
+* First CRAN release
