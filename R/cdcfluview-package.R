@@ -1,4 +1,3 @@
-=======
 #' Retrieve 'U.S'.' Flu Season Data from the 'CDC' 'FluView' Portal
 #'
 #' The U.S. Centers for Disease Control (CDC) maintains a portal
