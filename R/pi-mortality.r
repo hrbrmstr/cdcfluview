@@ -85,8 +85,8 @@ pi_mortality <- function(coverage_area=c("national", "state", "region")) {
       SeasonsParameters = lapply(meta$seasons$seasonid, function(.x) { list(ID=as.integer(.x)) }),
       AgegroupsParameters = list(list(ID="1"))
     ),
-    httr::timeout(60),
-    httr::verbose()
+    # httr::verbose(),
+    httr::timeout(60)
   ) -> res
 
   httr::stop_for_status(res)

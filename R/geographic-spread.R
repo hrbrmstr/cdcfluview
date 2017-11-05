@@ -22,8 +22,8 @@ geographic_spread <- function() {
       AppVersion = "Public",
       SeasonIDs = paste0(meta$seasons$seasonid, collapse=",")
     ),
-    httr::timeout(60),
-    httr::verbose()
+    # httr::verbose(),
+    httr::timeout(60)
   ) -> res
 
   httr::stop_for_status(res)

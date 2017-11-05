@@ -48,7 +48,8 @@ hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp"),
       networkid = tgt$networkid,
       cacthmentid = tgt$id
     ),
-    httr::verbose()
+    # httr::verbose(),
+    httr::timeout(60)
   ) -> res
 
   httr::stop_for_status(res)

@@ -29,7 +29,6 @@ The U.S. Centers for Disease Control (CDC) maintains a portal <http://gis.cdc.go
 The following functions are implemented:
 
 - `agd_ipt`:	Age Group Distribution of Influenza Positive Tests Reported by Public Health Laboratories
-- `cdcfluview`:	Tools to Work with the 'CDC' 'FluView' 'API'
 - `cdc_coverage_map`:	Retrieve CDC U.S. Coverage Map
 - `geographic_spread`:	State and Territorial Epidemiologists Reports of Geographic Spread of Influenza
 - `hospitalizations`:	Laboratory-Confirmed Influenza Hospitalizations
@@ -59,12 +58,99 @@ options(width=120)
 
 ```{r message=FALSE, warning=FALSE, error=FALSE}
 library(cdcfluview)
+library(tidyverse)
 
 # current verison
 packageVersion("cdcfluview")
 ```
 
-### EXAMPLES COMING SOON
+### Age Group Distribution of Influenza Positive Tests Reported by Public Health Laboratories
+
+```{r message=FALSE, warning=FALSE}
+glimpse(agd_ipt())
+```
+
+### Retrieve CDC U.S. Coverage Map
+
+```{r message=FALSE, warning=FALSE}
+plot(cdc_coverage_map())
+```
+
+### State and Territorial Epidemiologists Reports of Geographic Spread of Influenza
+
+```{r message=FALSE, warning=FALSE}
+glimpse(geographic_spread())
+```
+
+### Laboratory-Confirmed Influenza Hospitalizations
+
+```{r message=FALSE, warning=FALSE}
+surveillance_areas()
+
+glimpse(hospitalizations("flusurv"))
+
+glimpse(hospitalizations("eip"))
+
+glimpse(hospitalizations("eip", "Colorado"))
+
+glimpse(hospitalizations("ihsp"))
+
+glimpse(hospitalizations("ihsp", "Oklahoma"))
+```
+
+### Retrieve ILINet Surveillance Data
+
+```{r message=FALSE, warning=FALSE}
+ilinet("national")
+
+ilinet("hhs")
+
+ilinet("census")
+
+ilinet("state")
+```
+
+### Retrieve weekly state-level ILI indicators per-state for a given season
+
+```{r message=FALSE, warning=FALSE}
+ili_weekly_activity_indicators(2017)
+
+ili_weekly_activity_indicators(2015)
+```
+
+### Pneumonia and Influenza Mortality Surveillance
+
+```{r message=FALSE, warning=FALSE}
+pi_mortality("national")
+
+pi_mortality("state")
+
+pi_mortality("region")
+```
+
+### Retrieve metadat about U.S. State CDC Provider Data
+
+```{r message=FALSE, warning=FALSE}
+```
+
+### Retrieve a list of valid sub-regions for each surveillance area.
+
+```{r message=FALSE, warning=FALSE}
+state_data_providers()
+```
+
+### Retrieve WHO/NREVSS Surveillance Data
+
+```{r message=FALSE, warning=FALSE}
+who_nrevss("national")
+
+who_nrevss("hhs")
+
+who_nrevss("census")
+
+who_nrevss("state")
+```
+
 
 ## Code of Conduct
 

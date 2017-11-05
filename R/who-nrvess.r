@@ -66,7 +66,7 @@ who_nrevss <- function(region=c("national", "hhs", "census", "state")) {
     ),
     encode = "json",
     body = params,
-    httr::verbose(),
+    # httr::verbose(),
     httr::timeout(60),
     httr::write_disk(tf)
   ) -> res

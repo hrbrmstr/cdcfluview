@@ -19,7 +19,7 @@ agd_ipt <- function() {
       Accept = "application/json, text/plain, */*",
       Referer = "https://gis.cdc.gov/grasp/fluview/flu_by_age_virus.html"
     ),
-    httr::verbose(),
+    # httr::verbose(),
     httr::timeout(60)
   ) -> res
 

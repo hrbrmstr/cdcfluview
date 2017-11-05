@@ -61,7 +61,7 @@ ilinet <- function(region=c("national", "hhs", "census", "state")) {
     ),
     encode = "json",
     body = params,
-    httr::verbose(),
+    # httr::verbose(),
     httr::write_disk(tf)
   ) -> res
 
