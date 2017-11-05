@@ -35,10 +35,12 @@ laboratories are presented separately in the weekly influenza update. This is
 the reason why a list of data frames is returned.
 }
 \examples{
+\dontrun{
 national_who <- who_nrevss("national")
 hhs_who <- who_nrevss("hhs")
 census_who <- who_nrevss("census")
 state_who <- who_nrevss("state")
+}
 }
 \references{
 \itemize{

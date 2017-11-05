@@ -1,20 +1,38 @@
 #' Laboratory-Confirmed Influenza Hospitalizations
 #'
+#' @md
 #' @param surveillance_area one of "`flusurv`", "`eip`", or "`ihsp`"
+#' @param region Using "`all`" mimics selecting "Entire Network" from the
+#'        CDC FluView application drop down. Individual regions for each
+#'        surveillance area can also be selected. Use [surveillance_areas()] to
+#'        see a list of valid sub-regions for each surveillance area.
 #' @references
 #' - [Hospital Portal](https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html)
 #' @export
-#' @examples
+#' @examples \dontrun{
 #' hosp_fs <- hospitalizations("flusurv")
 #' hosp_eip <- hospitalizations("eip")
 #' hosp_ihsp <- hospitalizations("ihsp")
-hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp")) {
+#' }
+hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp"),
+                             region="all") {
 
-  surveillance_area <- match.arg(tolower(surveillance_area), c("flusurv", "eip", "ihsp"))
-
-  network_id <- .hosp_surv_map[surveillance_area]
+  sarea <- match.arg(tolower(surveillance_area), choices = c("flusurv", "eip", "ihsp"))
+  sarea <- .surv_rev_map[sarea]
 
   meta <- jsonlite::fromJSON("https://gis.cdc.gov/GRASP/Flu3/GetPhase03InitApp?appVersion=Public")
+  areas <- setNames(meta$catchments[,c("networkid", "name", "area", "catchmentid")],
+                    c("networkid", "surveillance_area", "region", "id"))
+
+  reg <- region
+  if (reg == "all") reg <- "Entire Network"
+
+  tgt <- dplyr::filter(areas, (surveillance_area == sarea) & (region == reg))
+
+  if (nrow(tgt) == 0) {
+    stop("Region not found. Use `surveillance_areas()` to see a list of valid inputs.",
+         call.=FALSE)
+  }
 
   httr::POST(
     url = "https://gis.cdc.gov/GRASP/Flu3/PostPhase03GetData",
@@ -27,9 +45,9 @@ hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp")) {
     encode = "json",
     body = list(
       appversion = "Public",
-      networkid = network_id,
-      cacthmentid = "22"
-      ),
+      networkid = tgt$networkid,
+      cacthmentid = tgt$id
+    ),
     httr::verbose()
   ) -> res
 
@@ -62,6 +80,23 @@ hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp")) {
 
   dplyr::left_join(xdf, mmwr_df, c("mmwrid", "weeknumber")) %>%
     dplyr::left_join(age_df, "age") %>%
-    dplyr::left_join(sea_df, "seasonid")
+    dplyr::left_join(sea_df, "seasonid") %>%
+    dplyr::mutate(
+      surveillance_area = sarea,
+      region = reg
+    )
 
+}
+
+#' Retrieve a list of valid sub-regions for each surveillance area.
+#'
+#' @md
+#' @export
+#' @examples
+#' surveillance_areas()
+surveillance_areas <- function() {
+  meta <- jsonlite::fromJSON("https://gis.cdc.gov/GRASP/Flu3/GetPhase03InitApp?appVersion=Public")
+  xdf <- setNames(meta$catchments[,c("name", "area")], c("surveillance_area", "region"))
+  xdf$surveillance_area <- .surv_map[xdf$surveillance_area]
+  xdf
 }

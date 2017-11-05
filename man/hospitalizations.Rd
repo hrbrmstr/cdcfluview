@@ -4,19 +4,29 @@
 \alias{hospitalizations}
 \title{Laboratory-Confirmed Influenza Hospitalizations}
 \usage{
-hospitalizations(surveillance_area = c("flusurv", "eip", "ihsp"))
+hospitalizations(surveillance_area = c("flusurv", "eip", "ihsp"),
+  region = "all")
 }
 \arguments{
-\item{surveillance_area}{one of "`flusurv`", "`eip`", or "`ihsp`"}
+\item{surveillance_area}{one of "\code{flusurv}", "\code{eip}", or "\code{ihsp}"}
+
+\item{region}{Using "\code{all}" mimics selecting "Entire Network" from the
+CDC FluView application drop down. Individual regions for each
+surveillance area can also be selected. Use \code{\link[=surveillance_areas]{surveillance_areas()}} to
+see a list of valid sub-regions for each surveillance area.}
 }
 \description{
 Laboratory-Confirmed Influenza Hospitalizations
 }
 \examples{
+\dontrun{
 hosp_fs <- hospitalizations("flusurv")
 hosp_eip <- hospitalizations("eip")
 hosp_ihsp <- hospitalizations("ihsp")
 }
+}
 \references{
-- [Hospital Portal](https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html)
+\itemize{
+\item \href{https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html}{Hospital Portal}
+}
 }

@@ -8,6 +8,9 @@
 #' - [CDC FluView Portal](https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html)
 #' - [AGD IPT Portal](https://gis.cdc.gov/grasp/fluview/flu_by_age_virus.html)
 #' @export
+#' @examples  \dontrun{
+#' agd_ipt()
+#' }
 agd_ipt <- function() {
   httr::GET(
     url = "https://gis.cdc.gov/grasp/fluView6/GetFlu6AllDataP",

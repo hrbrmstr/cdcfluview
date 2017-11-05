@@ -11,6 +11,11 @@ Retrieves the age group distribution of influenza positive tests that are report
 public health laboratories by influenza virus type and subtype/lineage. Laboratory data
 from multiple seasons and different age groups is provided.
 }
+\examples{
+ \dontrun{
+agd_ipt()
+}
+}
 \references{
 - [CDC FluView Portal](https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html)
 - [AGD IPT Portal](https://gis.cdc.gov/grasp/fluview/flu_by_age_virus.html)

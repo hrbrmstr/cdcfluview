@@ -24,11 +24,12 @@
 #' - [ILINet Portal](https://wwwn.cdc.gov/ilinet/) (Login required)
 #' - [WHO/NREVSS](https://www.cdc.gov/surveillance/nrevss/index.html)
 #' @export
-#' @examples
+#' @examples \dontrun{
 #' national_who <- who_nrevss("national")
 #' hhs_who <- who_nrevss("hhs")
 #' census_who <- who_nrevss("census")
 #' state_who <- who_nrevss("state")
+#' }
 who_nrevss <- function(region=c("national", "hhs", "census", "state")) {
 
   region <- match.arg(tolower(region), c("national", "hhs", "census", "state"))
