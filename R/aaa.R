@@ -1,15 +1,3 @@
-# THIS IS NOT EXPORTED FROM MMWRweek but I need it
-# Find start date for a calendar year
-#
-# Finds the state date given a numeric calendar year
-# @author Jarad Niemi \email{niemi@@iastate.edu}
-.start_date = function(year) {
-  # Finds start state for this calendar year
-  jan1 = as.Date(paste(year, '-01-01', sep=''))
-  wday = as.numeric(MMWRweekday(jan1))
-  jan1 - (wday-1) + 7*(wday>4)
-}
-
 # CDC U.S. region names to ID map
 .region_map <- c(national=3, hhs=1, census=2, state=5)
 
@@ -40,16 +28,3 @@
               "B (Yamagata Lineage)", "H3N2v")
 
 # Week Starts
-
-.tmp <- lapply(1962:2030, .start_date)
-
-mapply(function(.x, .y) {
-  data_frame(
-    wk_start = seq(.tmp[[.x]], .tmp[[.y]], "1 week"),
-    wk_num = 1:length(wk_start)
-  ) -> tmp
-  tmp[-nrow(tmp),]
-}, 1:(length(.tmp)-1), 2:length(.tmp), SIMPLIFY=FALSE) -> .wk
-
-.wk <- Reduce(rbind.data.frame, .wk)
-.wk$mmwrid <- 1:nrow(.wk)
