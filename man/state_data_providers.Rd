@@ -2,12 +2,12 @@
 % Please edit documentation in R/ili-weekly-state.r
 \name{state_data_providers}
 \alias{state_data_providers}
-\title{Retrieve metadat about U.S. State CDC Provider Data}
+\title{Retrieve metadata about U.S. State CDC Provider Data}
 \usage{
 state_data_providers()
 }
 \description{
-Retrieve metadat about U.S. State CDC Provider Data
+Retrieve metadata about U.S. State CDC Provider Data
 }
 \examples{
 state_data_providers()

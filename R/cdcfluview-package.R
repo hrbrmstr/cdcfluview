@@ -12,8 +12,9 @@
 #' @docType package
 #' @author Bob Rudis (bob@@rud.is)
 #' @import httr
+#' @import MMWRweek
 #' @importFrom tools file_path_sans_ext
-#' @importFrom dplyr left_join bind_rows mutate filter %>%
+#' @importFrom dplyr left_join bind_rows mutate filter data_frame %>%
 #' @importFrom jsonlite fromJSON
 #' @importFrom stats setNames
 #' @importFrom sf st_read

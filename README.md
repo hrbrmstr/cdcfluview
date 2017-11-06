@@ -58,7 +58,7 @@ The following functions are implemented:
 -   `ili_weekly_activity_indicators`: Retrieve weekly state-level ILI
     indicators per-state for a given season
 -   `pi_mortality`: Pneumonia and Influenza Mortality Surveillance
--   `state_data_providers`: Retrieve metadat about U.S. State CDC
+-   `state_data_providers`: Retrieve metadata about U.S. State CDC
     Provider Data
 -   `surveillance_areas`: Retrieve a list of valid sub-regions for each
     surveillance area.
@@ -484,9 +484,7 @@ pi_mortality("region")
     ## # ... with 4,180 more rows, and 10 more variables: weeknumber <chr>, geo_description <chr>, age_label <chr>,
     ## #   weekend <date>, weekstart <date>, year <int>, yearweek <int>, coverage_area <chr>, region_name <chr>, callout <chr>
 
-### Retrieve metadat about U.S. State CDC Provider Data
-
-### Retrieve a list of valid sub-regions for each surveillance area.
+### Retrieve metadata about U.S. State CDC Provider Data
 
 ``` r
 state_data_providers()

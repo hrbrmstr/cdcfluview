@@ -7,7 +7,6 @@
 geographic_spread <- function() {
 
   meta <- jsonlite::fromJSON("https://gis.cdc.gov/grasp/Flu8/GetPhase08InitApp?appVersion=Public")
-  meta$seasons$seasonid
 
   httr::POST(
     url = "https://gis.cdc.gov/grasp/Flu8/PostPhase08DownloadData",

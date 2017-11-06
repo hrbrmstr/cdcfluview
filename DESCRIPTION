@@ -34,5 +34,6 @@ Imports:
     stats,
     utils,
     sf,
+    MMWRweek,
     units (>= 0.4-6)
 RoxygenNote: 6.0.1

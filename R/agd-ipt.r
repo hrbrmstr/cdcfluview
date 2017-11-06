@@ -11,7 +11,8 @@
 #' @examples  \dontrun{
 #' agd_ipt()
 #' }
-agd_ipt <- function() {
+age_group_distribution <- function() {
+
   httr::GET(
     url = "https://gis.cdc.gov/grasp/fluView6/GetFlu6AllDataP",
     httr::user_agent(.cdcfluview_ua),
@@ -47,9 +48,14 @@ agd_ipt <- function() {
   class(vir_df) <- c("tbl_df", "tbl", "data.frame")
 
   vir_df_cols <- c("sea_label", "age_label", "vir_label", "count", "mmwrid", "seasonid",
-                   "publishyearweekid", "sea_description", "sea_startweek", "sea_endweek",
-                   "vir_description",  "vir_startmmwrid", "vir_endmmwrid")
+                   "publishyearweekid", "sea_description", "sea_startweek",
+                   "sea_endweek", "vir_description",  "vir_startmmwrid", "vir_endmmwrid")
 
-  vir_df[,vir_df_cols]
+  vir_df <- vir_df[,vir_df_cols]
+
+  vir_df$age_label <- factor(vir_df$age_label, levels=.age_grp)
+  vir_df$vir_label <- factor(vir_df$vir_label, levels=.vir_grp)
+
+  vir_df
 
 }

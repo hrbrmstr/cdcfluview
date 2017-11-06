@@ -60,7 +60,7 @@ ili_weekly_activity_indicators <- function(season_start_year) {
 
 }
 
-#' Retrieve metadat about U.S. State CDC Provider Data
+#' Retrieve metadata about U.S. State CDC Provider Data
 #'
 #' @md
 #' @export

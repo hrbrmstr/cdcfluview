@@ -1,6 +1,6 @@
 # this is only used during active development phases before/after CRAN releases
 
-.onAttach <- function(...) {
+.onAttach <- function(...) { # nocov start
 
   if (!interactive()) return()
 
@@ -8,4 +8,4 @@
                                "There are *MASSIVE* breaking changes*. ",
                                "See https://github.com/hrbrmstr/cdcfluview for info/news."))
 
-}
+} # nocov end

@@ -28,14 +28,14 @@ The U.S. Centers for Disease Control (CDC) maintains a portal <http://gis.cdc.go
 
 The following functions are implemented:
 
-- `agd_ipt`:	Age Group Distribution of Influenza Positive Tests Reported by Public Health Laboratories
-- `cdc_coverage_map`:	Retrieve CDC U.S. Coverage Map
+- `age_group_distribution`:	Age Group Distribution of Influenza Positive Tests Reported by Public Health Laboratories
+- `cdc_basemap`:	Retrieve CDC U.S. Basemaps
 - `geographic_spread`:	State and Territorial Epidemiologists Reports of Geographic Spread of Influenza
 - `hospitalizations`:	Laboratory-Confirmed Influenza Hospitalizations
 - `ilinet`:	Retrieve ILINet Surveillance Data
 - `ili_weekly_activity_indicators`:	Retrieve weekly state-level ILI indicators per-state for a given season
 - `pi_mortality`:	Pneumonia and Influenza Mortality Surveillance
-- `state_data_providers`:	Retrieve metadat about U.S. State CDC Provider Data
+- `state_data_providers`:	Retrieve metadata about U.S. State CDC Provider Data
 - `surveillance_areas`:	Retrieve a list of valid sub-regions for each surveillance area.
 - `who_nrevss`:	Retrieve WHO/NREVSS Surveillance Data
 
@@ -58,6 +58,7 @@ options(width=120)
 
 ```{r message=FALSE, warning=FALSE, error=FALSE}
 library(cdcfluview)
+library(hrbrthemes)
 library(tidyverse)
 
 # current verison
@@ -67,13 +68,18 @@ packageVersion("cdcfluview")
 ### Age Group Distribution of Influenza Positive Tests Reported by Public Health Laboratories
 
 ```{r message=FALSE, warning=FALSE}
-glimpse(agd_ipt())
+glimpse(age_group_distribution())
 ```
 
 ### Retrieve CDC U.S. Coverage Map
 
 ```{r message=FALSE, warning=FALSE}
-plot(cdc_coverage_map())
+plot(cdc_basemap("national"))
+plot(cdc_basemap("hhs"))
+plot(cdc_basemap("census"))
+plot(cdc_basemap("states"))
+plot(cdc_basemap("spread"))
+plot(cdc_basemap("surv"))
 ```
 
 ### State and Territorial Epidemiologists Reports of Geographic Spread of Influenza
@@ -101,13 +107,22 @@ glimpse(hospitalizations("ihsp", "Oklahoma"))
 ### Retrieve ILINet Surveillance Data
 
 ```{r message=FALSE, warning=FALSE}
-ilinet("national")
-
-ilinet("hhs")
-
-ilinet("census")
-
-ilinet("state")
+walk(c("national", "hhs", "census", "state"), ~{
+  
+  ili_df <- ilinet(region = .x)
+  
+  print(glimpse(ili_df))
+  
+  ggplot(ili_df, aes(week_start, unweighted_ili, group=region, color=region)) +
+    geom_line() +
+    viridis::scale_color_viridis(discrete=TRUE) +
+    labs(x=NULL, y="Unweighted ILI", title=ili_df$region_type[1]) +
+    theme_ipsum_rc(grid="XY") +
+    theme(legend.position = "none") -> gg
+  
+  print(gg)
+  
+})
 ```
 
 ### Retrieve weekly state-level ILI indicators per-state for a given season
@@ -128,12 +143,7 @@ pi_mortality("state")
 pi_mortality("region")
 ```
 
-### Retrieve metadat about U.S. State CDC Provider Data
-
-```{r message=FALSE, warning=FALSE}
-```
-
-### Retrieve a list of valid sub-regions for each surveillance area.
+### Retrieve metadata about U.S. State CDC Provider Data
 
 ```{r message=FALSE, warning=FALSE}
 state_data_providers()
