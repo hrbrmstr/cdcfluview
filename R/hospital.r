@@ -49,7 +49,7 @@ hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp"),
       cacthmentid = tgt$id
     ),
     # httr::verbose(),
-    httr::timeout(60)
+    httr::timeout(.httr_timeout)
   ) -> res
 
   httr::stop_for_status(res)
@@ -85,7 +85,16 @@ hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp"),
     dplyr::mutate(
       surveillance_area = sarea,
       region = reg
-    )
+    ) %>%
+    dplyr::left_join(mmwrid_map, "mmwrid") -> xdf
+
+  xdf$age_label <- factor(xdf$age_label,
+                          levels=c("0-4 yr", "5-17 yr", "18-49 yr", "50-64 yr",
+                                   "65+ yr", "Overall"))
+
+  xdf[,c("surveillance_area", "region", "year", "season", "wk_start", "wk_end",
+         "year_wk_num", "rate", "weeklyrate", "age", "age_label", "sea_label",
+         "sea_description", "mmwrid")]
 
 }
 

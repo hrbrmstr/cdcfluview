@@ -1,3 +1,4 @@
+
 # CDC U.S. region names to ID map
 .region_map <- c(national=3, hhs=1, census=2, state=5)
 
@@ -27,4 +28,5 @@
               "B (Lineage Unspecified)", "A (H1)", "A (H3)", "B (Victoria Lineage)",
               "B (Yamagata Lineage)", "H3N2v")
 
-# Week Starts
+# Global HTTR timeout
+.httr_timeout <- 120

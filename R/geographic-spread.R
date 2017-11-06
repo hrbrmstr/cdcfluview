@@ -22,7 +22,7 @@ geographic_spread <- function() {
       SeasonIDs = paste0(meta$seasons$seasonid, collapse=",")
     ),
     # httr::verbose(),
-    httr::timeout(60)
+    httr::timeout(.httr_timeout)
   ) -> res
 
   httr::stop_for_status(res)

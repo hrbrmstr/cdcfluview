@@ -3,7 +3,7 @@ test_that("we can do something", {
 
   skip_on_cran()
 
-  expect_that(agd_ipt(), is_a("data.frame"))
+  expect_that(age_group_distribution(), is_a("data.frame"))
 
   expect_that(geographic_spread(), is_a("data.frame"))
 
@@ -40,5 +40,18 @@ test_that("we can do something", {
   expect_that(cdc_basemap("spread"), is_a("sf"))
   expect_that(cdc_basemap("surv"), is_a("sf"))
 
+  expect_equal(mmwr_week(Sys.Date()),
+               structure(list(mmwr_year = 2017, mmwr_week = 45, mmwr_day = 2),
+                         .Names = c("mmwr_year", "mmwr_week", "mmwr_day"),
+                         row.names = c(NA, -1L),
+                         class = c("tbl_df", "tbl", "data.frame"))
+  )
+
+  expect_equal(mmwr_weekday(Sys.Date()),
+               structure(2L, .Label = c("Sunday", "Monday", "Tuesday", "Wednesday",
+                                        "Thursday", "Friday", "Saturday"),
+                         class = "factor"))
+
+  expect_equal(mmwr_week_to_date(2016,10,3), structure(16868, class = "Date"))
 
 })

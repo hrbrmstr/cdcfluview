@@ -13,7 +13,8 @@
 #'       counterparts.\cr\cr
 #'       Also, beginning for the 2015-16 season, reports from public health and clinical
 #'       laboratories are presented separately in the weekly influenza update. This is
-#'       the reason why a list of data frames is returned.
+#'       the reason why a list of data frames is returned.\cr\cr
+#'       **ALSO** The new CDC API seems to be missing some public health lab data fields.
 #' @param region one of "`national`", "`hhs`", "`census`", or "`state`"
 #' @return list of data frames identified by
 #' - `combined_prior_to_2015_16`
@@ -67,7 +68,7 @@ who_nrevss <- function(region=c("national", "hhs", "census", "state")) {
     encode = "json",
     body = params,
     # httr::verbose(),
-    httr::timeout(60),
+    httr::timeout(.httr_timeout),
     httr::write_disk(tf)
   ) -> res
 
@@ -82,11 +83,25 @@ who_nrevss <- function(region=c("national", "hhs", "census", "state")) {
     class(tdf) <- c("tbl_df", "tbl", "data.frame")
 
     tdf[tdf=="X"] <- NA
+    tdf[tdf=="XX"] <- NA
 
     tdf
 
   }) -> xdf
 
-  setNames(xdf, sub("who_nrevss_", "", tools::file_path_sans_ext(tolower(basename(nm)))))
+  xdf <- setNames(xdf, sub("who_nrevss_", "", tools::file_path_sans_ext(tolower(basename(nm)))))
+
+  xdf <- lapply(xdf, function(.x) {
+    x_cols <- colnames(.x)
+    if ((("year" %in% x_cols) & ("week" %in% x_cols))) {
+      .x$wk_date <- suppressWarnings(mmwr_week_to_date(.x$year, .x$week))
+    } else {
+      .x$wk_date <- as.Date(NA)
+    }
+    if (region == "national") .x$region <- "National"
+    .x
+  })
+
+  xdf
 
 }

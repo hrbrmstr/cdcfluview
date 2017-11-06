@@ -21,7 +21,7 @@ age_group_distribution <- function() {
       Referer = "https://gis.cdc.gov/grasp/fluview/flu_by_age_virus.html"
     ),
     # httr::verbose(),
-    httr::timeout(60)
+    httr::timeout(.httr_timeout)
   ) -> res
 
   httr::stop_for_status(res)
@@ -55,6 +55,8 @@ age_group_distribution <- function() {
 
   vir_df$age_label <- factor(vir_df$age_label, levels=.age_grp)
   vir_df$vir_label <- factor(vir_df$vir_label, levels=.vir_grp)
+
+  vir_df <- dplyr::left_join(vir_df, mmwrid_map, "mmwrid")
 
   vir_df
 

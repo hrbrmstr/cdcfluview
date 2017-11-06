@@ -59,12 +59,6 @@ pi_mortality <- function(coverage_area=c("national", "state", "region")) {
   age_df <- setNames(meta$nchs_ages, c("ageid", "age_label"))
   age_df$ageid <- as.character(age_df$ageid)
 
-  mwmr_df <- meta$mmwr
-  mwmr_df$mmwrid <- as.character(mwmr_df$mmwrid)
-  mwmr_df <- setNames(mwmr_df,
-                      c("mmwrid", "weekend", "mwmr_weeknumber", "weekstart",
-                        "year", "yearweek", "mwmr_seasonid", "mwmr_label", "weekendlabel"))
-
   sum_df <- meta$nchs_summary
   sum_df$seasonid <- as.character(sum_df$seasonid)
   sum_df$ageid <- as.character(sum_df$ageid)
@@ -86,7 +80,7 @@ pi_mortality <- function(coverage_area=c("national", "state", "region")) {
       AgegroupsParameters = list(list(ID="1"))
     ),
     # httr::verbose(),
-    httr::timeout(60)
+    httr::timeout(.httr_timeout)
   ) -> res
 
   httr::stop_for_status(res)
@@ -97,7 +91,7 @@ pi_mortality <- function(coverage_area=c("national", "state", "region")) {
     dplyr::left_join(mapcode_df, "map_code") %>%
     dplyr::left_join(geo_df, "geoid") %>%
     dplyr::left_join(age_df, "ageid") %>%
-    dplyr::left_join(mwmr_df, "mmwrid") -> xdf
+    dplyr::left_join(dplyr::mutate(mmwrid_map, mmwrid=as.character(mmwrid)), "mmwrid") -> xdf
 
   xdf <- dplyr::mutate(xdf, coverage_area = coverage_area)
 
@@ -106,25 +100,23 @@ pi_mortality <- function(coverage_area=c("national", "state", "region")) {
   } else if (coverage_area == "region") {
     xdf$region_name <- sprintf("Region %s", xdf$subgeoid)
   } else {
-    xdf$region_name <- NA_character_
+    xdf$region_name <- "national"
   }
 
   xdf[,c("seasonid", "baseline", "threshold", "percent_pni",
          "percent_complete", "number_influenza", "number_pneumonia",
          "all_deaths", "Total_PnI", "weeknumber", "geo_description",
-         "age_label", "weekend", "weekstart", "year", "yearweek",
+         "age_label", "wk_start", "wk_end", "year_wk_num", "mmwrid",
          "coverage_area", "region_name", "callout")] -> xdf
 
-  suppressWarnings(xdf$baseline <- to_num(xdf$baseline))
-  suppressWarnings(xdf$threshold <- to_num(xdf$threshold))
+  suppressWarnings(xdf$baseline <- to_num(xdf$baseline) / 100)
+  suppressWarnings(xdf$threshold <- to_num(xdf$threshold) / 100)
   suppressWarnings(xdf$percent_pni <- to_num(xdf$percent_pni) / 100)
   suppressWarnings(xdf$percent_complete <- to_num(xdf$percent_complete) / 100)
   suppressWarnings(xdf$number_influenza <- to_num(xdf$number_influenza))
   suppressWarnings(xdf$number_pneumonia <- to_num(xdf$number_pneumonia))
   suppressWarnings(xdf$all_deaths <- to_num(xdf$all_deaths))
   suppressWarnings(xdf$Total_PnI <- to_num(xdf$Total_PnI))
-  suppressWarnings(xdf$weekend <- as.Date(xdf$weekend))
-  suppressWarnings(xdf$weekstart <- as.Date(xdf$weekstart))
 
   xdf <- .mcga(xdf)
 

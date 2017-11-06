@@ -38,11 +38,15 @@ The following functions are implemented:
 - `state_data_providers`:	Retrieve metadata about U.S. State CDC Provider Data
 - `surveillance_areas`:	Retrieve a list of valid sub-regions for each surveillance area.
 - `who_nrevss`:	Retrieve WHO/NREVSS Surveillance Data
+- `mmwr_week`:	Convert a Date to an MMWR day+week+year
+- `mmwr_weekday`:	Convert a Date to an MMWR weekday
+- `mmwr_week_to_date`:	Convert an MMWR year+week or year+week+day to a Date object
 
 The following data sets are included:
 
-- `hhs_regions`	HHS Region Table (a data frame with 59 rows and 4 variables)
-- `census_regions`	Census Region Table (a data frame with 51 rows and 2 variables)
+- `hhs_regions`:	HHS Region Table (a data frame with 59 rows and 4 variables)
+- `census_regions`:	Census Region Table (a data frame with 51 rows and 2 variables)
+- `mmwrid_map`:	MMWR ID to Calendar Mappings (it is exported & available, no need to use `data()`)
 
 ## Installation
 
@@ -90,10 +94,18 @@ glimpse(geographic_spread())
 
 ### Laboratory-Confirmed Influenza Hospitalizations
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, fig.width=10, fig.height=7.5}
 surveillance_areas()
 
-glimpse(hospitalizations("flusurv"))
+glimpse(fs_nat <- hospitalizations("flusurv"))
+
+ggplot(fs_nat, aes(wk_end, rate)) + 
+  geom_line(aes(color=age_label, group=age_label)) +
+  facet_wrap(~sea_description, scales="free_x") +
+  scale_color_ipsum(name=NULL) +
+  labs(x=NULL, y="Rates per 100,000 population",
+       title="FluSurv-NET :: Entire Network :: All Seasons :: Cumulative Rate") +
+  theme_ipsum_rc()
 
 glimpse(hospitalizations("eip"))
 
@@ -127,20 +139,42 @@ walk(c("national", "hhs", "census", "state"), ~{
 
 ### Retrieve weekly state-level ILI indicators per-state for a given season
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, fig.width=10, fig.height=5}
 ili_weekly_activity_indicators(2017)
 
-ili_weekly_activity_indicators(2015)
+xdf <- map_df(2008:2017, ili_weekly_activity_indicators)
+
+count(xdf, weekend, ili_activity_label) %>% 
+  complete(weekend, ili_activity_label) %>% 
+  ggplot(aes(weekend, ili_activity_label, fill=n)) + 
+  geom_tile(color="#c2c2c2", size=0.1) +
+  scale_x_date(expand=c(0,0)) +
+  viridis::scale_fill_viridis(name="# States", na.value="White") +
+  labs(x=NULL, y=NULL, title="Weekly ILI Indicators (all states)") +
+  coord_fixed(100/1) +
+  theme_ipsum_rc(grid="") +
+  theme(legend.position="bottom")
 ```
 
 ### Pneumonia and Influenza Mortality Surveillance
 
 ```{r message=FALSE, warning=FALSE}
-pi_mortality("national")
+(nat_pi <- pi_mortality("national"))
 
-pi_mortality("state")
+select(nat_pi, wk_end, percent_pni, baseline, threshold) %>% 
+  gather(measure, value, -wk_end) %>% 
+  ggplot(aes(wk_end, value)) + 
+  geom_line(aes(group=measure, color=measure)) + 
+  scale_y_percent() +
+  scale_color_ipsum(name = NULL, labels=c("Baseline", "Percent P&I", "Threshold")) +
+  labs(x=NULL, y="% of all deaths due to P&I",
+       title="Percentage of all deaths due to pneumonia and influenza, National Summary") +
+  theme_ipsum_rc(grid="XY") +
+  theme(legend.position="bottom")
 
-pi_mortality("region")
+(st_pi <- pi_mortality("state"))
+
+(reg_pi <- pi_mortality("region"))
 ```
 
 ### Retrieve metadata about U.S. State CDC Provider Data
@@ -152,7 +186,15 @@ state_data_providers()
 ### Retrieve WHO/NREVSS Surveillance Data
 
 ```{r message=FALSE, warning=FALSE}
-who_nrevss("national")
+glimpse(xdat <- who_nrevss("national"))
+
+mutate(xdat$combined_prior_to_2015_16, 
+       percent_positive = percent_positive / 100) %>% 
+  ggplot(aes(wk_date, percent_positive)) +
+  geom_line() +
+  scale_y_percent(name="% Positive") +
+  labs(x=NULL, title="WHO/NREVSS Surveillance Data (National)") +
+  theme_ipsum_rc(grid="XY")
 
 who_nrevss("hhs")
 
