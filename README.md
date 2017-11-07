@@ -11,12 +11,7 @@ I M P O R T A N T
 The CDC migrated to a new non-Flash portal and back-end APIs changed.
 This is a complete reimagining of the package and — as such — all your
 code is going to break. Please use GitHub issues to identify previous
-API functionality you would like ported over. There’s a [release
-candidate for
-0.5.2](https://github.com/hrbrmstr/cdcfluview/releases/tag/v0.5.2) which
-uses the old API but it likely to break in the near future given the
-changes to the hidden API. You can do what with
-`devtools::install_github("hrbrmstr/cdcfluview", ref="58c172b")`.
+API functionality you would like ported over. 
 
 All folks providing feedback, code or suggestions will be added to the
 DESCRIPTION file. Please include how you would prefer to be cited in any
