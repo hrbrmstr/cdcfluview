@@ -1,4 +1,3 @@
-
 # CDC U.S. region names to ID map
 .region_map <- c(national=3, hhs=1, census=2, state=5)
 
