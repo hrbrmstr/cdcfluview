@@ -31,9 +31,11 @@
 #' census_who <- who_nrevss("census")
 #' state_who <- who_nrevss("state")
 #' }
-who_nrevss <- function(region=c("national", "hhs", "census", "state")) {
+who_nrevss <- function(region=c("national", "hhs", "census", "state"), years=NULL) {
 
   region <- match.arg(tolower(region), c("national", "hhs", "census", "state"))
+
+  meta <- jsonlite::fromJSON("https://gis.cdc.gov/grasp/flu2/GetPhase02InitApp?appVersion=Public")
 
   list(
     AppVersion = "Public",
@@ -49,8 +51,27 @@ who_nrevss <- function(region=c("national", "hhs", "census", "state")) {
     state = { lapply(1:59, function(i) list(ID=i, Name=as.character(i))) }
   )
 
-  seasons <- 37:((unclass(as.POSIXlt(Sys.time()))[["year"]] + 1900) - 1960)
-  params$SeasonsDT <- lapply(seasons, function(i) list(ID=i, Name=as.character(i)))
+  available_seasons <- sort(meta$seasons$seasonid)
+
+  if (is.null(years)) { # ALL YEARS
+    years <- available_seasons
+  } else { # specified years or seasons or a mix
+
+    years <- as.numeric(years)
+    years <- ifelse(years > 1996, years - 1960, years)
+    years <- sort(unique(years))
+    years <- years[years %in% available_seasons]
+
+    if (length(years) == 0) {
+      years <- rev(sort(meta$seasons$seasonid))[1]
+      curr_season_descr <- meta$seasons[meta$seasons$seasonid == years, "description"]
+      message(sprintf("No valid years specified, defaulting to this flu season => ID: %s [%s]",
+                      years, curr_season_descr))
+    }
+
+  }
+
+  params$SeasonsDT <- lapply(years, function(i) list(ID=i, Name=as.character(i)))
 
   tf <- tempfile(fileext = ".zip")
   td <- tempdir()
