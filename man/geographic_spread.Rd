@@ -4,7 +4,16 @@
 \alias{geographic_spread}
 \title{State and Territorial Epidemiologists Reports of Geographic Spread of Influenza}
 \usage{
-geographic_spread()
+geographic_spread(years = NULL)
+}
+\arguments{
+\item{years}{a vector of years to retrieve data for (i.e. \code{2014} for CDC
+flu season 2014-2015). CDC has data for this API going back to 2003
+and up until the current, active flu season.
+Default value (\code{NULL}) means retrieve \strong{all} years. NOTE: if you
+happen to specify a 2-digit season value (i.e. \code{57} == 2017-2018)
+the function is smart enough to retrieve by season ID vs convert that
+to a year.}
 }
 \description{
 State and Territorial Epidemiologists Reports of Geographic Spread of Influenza
