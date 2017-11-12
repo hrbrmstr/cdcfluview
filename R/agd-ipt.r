@@ -7,11 +7,17 @@
 #' @references
 #' - [CDC FluView Portal](https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html)
 #' - [AGD IPT Portal](https://gis.cdc.gov/grasp/fluview/flu_by_age_virus.html)
+#' @param years a vector of years to retrieve data for (i.e. `2014` for CDC
+#'        flu season 2014-2015). CDC has data for this API going back to 1997.
+#'        Default value (`NULL`) means retrieve **all** years. NOTE: if you
+#'        happen to specify a 2-digit season value (i.e. `57` == 2017-2018)
+#'        the function is smart enough to retrieve by season ID vs convert that
+#'        to a year.
 #' @export
 #' @examples  \dontrun{
 #' agd_ipt()
 #' }
-age_group_distribution <- function() {
+age_group_distribution <- function(years = NULL) {
 
   httr::GET(
     url = "https://gis.cdc.gov/grasp/fluView6/GetFlu6AllDataP",
@@ -57,6 +63,26 @@ age_group_distribution <- function() {
   vir_df$vir_label <- factor(vir_df$vir_label, levels=.vir_grp)
 
   vir_df <- dplyr::left_join(vir_df, mmwrid_map, "mmwrid")
+
+  available_seasons <- sort(unique(vir_df$seasonid))
+
+  if (!is.null(years)) { # specified years or seasons or a mix
+
+    years <- as.numeric(years)
+    years <- ifelse(years > 1996, years - 1960, years)
+    years <- sort(unique(years))
+    years <- years[years %in% available_seasons]
+
+    if (length(years) == 0) {
+      years <- rev(available_seasons)[1]
+      curr_season_descr <- vir_df[vir_df$seasonid == years,]$sea_description[1]
+      message(sprintf("No valid years specified, defaulting to this flu season => ID: %s [%s]",
+                      years, curr_season_descr))
+    }
+
+    vir_df <- dplyr::filter(vir_df, seasonid %in% years)
+
+  }
 
   vir_df
 

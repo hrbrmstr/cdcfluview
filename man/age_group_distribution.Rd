@@ -4,7 +4,15 @@
 \alias{age_group_distribution}
 \title{Age Group Distribution of Influenza Positive Tests Reported by Public Health Laboratories}
 \usage{
-age_group_distribution()
+age_group_distribution(years = NULL)
+}
+\arguments{
+\item{years}{a vector of years to retrieve data for (i.e. `2014` for CDC
+flu season 2014-2015). CDC has data for this API going back to 1997.
+Default value (`NULL`) means retrieve **all** years. NOTE: if you
+happen to specify a 2-digit season value (i.e. `57` == 2017-2018)
+the function is smart enough to retrieve by season ID vs convert that
+to a year.}
 }
 \description{
 Retrieves the age group distribution of influenza positive tests that are reported by
