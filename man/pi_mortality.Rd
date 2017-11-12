@@ -4,10 +4,18 @@
 \alias{pi_mortality}
 \title{Pneumonia and Influenza Mortality Surveillance}
 \usage{
-pi_mortality(coverage_area = c("national", "state", "region"))
+pi_mortality(coverage_area = c("national", "state", "region"), years = NULL)
 }
 \arguments{
 \item{coverage_area}{coverage area for data (national, state or region)}
+
+\item{years}{a vector of years to retrieve data for (i.e. \code{2014} for CDC
+flu season 2014-2015). CDC has data for this API going back to 2009
+and up until the current, active flu season.
+Default value (\code{NULL}) means retrieve \strong{all} years. NOTE: if you
+happen to specify a 2-digit season value (i.e. \code{57} == 2017-2018)
+the function is smart enough to retrieve by season ID vs convert that
+to a year.}
 }
 \description{
 The National Center for Health Statistics (NCHS) collects and disseminates the Nation's
@@ -38,7 +46,7 @@ absence of substantial influenza-related mortality. Baselines and thresholds are
 calculated at the national and regional level and by age group.
 }
 \note{
-Queries for "state" and "region" are not "instantaneous" and can near or over 30s retrieval delays.
+Queries for "state" and "region" are not necessarily as "instantaneous" as other API endpoints and can near or over 30s retrieval delays.
 }
 \examples{
 \dontrun{

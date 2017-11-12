@@ -29,7 +29,14 @@
 #'
 #' @md
 #' @param coverage_area coverage area for data (national, state or region)
-#' @note Queries for "state" and "region" are not "instantaneous" and can near or over 30s retrieval delays.
+#' @param years a vector of years to retrieve data for (i.e. `2014` for CDC
+#'        flu season 2014-2015). CDC has data for this API going back to 2009
+#'        and up until the current, active flu season.
+#'        Default value (`NULL`) means retrieve **all** years. NOTE: if you
+#'        happen to specify a 2-digit season value (i.e. `57` == 2017-2018)
+#'        the function is smart enough to retrieve by season ID vs convert that
+#'        to a year.
+#' @note Queries for "state" and "region" are not necessarily as "instantaneous" as other API endpoints and can near or over 30s retrieval delays.
 #' @references
 #' - [Pneumonia and Influenza Mortality Surveillance Portal](https://gis.cdc.gov/grasp/fluview/mortality.html)
 #' @export
@@ -38,7 +45,7 @@
 #' sdf <- pi_mortality("state")
 #' rdf <- pi_mortality("region")
 #' }
-pi_mortality <- function(coverage_area=c("national", "state", "region")) {
+pi_mortality <- function(coverage_area=c("national", "state", "region"), years=NULL) {
 
   coverage_area <- match.arg(tolower(coverage_area), choices = c("national", "state", "region"))
 
@@ -64,6 +71,26 @@ pi_mortality <- function(coverage_area=c("national", "state", "region")) {
   sum_df$ageid <- as.character(sum_df$ageid)
   sum_df$geoid <- as.character(sum_df$geoid)
 
+  available_seasons <- sort(meta$seasons$seasonid)
+
+  if (is.null(years)) { # ALL YEARS
+    years <- available_seasons
+  } else { # specified years or seasons or a mix
+
+    years <- as.numeric(years)
+    years <- ifelse(years > 1996, years - 1960, years)
+    years <- sort(unique(years))
+    years <- years[years %in% available_seasons]
+
+    if (length(years) == 0) {
+      years <- rev(sort(meta$seasons$seasonid))[1]
+      curr_season_descr <- meta$seasons[meta$seasons$seasonid == years, "description"]
+      message(sprintf("No valid years specified, defaulting to this flu season => ID: %s [%s]",
+                      years, curr_season_descr))
+    }
+
+  }
+
   httr::POST(
     url = "https://gis.cdc.gov/grasp/flu7/PostPhase07DownloadData",
     httr::user_agent(.cdcfluview_ua),
@@ -76,7 +103,7 @@ pi_mortality <- function(coverage_area=c("national", "state", "region")) {
     body = list(
       AppVersion = "Public",
       AreaParameters = list(list(ID=.geoid_map[coverage_area])),
-      SeasonsParameters = lapply(meta$seasons$seasonid, function(.x) { list(ID=as.integer(.x)) }),
+      SeasonsParameters = lapply(years, function(.x) { list(ID=as.integer(.x)) }),
       AgegroupsParameters = list(list(ID="1"))
     ),
     # httr::verbose(),
