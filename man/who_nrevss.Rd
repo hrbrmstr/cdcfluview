@@ -32,7 +32,8 @@ HHS, Census and State data retrieval is not as "instantaneous" as their ILINet
 counterparts.\cr\cr
 Also, beginning for the 2015-16 season, reports from public health and clinical
 laboratories are presented separately in the weekly influenza update. This is
-the reason why a list of data frames is returned.
+the reason why a list of data frames is returned.\cr\cr
+\strong{ALSO} The new CDC API seems to be missing some public health lab data fields.
 }
 \examples{
 \dontrun{
