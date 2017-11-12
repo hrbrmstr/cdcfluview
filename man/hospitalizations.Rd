@@ -5,7 +5,7 @@
 \title{Laboratory-Confirmed Influenza Hospitalizations}
 \usage{
 hospitalizations(surveillance_area = c("flusurv", "eip", "ihsp"),
-  region = "all")
+  region = "all", years = NULL)
 }
 \arguments{
 \item{surveillance_area}{one of "\code{flusurv}", "\code{eip}", or "\code{ihsp}"}
@@ -14,6 +14,14 @@ hospitalizations(surveillance_area = c("flusurv", "eip", "ihsp"),
 CDC FluView application drop down. Individual regions for each
 surveillance area can also be selected. Use \code{\link[=surveillance_areas]{surveillance_areas()}} to
 see a list of valid sub-regions for each surveillance area.}
+
+\item{years}{a vector of years to retrieve data for (i.e. \code{2014} for CDC
+flu season 2014-2015). CDC has data for this API going back to 2009
+and up until the \emph{previous} flu season.
+Default value (\code{NULL}) means retrieve \strong{all} years. NOTE: if you
+happen to specify a 2-digit season value (i.e. \code{56} == 2016-2017)
+the function is smart enough to retrieve by season ID vs convert that
+to a year.}
 }
 \description{
 Laboratory-Confirmed Influenza Hospitalizations

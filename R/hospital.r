@@ -6,6 +6,13 @@
 #'        CDC FluView application drop down. Individual regions for each
 #'        surveillance area can also be selected. Use [surveillance_areas()] to
 #'        see a list of valid sub-regions for each surveillance area.
+#' @param years a vector of years to retrieve data for (i.e. `2014` for CDC
+#'        flu season 2014-2015). CDC has data for this API going back to 2009
+#'        and up until the _previous_ flu season.
+#'        Default value (`NULL`) means retrieve **all** years. NOTE: if you
+#'        happen to specify a 2-digit season value (i.e. `56` == 2016-2017)
+#'        the function is smart enough to retrieve by season ID vs convert that
+#'        to a year.
 #' @references
 #' - [Hospital Portal](https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html)
 #' @export
@@ -15,7 +22,7 @@
 #' hosp_ihsp <- hospitalizations("ihsp")
 #' }
 hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp"),
-                             region="all") {
+                             region="all", years=NULL) {
 
   sarea <- match.arg(tolower(surveillance_area), choices = c("flusurv", "eip", "ihsp"))
   sarea <- .surv_rev_map[sarea]
@@ -92,9 +99,35 @@ hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp"),
                           levels=c("0-4 yr", "5-17 yr", "18-49 yr", "50-64 yr",
                                    "65+ yr", "Overall"))
 
-  xdf[,c("surveillance_area", "region", "year", "season", "wk_start", "wk_end",
-         "year_wk_num", "rate", "weeklyrate", "age", "age_label", "sea_label",
-         "sea_description", "mmwrid")]
+  xdf <- xdf[,c("surveillance_area", "region", "year", "season", "wk_start", "wk_end",
+                "year_wk_num", "rate", "weeklyrate", "age", "age_label", "sea_label",
+                "sea_description", "mmwrid")]
+
+  available_seasons <- sort(unique(xdf$season))
+
+  if (!is.null(years)) { # specified years or seasons or a mix
+
+    years <- as.numeric(years)
+    years <- ifelse(years > 1996, years - 1960, years)
+    years <- sort(unique(years))
+    years <- years[years %in% available_seasons]
+
+    if (length(years) == 0) {
+      years <- rev(available_seasons)[1]
+      curr_season_descr <- xdf[xdf$season == years,]$sea_description[1]
+      message(
+        sprintf(
+          "No valid years specified, defaulting to the last available flu season => ID: %s [%s]",
+          years, curr_season_descr
+        )
+      )
+    }
+
+    xdf <- dplyr::filter(xdf, season %in% years)
+
+  }
+
+  xdf
 
 }
 
