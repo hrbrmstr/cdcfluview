@@ -4,10 +4,16 @@
 \alias{ili_weekly_activity_indicators}
 \title{Retrieve weekly state-level ILI indicators per-state for a given season}
 \usage{
-ili_weekly_activity_indicators(season_start_year)
+ili_weekly_activity_indicators(years = NULL)
 }
 \arguments{
-\item{season_start_year}{numeric; start year for flu season (e.g. 2017 for 2017-2018 season)}
+\item{years}{a vector of years to retrieve data for (i.e. \code{2014} for CDC
+flu season 2014-2015). CDC has data for this API going back to 2008
+and up until the current, active flu season.
+Default value (\code{NULL}) means retrieve \strong{all} years. NOTE: if you
+happen to specify a 2-digit season value (i.e. \code{57} == 2017-2018)
+the function is smart enough to retrieve by season ID vs convert that
+to a year.}
 }
 \description{
 Retrieve weekly state-level ILI indicators per-state for a given season

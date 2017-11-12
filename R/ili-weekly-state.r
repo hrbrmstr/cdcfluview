@@ -1,7 +1,13 @@
 #' Retrieve weekly state-level ILI indicators per-state for a given season
 #'
 #' @md
-#' @param season_start_year numeric; start year for flu season (e.g. 2017 for 2017-2018 season)
+#' @param years a vector of years to retrieve data for (i.e. `2014` for CDC
+#'        flu season 2014-2015). CDC has data for this API going back to 2008
+#'        and up until the current, active flu season.
+#'        Default value (`NULL`) means retrieve **all** years. NOTE: if you
+#'        happen to specify a 2-digit season value (i.e. `57` == 2017-2018)
+#'        the function is smart enough to retrieve by season ID vs convert that
+#'        to a year.
 #' @references
 #' - [ILI Activity Indicator Map Portal](https://gis.cdc.gov/grasp/fluview/main.html)
 #' @note These statistics use the proportion of outpatient visits to healthcare providers
@@ -21,38 +27,45 @@
 #' @examples \dontrun{
 #' ili_weekly_activity_indicators(2016)
 #' }
-ili_weekly_activity_indicators <- function(season_start_year) {
+ili_weekly_activity_indicators <- function(years=NULL) {
 
-  jsonlite::fromJSON("https://gis.cdc.gov/grasp/fluView1/Phase1IniP") %>%
-    jsonlite::fromJSON() -> meta
+  meta <- jsonlite::fromJSON("https://gis.cdc.gov/grasp/fluView1/Phase1IniP")
+  meta <- jsonlite::fromJSON(meta)
 
-  season <- season_start_year - 1960
+  available_seasons <- sort(meta$seasons$seasonid)
 
-  res <- httr::GET(sprintf("https://gis.cdc.gov/grasp/fluView1/Phase1SeasonDataP/%s",
-                           season))
+  if (is.null(years)) { # ALL YEARS
+    years <- available_seasons
+  } else { # specified years or seasons or a mix
+
+    years <- as.numeric(years)
+    years <- ifelse(years > 1996, years - 1960, years)
+    years <- sort(unique(years))
+    years <- years[years %in% available_seasons]
+
+    if (length(years) == 0) {
+      years <- rev(sort(meta$seasons$seasonid))[1]
+      curr_season_descr <- meta$seasons[meta$seasons$seasonid == years, "description"]
+      message(sprintf("No valid years specified, defaulting to this flu season => ID: %s [%s]",
+                      years, curr_season_descr))
+    }
+
+  }
+
+  years <- paste0(c(years, 1), collapse=",") # the API seems to use '1' as a sentinel
+
+  res <- httr::GET(sprintf("https://gis.cdc.gov/grasp/fluView1/Phase1DownloadDataP/%s",
+                           years))
 
   httr::stop_for_status(res)
 
-  res <- httr::content(res, as="parsed")
-  res <- jsonlite::fromJSON(res)
+  xdf <- httr::content(res, as="parsed")
+  xdf <- jsonlite::fromJSON(xdf)
+  xdf <- xdf$datadownload
 
-  setNames(
-    meta$ili_intensity[,c("iliActivityid", "ili_activity_label", "legend")],
-    c("iliactivityid", "ili_activity_label", "ili_activity_group")
-  ) -> iliact
-
-  dplyr::left_join(res$busdata, meta$stateinfo, "stateid") %>%
-    dplyr::left_join(res$mmwr, "mmwrid") %>%
-    dplyr::left_join(iliact, "iliactivityid") -> xdf
-
-  xdf <- xdf[,c("statename", "ili_activity_label", "ili_activity_group",
-                "statefips", "stateabbr", "weekend", "weeknumber", "year", "seasonid")]
-
-  xdf$statefips <- trimws(xdf$statefips)
-  xdf$stateabbr <- trimws(xdf$stateabbr)
-  xdf$weekend <- as.Date(xdf$weekend)
-  xdf$ili_activity_label <- factor(xdf$ili_activity_label,
-                                   levels=iliact$ili_activity_label)
+  suppressMessages(xdf$weekend <- as.Date(xdf$weekend, "%b-%d-%Y"))
+  suppressMessages(xdf$weeknumber <- as.numeric(xdf$weeknumber))
+  suppressMessages(xdf$activity_level <- as.numeric(xdf$activity_level))
 
   class(xdf) <- c("tbl_df", "tbl", "data.frame")
 
