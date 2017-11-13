@@ -27,15 +27,16 @@ This function retrieves current and historical ILINet surveillance data for
 the identified region.
 }
 \examples{
-national_ili <- ilinet("national")
+national_ili <- ilinet("national", years=2017)
+\dontrun{
 hhs_ili <- ilinet("hhs")
 census_ili <- ilinet("census")
 state_ili <- ilinet("state")
-\dontrun{
+
 library(purrr)
 map_df(
   c("national", "hhs", "census", "state"),
-  ~ilinet(.x) \%>\% readr::type_convert())
+  ~ilinet(.x))
 }
 }
 \references{

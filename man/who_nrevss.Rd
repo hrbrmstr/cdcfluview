@@ -8,6 +8,13 @@ who_nrevss(region = c("national", "hhs", "census", "state"), years = NULL)
 }
 \arguments{
 \item{region}{one of "\code{national}", "\code{hhs}", "\code{census}", or "\code{state}"}
+
+\item{years}{a vector of years to retrieve data for (i.e. \code{2014} for CDC
+flu season 2014-2015). CDC has data for this API going back to 1997.
+Default value (\code{NULL}) means retrieve \strong{all} years. NOTE: if you
+happen to specify a 2-digit season value (i.e. \code{57} == 2017-2018)
+the function is smart enough to retrieve by season ID vs convert that
+to a year.}
 }
 \value{
 list of data frames identified by

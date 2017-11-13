@@ -5,7 +5,7 @@
   if (!interactive()) return()
 
   packageStartupMessage(paste0("cdcfluview is under *active* development. ",
-                               "There are *MASSIVE* breaking changes*. ",
+                               "There are numerous changes & dprecations.\n",
                                "See https://github.com/hrbrmstr/cdcfluview for info/news."))
 
 } # nocov end

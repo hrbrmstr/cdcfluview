@@ -22,3 +22,4 @@
 ^README-.*
 ^cran-comments\.md$
 ^codecov\.yml$
+^Makefile$

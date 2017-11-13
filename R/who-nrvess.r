@@ -16,6 +16,12 @@
 #'       the reason why a list of data frames is returned.\cr\cr
 #'       **ALSO** The new CDC API seems to be missing some public health lab data fields.
 #' @param region one of "`national`", "`hhs`", "`census`", or "`state`"
+#' @param years a vector of years to retrieve data for (i.e. `2014` for CDC
+#'        flu season 2014-2015). CDC has data for this API going back to 1997.
+#'        Default value (`NULL`) means retrieve **all** years. NOTE: if you
+#'        happen to specify a 2-digit season value (i.e. `57` == 2017-2018)
+#'        the function is smart enough to retrieve by season ID vs convert that
+#'        to a year.
 #' @return list of data frames identified by
 #' - `combined_prior_to_2015_16`
 #' - `public_health_labs`

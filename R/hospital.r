@@ -16,8 +16,9 @@
 #' @references
 #' - [Hospital Portal](https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html)
 #' @export
-#' @examples \dontrun{
-#' hosp_fs <- hospitalizations("flusurv")
+#' @examples 
+#' hosp_fs <- hospitalizations("flusurv", years=2015)
+#' \dontrun{
 #' hosp_eip <- hospitalizations("eip")
 #' hosp_ihsp <- hospitalizations("ihsp")
 #' }

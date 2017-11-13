@@ -21,16 +21,17 @@
 #' - [ILINet Portal](https://wwwn.cdc.gov/ilinet/) (Login required)
 #' - [WHO/NREVSS](https://www.cdc.gov/surveillance/nrevss/index.html)
 #' @export
-#' @examples
-#' national_ili <- ilinet("national")
+#' @examples 
+#' national_ili <- ilinet("national", years=2017)
+#' \dontrun{
 #' hhs_ili <- ilinet("hhs")
 #' census_ili <- ilinet("census")
 #' state_ili <- ilinet("state")
-#' \dontrun{
+#' 
 #' library(purrr)
 #' map_df(
 #'   c("national", "hhs", "census", "state"),
-#'   ~ilinet(.x) %>% readr::type_convert())
+#'   ~ilinet(.x))
 #' }
 ilinet <- function(region=c("national", "hhs", "census", "state"), years=NULL) {
 
@@ -117,6 +118,6 @@ ilinet <- function(region=c("national", "hhs", "census", "state"), years=NULL) {
 
   class(xdf) <- c("tbl_df", "tbl", "data.frame")
 
-  xdf
+  suppressMessages(readr::type_convert(xdf))
 
 }

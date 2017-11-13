@@ -20,9 +20,7 @@ public health laboratories by influenza virus type and subtype/lineage. Laborato
 from multiple seasons and different age groups is provided.
 }
 \examples{
- \dontrun{
-agd_ipt()
-}
+age_group_distribution(years=2015)
 }
 \references{
 - [CDC FluView Portal](https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html)

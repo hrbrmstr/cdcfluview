@@ -13,10 +13,13 @@
 #' @author Bob Rudis (bob@@rud.is)
 #' @import httr
 #' @import MMWRweek
+#' @import xml2
+#' @importFrom purrr map map_df map_chr map_lgl discard keep
+#' @importFrom readr read_csv type_convert
 #' @importFrom tools file_path_sans_ext
 #' @importFrom dplyr left_join bind_rows mutate filter data_frame %>%
 #' @importFrom jsonlite fromJSON
 #' @importFrom stats setNames
 #' @importFrom sf st_read
-#' @importFrom utils read.csv unzip
+#' @importFrom utils read.csv unzip URLencode globalVariables
 NULL

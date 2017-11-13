@@ -27,8 +27,8 @@ to a year.}
 Laboratory-Confirmed Influenza Hospitalizations
 }
 \examples{
+hosp_fs <- hospitalizations("flusurv", years=2015)
 \dontrun{
-hosp_fs <- hospitalizations("flusurv")
 hosp_eip <- hospitalizations("eip")
 hosp_ihsp <- hospitalizations("ihsp")
 }
