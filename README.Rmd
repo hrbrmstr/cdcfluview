@@ -10,7 +10,7 @@ output: rmarkdown::github_document
 
 # I M P O R T A N T
 
-The CDC migrated to a new non-Flash portal and back-end APIs changed. This is a complete reimagining of the package and --- as such --- all your code is going to break. Please use GitHub issues to identify previous API functionality you would like ported over.
+The CDC migrated to a new non-Flash portal and back-end APIs changed. This is a complete reimagining of the package and --- as such --- all your code is going to break...eventually. Older functions have been deprecated with warnings and will be removed at some point.
 
 All folks providing feedback, code or suggestions will be added to the DESCRIPTION file. Please include how you would prefer to be cited in any issues you file.
 
@@ -31,6 +31,7 @@ The following functions are implemented:
 - `age_group_distribution`:	Age Group Distribution of Influenza Positive Tests Reported by Public Health Laboratories
 - `cdc_basemap`:	Retrieve CDC U.S. Basemaps
 - `geographic_spread`:	State and Territorial Epidemiologists Reports of Geographic Spread of Influenza
+- `get_weekly_flu_report`:	Retrieves (high-level) weekly (XML) influenza surveillance report from the CDC
 - `hospitalizations`:	Laboratory-Confirmed Influenza Hospitalizations
 - `ilinet`:	Retrieve ILINet Surveillance Data
 - `ili_weekly_activity_indicators`:	Retrieve weekly state-level ILI indicators per-state for a given season
@@ -38,9 +39,21 @@ The following functions are implemented:
 - `state_data_providers`:	Retrieve metadata about U.S. State CDC Provider Data
 - `surveillance_areas`:	Retrieve a list of valid sub-regions for each surveillance area.
 - `who_nrevss`:	Retrieve WHO/NREVSS Surveillance Data
+
+MMWR ID Utilities:
+
+- `mmwrid_map`:	MMWR ID to Calendar Mappings
 - `mmwr_week`:	Convert a Date to an MMWR day+week+year
 - `mmwr_weekday`:	Convert a Date to an MMWR weekday
 - `mmwr_week_to_date`:	Convert an MMWR year+week or year+week+day to a Date object
+
+Deprecated functions:
+
+- `get_flu_data`:	Retrieves state, regional or national influenza statistics from the CDC (deprecated)
+- `get_hosp_data`:	Retrieves influenza hospitalization statistics from the CDC (deprecated)
+- `get_mortality_surveillance_data`:	Mortality Surveillance Data from the National Center for Health Statistics (deprecated)
+- `get_state_data`:	Retrieves state/territory-level influenza statistics from the CDC (deprecated)
+
 
 The following data sets are included:
 
@@ -72,7 +85,7 @@ packageVersion("cdcfluview")
 ### Age Group Distribution of Influenza Positive Tests Reported by Public Health Laboratories
 
 ```{r message=FALSE, warning=FALSE}
-glimpse(age_group_distribution())
+glimpse(age_group_distribution(years=2015))
 ```
 
 ### Retrieve CDC U.S. Coverage Map
@@ -107,13 +120,13 @@ ggplot(fs_nat, aes(wk_end, rate)) +
        title="FluSurv-NET :: Entire Network :: All Seasons :: Cumulative Rate") +
   theme_ipsum_rc()
 
-glimpse(hospitalizations("eip"))
+glimpse(hospitalizations("eip", years=2015))
 
-glimpse(hospitalizations("eip", "Colorado"))
+glimpse(hospitalizations("eip", "Colorado", years=2015))
 
-glimpse(hospitalizations("ihsp"))
+glimpse(hospitalizations("ihsp", years=2015))
 
-glimpse(hospitalizations("ihsp", "Oklahoma"))
+glimpse(hospitalizations("ihsp", "Oklahoma", years=2015))
 ```
 
 ### Retrieve ILINet Surveillance Data
@@ -144,9 +157,9 @@ ili_weekly_activity_indicators(2017)
 
 xdf <- map_df(2008:2017, ili_weekly_activity_indicators)
 
-count(xdf, weekend, ili_activity_label) %>% 
-  complete(weekend, ili_activity_label) %>% 
-  ggplot(aes(weekend, ili_activity_label, fill=n)) + 
+count(xdf, weekend, activity_level_label) %>% 
+  complete(weekend, activity_level_label) %>% 
+  ggplot(aes(weekend, activity_level_label, fill=n)) + 
   geom_tile(color="#c2c2c2", size=0.1) +
   scale_x_date(expand=c(0,0)) +
   viridis::scale_fill_viridis(name="# States", na.value="White") +
@@ -172,9 +185,9 @@ select(nat_pi, wk_end, percent_pni, baseline, threshold) %>%
   theme_ipsum_rc(grid="XY") +
   theme(legend.position="bottom")
 
-(st_pi <- pi_mortality("state"))
+(st_pi <- pi_mortality("state", years=2015))
 
-(reg_pi <- pi_mortality("region"))
+(reg_pi <- pi_mortality("region", years=2015))
 ```
 
 ### Retrieve metadata about U.S. State CDC Provider Data
@@ -196,11 +209,11 @@ mutate(xdat$combined_prior_to_2015_16,
   labs(x=NULL, title="WHO/NREVSS Surveillance Data (National)") +
   theme_ipsum_rc(grid="XY")
 
-who_nrevss("hhs")
+who_nrevss("hhs", years=2016)
 
-who_nrevss("census")
+who_nrevss("census", years=2016)
 
-who_nrevss("state")
+who_nrevss("state", years=2016)
 ```
 
 

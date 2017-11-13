@@ -68,6 +68,8 @@ test_that("Old API works", {
 
   invisible(get_flu_data())
 
+  invisible(get_hosp_data())
+
   invisible(get_flu_data(data_source="all"))
 
   invisible(get_weekly_flu_report())
