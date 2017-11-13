@@ -23,3 +23,6 @@
 ^cran-comments\.md$
 ^codecov\.yml$
 ^Makefile$
+^README.gfm-ascii_identifiers_files
+^README.gfm-ascii_identifiers_files/
+^README.gfm-ascii_identifiers_files/.*
