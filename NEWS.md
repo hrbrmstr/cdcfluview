@@ -1,7 +1,13 @@
 # cdcfluview 0.7.0
 
-* The CDC changed most of their API endpoints to support a new HTML interface.
-  There are many breaking changes but also many new data endpoints.
+* The CDC changed most of their API endpoints to support a new HTML interface and 
+  re-jiggered the back-end API. Craig McGowan updated the old cdcfluview API function
+  to account for the changes. However, the new API endpoints provided additional
+  data features and it seemed to make sense to revamp the package to fit more in line
+  with the way the APIs were structured. Legacy cdcfluview functions have been deprecated
+  and will display deprecation messages when run. The new cdcfluview package API
+  changes a few things about how you work with the data but the README and examples
+  show how to work with it. 
 
 # cdcfluview 0.5.2
 

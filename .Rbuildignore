@@ -10,9 +10,6 @@
 ^doc$
 ^CONDUCT\.md$
 ^codecov\.yml$
-^.*\.Rproj$
-^\.Rproj\.user$
-^\.travis\.yml$
 ^.*md$
 ^crunch
 ^crunch/
@@ -21,7 +18,6 @@
 ^README_files/.*
 ^README-.*
 ^cran-comments\.md$
-^codecov\.yml$
 ^Makefile$
 ^README.gfm-ascii_identifiers_files
 ^README.gfm-ascii_identifiers_files/
