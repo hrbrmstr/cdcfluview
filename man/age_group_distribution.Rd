@@ -7,10 +7,10 @@
 age_group_distribution(years = NULL)
 }
 \arguments{
-\item{years}{a vector of years to retrieve data for (i.e. `2014` for CDC
+\item{years}{a vector of years to retrieve data for (i.e. \code{2014} for CDC
 flu season 2014-2015). CDC has data for this API going back to 1997.
-Default value (`NULL`) means retrieve **all** years. NOTE: if you
-happen to specify a 2-digit season value (i.e. `57` == 2017-2018)
+Default value (\code{NULL}) means retrieve \strong{all} years. NOTE: if you
+happen to specify a 2-digit season value (i.e. \code{57} == 2017-2018)
 the function is smart enough to retrieve by season ID vs convert that
 to a year.}
 }
@@ -23,6 +23,8 @@ from multiple seasons and different age groups is provided.
 age_group_distribution(years=2015)
 }
 \references{
-- [CDC FluView Portal](https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html)
-- [AGD IPT Portal](https://gis.cdc.gov/grasp/fluview/flu_by_age_virus.html)
+\itemize{
+\item \href{https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html}{CDC FluView Portal}
+\item \href{https://gis.cdc.gov/grasp/fluview/flu_by_age_virus.html}{AGD IPT Portal}
+}
 }
