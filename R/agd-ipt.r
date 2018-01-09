@@ -4,6 +4,7 @@
 #' public health laboratories by influenza virus type and subtype/lineage. Laboratory data
 #' from multiple seasons and different age groups is provided.
 #'
+#' @md
 #' @references
 #' - [CDC FluView Portal](https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html)
 #' - [AGD IPT Portal](https://gis.cdc.gov/grasp/fluview/flu_by_age_virus.html)
