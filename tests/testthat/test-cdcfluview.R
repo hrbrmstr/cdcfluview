@@ -2,8 +2,6 @@ context("new API functionality")
 
 test_that("New API works", {
 
-  skip_on_cran()
-
   expect_that(age_group_distribution(years=2017), is_a("data.frame"))
 
   expect_that(geographic_spread(years=2017), is_a("data.frame"))
@@ -15,6 +13,8 @@ test_that("New API works", {
   expect_that(hospitalizations("eip", "Colorado", years=2017), is_a("data.frame"))
   expect_that(hospitalizations("ihsp", years=2017), is_a("data.frame"))
   expect_that(hospitalizations("ihsp", "Oklahoma", years=2017), is_a("data.frame"))
+
+  skip_on_cran()
 
   expect_that(ilinet("national", years=2017), is_a("data.frame"))
   expect_that(ilinet("hhs", years=2017), is_a("data.frame"))
@@ -60,9 +60,9 @@ context("old API functionality")
 
 test_that("Old API works", {
 
-  skip_on_cran()
-
   expect_that(dim(get_flu_data("hhs", years=2015)), equals(c(520L, 15L)))
+
+  skip_on_cran()
 
   expect_that(dim(get_state_data(2008)), equals(c(2494L, 8L)))
 

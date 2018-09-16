@@ -54,7 +54,6 @@ Deprecated functions:
 
 - `get_flu_data`:	Retrieves state, regional or national influenza statistics from the CDC (deprecated)
 - `get_hosp_data`:	Retrieves influenza hospitalization statistics from the CDC (deprecated)
-- `get_mortality_surveillance_data`:	Mortality Surveillance Data from the National Center for Health Statistics (deprecated)
 - `get_state_data`:	Retrieves state/territory-level influenza statistics from the CDC (deprecated)
 
 
@@ -72,7 +71,7 @@ devtools::install_github("hrbrmstr/cdcfluview")
 
 ## Usage
 
-```{r}
+```{r libs}
 library(cdcfluview)
 library(hrbrthemes)
 library(tidyverse)
@@ -83,13 +82,13 @@ packageVersion("cdcfluview")
 
 ### Age Group Distribution of Influenza Positive Tests Reported by Public Health Laboratories
 
-```{r}
+```{r age-group-dist}
 glimpse(age_group_distribution(years=2015))
 ```
 
 ### Retrieve CDC U.S. Coverage Map
 
-```{r}
+```{r cdc-basemaps}
 plot(cdc_basemap("national"))
 plot(cdc_basemap("hhs"))
 plot(cdc_basemap("census"))
@@ -100,13 +99,13 @@ plot(cdc_basemap("surv"))
 
 ### State and Territorial Epidemiologists Reports of Geographic Spread of Influenza
 
-```{r message=FALSE, warning=FALSE}
+```{r geographic-spread, message=FALSE, warning=FALSE}
 glimpse(geographic_spread())
 ```
 
 ### Laboratory-Confirmed Influenza Hospitalizations
 
-```{r fig.width=10, fig.height=7.5}
+```{r surveillance-areas, fig.width=10, fig.height=7.5}
 surveillance_areas()
 
 glimpse(fs_nat <- hospitalizations("flusurv"))
@@ -130,7 +129,7 @@ glimpse(hospitalizations("ihsp", "Oklahoma", years=2015))
 
 ### Retrieve ILINet Surveillance Data
 
-```{r}
+```{r ili-df}
 walk(c("national", "hhs", "census", "state"), ~{
   
   ili_df <- ilinet(region = .x)
@@ -151,7 +150,7 @@ walk(c("national", "hhs", "census", "state"), ~{
 
 ### Retrieve weekly state-level ILI indicators per-state for a given season
 
-```{r fig.width=10, fig.height=5}
+```{r ili-weekly-activity, fig.width=10, fig.height=5}
 ili_weekly_activity_indicators(2017)
 
 xdf <- map_df(2008:2017, ili_weekly_activity_indicators)
@@ -170,7 +169,7 @@ count(xdf, weekend, activity_level_label) %>%
 
 ### Pneumonia and Influenza Mortality Surveillance
 
-```{r}
+```{r nat-pi-mortality}
 (nat_pi <- pi_mortality("national"))
 
 select(nat_pi, wk_end, percent_pni, baseline, threshold) %>% 
@@ -191,13 +190,13 @@ select(nat_pi, wk_end, percent_pni, baseline, threshold) %>%
 
 ### Retrieve metadata about U.S. State CDC Provider Data
 
-```{r}
+```{r state-data-providers}
 state_data_providers()
 ```
 
 ### Retrieve WHO/NREVSS Surveillance Data
 
-```{r}
+```{r who-vrevss}
 glimpse(xdat <- who_nrevss("national"))
 
 mutate(xdat$combined_prior_to_2015_16, 

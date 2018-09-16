@@ -71,8 +71,6 @@ Deprecated functions:
     statistics from the CDC (deprecated)
   - `get_hosp_data`: Retrieves influenza hospitalization statistics from
     the CDC (deprecated)
-  - `get_mortality_surveillance_data`: Mortality Surveillance Data from
-    the National Center for Health Statistics (deprecated)
   - `get_state_data`: Retrieves state/territory-level influenza
     statistics from the CDC (deprecated)
 
@@ -102,7 +100,7 @@ library(tidyverse)
 packageVersion("cdcfluview")
 ```
 
-    ## [1] '0.7.0'
+    ## [1] '0.8.0'
 
 ### Age Group Distribution of Influenza Positive Tests Reported by Public Health Laboratories
 
@@ -113,12 +111,12 @@ glimpse(age_group_distribution(years=2015))
     ## Observations: 1,872
     ## Variables: 16
     ## $ sea_label         <chr> "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "...
-    ## $ age_label         <fctr> 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, ...
-    ## $ vir_label         <fctr> A (Subtyping not Performed), A (Subtyping not Performed), A (Subtyping not Performed), A...
+    ## $ age_label         <fct> 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0...
+    ## $ vir_label         <fct> A (Subtyping not Performed), A (Subtyping not Performed), A (Subtyping not Performed), A ...
     ## $ count             <int> 0, 1, 0, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 3, 2, 2, 3, 3, 3, 0, 0, 2, 0, 1, 1, 0,...
     ## $ mmwrid            <int> 2806, 2807, 2808, 2809, 2810, 2811, 2812, 2813, 2814, 2815, 2816, 2817, 2818, 2819, 2820,...
     ## $ seasonid          <int> 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 5...
-    ## $ publishyearweekid <int> 2914, 2914, 2914, 2914, 2914, 2914, 2914, 2914, 2914, 2914, 2914, 2914, 2914, 2914, 2914,...
+    ## $ publishyearweekid <int> 2956, 2956, 2956, 2956, 2956, 2956, 2956, 2956, 2956, 2956, 2956, 2956, 2956, 2956, 2956,...
     ## $ sea_description   <chr> "Season 2015-16", "Season 2015-16", "Season 2015-16", "Season 2015-16", "Season 2015-16",...
     ## $ sea_startweek     <int> 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2806,...
     ## $ sea_endweek       <int> 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2857,...
@@ -135,37 +133,37 @@ glimpse(age_group_distribution(years=2015))
 plot(cdc_basemap("national"))
 ```
 
-![](README.gfm-ascii_identifiers_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+<img src="README_files/figure-gfm/cdc-basemaps-1.png" width="672" />
 
 ``` r
 plot(cdc_basemap("hhs"))
 ```
 
-![](README.gfm-ascii_identifiers_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+<img src="README_files/figure-gfm/cdc-basemaps-2.png" width="672" />
 
 ``` r
 plot(cdc_basemap("census"))
 ```
 
-![](README.gfm-ascii_identifiers_files/figure-gfm/unnamed-chunk-5-3.png)<!-- -->
+<img src="README_files/figure-gfm/cdc-basemaps-3.png" width="672" />
 
 ``` r
 plot(cdc_basemap("states"))
 ```
 
-![](README.gfm-ascii_identifiers_files/figure-gfm/unnamed-chunk-5-4.png)<!-- -->
+<img src="README_files/figure-gfm/cdc-basemaps-4.png" width="672" />
 
 ``` r
 plot(cdc_basemap("spread"))
 ```
 
-![](README.gfm-ascii_identifiers_files/figure-gfm/unnamed-chunk-5-5.png)<!-- -->
+<img src="README_files/figure-gfm/cdc-basemaps-5.png" width="672" />
 
 ``` r
 plot(cdc_basemap("surv"))
 ```
 
-![](README.gfm-ascii_identifiers_files/figure-gfm/unnamed-chunk-5-6.png)<!-- -->
+<img src="README_files/figure-gfm/cdc-basemaps-6.png" width="672" />
 
 ### State and Territorial Epidemiologists Reports of Geographic Spread of Influenza
 
@@ -173,7 +171,7 @@ plot(cdc_basemap("surv"))
 glimpse(geographic_spread())
 ```
 
-    ## Observations: 25,848
+    ## Observations: 27,351
     ## Variables: 7
     ## $ statename         <chr> "Alabama", "Alabama", "Alabama", "Alabama", "Alabama", "Alabama", "Alabama", "Alabama", "...
     ## $ url               <chr> "http://adph.org/influenza/", "http://adph.org/influenza/", "http://adph.org/influenza/",...
@@ -217,7 +215,7 @@ surveillance_areas()
 glimpse(fs_nat <- hospitalizations("flusurv"))
 ```
 
-    ## Observations: 1,476
+    ## Observations: 1,656
     ## Variables: 14
     ## $ surveillance_area <chr> "FluSurv-NET", "FluSurv-NET", "FluSurv-NET", "FluSurv-NET", "FluSurv-NET", "FluSurv-NET",...
     ## $ region            <chr> "Entire Network", "Entire Network", "Entire Network", "Entire Network", "Entire Network",...
@@ -229,7 +227,7 @@ glimpse(fs_nat <- hospitalizations("flusurv"))
     ## $ rate              <dbl> 0.5, 2.5, 4.6, 6.7, 10.9, 18.1, 28.3, 39.1, 47.3, 53.3, 57.5, 60.1, 61.6, 62.9, 64.1, 65....
     ## $ weeklyrate        <dbl> 0.5, 2.0, 2.0, 2.1, 4.3, 7.2, 10.2, 10.8, 8.2, 6.0, 4.2, 2.6, 1.5, 1.3, 1.3, 1.0, 1.2, 1....
     ## $ age               <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
-    ## $ age_label         <fctr> 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, ...
+    ## $ age_label         <fct> 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0...
     ## $ sea_label         <chr> "2009-10", "2009-10", "2009-10", "2009-10", "2009-10", "2009-10", "2009-10", "2009-10", "...
     ## $ sea_description   <chr> "Season 2009-10", "Season 2009-10", "Season 2009-10", "Season 2009-10", "Season 2009-10",...
     ## $ mmwrid            <int> 2488, 2489, 2490, 2491, 2492, 2493, 2494, 2495, 2496, 2497, 2498, 2499, 2500, 2501, 2502,...
@@ -244,7 +242,7 @@ ggplot(fs_nat, aes(wk_end, rate)) +
   theme_ipsum_rc()
 ```
 
-![](README.gfm-ascii_identifiers_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+<img src="README_files/figure-gfm/surveillance-areas-1.png" width="960" />
 
 ``` r
 glimpse(hospitalizations("eip", years=2015))
@@ -262,7 +260,7 @@ glimpse(hospitalizations("eip", years=2015))
     ## $ rate              <dbl> 0.1, 0.3, 0.4, 0.5, 0.8, 0.8, 1.1, 1.4, 1.6, 1.7, 1.8, 2.1, 2.4, 2.9, 3.2, 3.5, 4.2, 5.3,...
     ## $ weeklyrate        <dbl> 0.1, 0.3, 0.1, 0.1, 0.3, 0.0, 0.3, 0.3, 0.2, 0.1, 0.1, 0.3, 0.3, 0.5, 0.3, 0.3, 0.6, 1.2,...
     ## $ age               <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
-    ## $ age_label         <fctr> 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, ...
+    ## $ age_label         <fct> 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0...
     ## $ sea_label         <chr> "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "...
     ## $ sea_description   <chr> "Season 2015-16", "Season 2015-16", "Season 2015-16", "Season 2015-16", "Season 2015-16",...
     ## $ mmwrid            <int> 2806, 2807, 2808, 2809, 2810, 2811, 2812, 2813, 2814, 2815, 2816, 2817, 2818, 2819, 2820,...
@@ -280,10 +278,10 @@ glimpse(hospitalizations("eip", "Colorado", years=2015))
     ## $ wk_start          <date> 2015-10-04, 2015-10-11, 2015-10-18, 2015-10-25, 2015-11-01, 2015-11-08, 2015-11-15, 2015...
     ## $ wk_end            <date> 2015-10-10, 2015-10-17, 2015-10-24, 2015-10-31, 2015-11-07, 2015-11-14, 2015-11-21, 2015...
     ## $ year_wk_num       <int> 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12...
-    ## $ rate              <dbl> 0.0, 0.0, 0.6, 0.6, 0.6, 0.6, 1.2, 1.7, 1.7, 1.7, 1.7, 1.7, 2.9, 3.5, 3.5, 3.5, 4.1, 6.4,...
+    ## $ rate              <dbl> 0.0, 0.0, 0.6, 0.6, 0.6, 0.6, 1.2, 1.8, 1.8, 1.8, 1.8, 1.8, 2.9, 3.5, 3.5, 3.5, 4.1, 6.4,...
     ## $ weeklyrate        <dbl> 0.0, 0.0, 0.6, 0.0, 0.0, 0.0, 0.6, 0.6, 0.0, 0.0, 0.0, 0.0, 1.2, 0.6, 0.0, 0.0, 0.6, 2.3,...
     ## $ age               <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
-    ## $ age_label         <fctr> 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, ...
+    ## $ age_label         <fct> 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0...
     ## $ sea_label         <chr> "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "...
     ## $ sea_description   <chr> "Season 2015-16", "Season 2015-16", "Season 2015-16", "Season 2015-16", "Season 2015-16",...
     ## $ mmwrid            <int> 2806, 2807, 2808, 2809, 2810, 2811, 2812, 2813, 2814, 2815, 2816, 2817, 2818, 2819, 2820,...
@@ -304,7 +302,7 @@ glimpse(hospitalizations("ihsp", years=2015))
     ## $ rate              <dbl> 0.0, 0.0, 0.4, 0.4, 0.4, 1.1, 1.1, 1.1, 1.1, 1.5, 1.8, 2.2, 2.2, 2.5, 2.5, 2.5, 2.9, 4.0,...
     ## $ weeklyrate        <dbl> 0.0, 0.0, 0.4, 0.0, 0.0, 0.7, 0.0, 0.0, 0.0, 0.4, 0.4, 0.4, 0.0, 0.4, 0.0, 0.0, 0.4, 1.1,...
     ## $ age               <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
-    ## $ age_label         <fctr> 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, ...
+    ## $ age_label         <fct> 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0...
     ## $ sea_label         <chr> "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "2015-16", "...
     ## $ sea_description   <chr> "Season 2015-16", "Season 2015-16", "Season 2015-16", "Season 2015-16", "Season 2015-16",...
     ## $ mmwrid            <int> 2806, 2807, 2808, 2809, 2810, 2811, 2812, 2813, 2814, 2815, 2816, 2817, 2818, 2819, 2820,...
@@ -322,10 +320,10 @@ glimpse(hospitalizations("ihsp", "Oklahoma", years=2015))
     ## $ wk_start          <date> 2010-10-03, 2010-10-10, 2010-10-17, 2010-10-24, 2010-10-31, 2010-11-07, 2010-11-14, 2010...
     ## $ wk_end            <date> 2010-10-09, 2010-10-16, 2010-10-23, 2010-10-30, 2010-11-06, 2010-11-13, 2010-11-20, 2010...
     ## $ year_wk_num       <int> 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12...
-    ## $ rate              <dbl> 0.0, 0.0, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 2.6, 2.6, 6.6, 15.9, 18.5, 35.7, 54.2, 83.3,...
+    ## $ rate              <dbl> 0.0, 0.0, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 2.6, 2.6, 6.6, 15.9, 18.5, 35.7, 54.2, 83.4,...
     ## $ weeklyrate        <dbl> 0.0, 0.0, 1.3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.3, 0.0, 4.0, 9.3, 2.6, 17.2, 18.5, 29.1, 2...
     ## $ age               <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
-    ## $ age_label         <fctr> 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, ...
+    ## $ age_label         <fct> 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0-4 yr, 0...
     ## $ sea_label         <chr> "2010-11", "2010-11", "2010-11", "2010-11", "2010-11", "2010-11", "2010-11", "2010-11", "...
     ## $ sea_description   <chr> "Season 2010-11", "Season 2010-11", "Season 2010-11", "Season 2010-11", "Season 2010-11",...
     ## $ mmwrid            <int> 2545, 2546, 2547, 2548, 2549, 2550, 2551, 2552, 2553, 2554, 2555, 2556, 2557, 2558, 2559,...
@@ -351,7 +349,7 @@ walk(c("national", "hhs", "census", "state"), ~{
 })
 ```
 
-    ## Observations: 1,049
+    ## Observations: 1,093
     ## Variables: 16
     ## $ region_type      <chr> "National", "National", "National", "National", "National", "National", "National", "Natio...
     ## $ region           <chr> "National", "National", "National", "National", "National", "National", "National", "Natio...
@@ -369,28 +367,28 @@ walk(c("national", "hhs", "census", "state"), ~{
     ## $ num_of_providers <dbl> 192, 191, 219, 213, 213, 195, 248, 256, 252, 253, 242, 190, 251, 250, 254, 255, 245, 245, ...
     ## $ total_patients   <dbl> 46842, 48023, 54961, 57044, 55506, 51062, 64463, 66749, 52890, 67887, 61314, 47719, 48429,...
     ## $ week_start       <date> 1997-10-06, 1997-10-13, 1997-10-20, 1997-10-27, 1997-11-03, 1997-11-10, 1997-11-17, 1997-...
-    ## # A tibble: 1,049 x 16
-    ##    region_type   region  year  week weighted_ili unweighted_ili age_0_4 age_25_49 age_25_64 age_5_24 age_50_64 age_65
-    ##          <chr>    <chr> <int> <int>        <dbl>          <dbl>   <dbl>     <dbl>     <dbl>    <dbl>     <dbl>  <dbl>
-    ##  1    National National  1997    40      1.10148        1.21686     179        NA       157      205        NA     29
-    ##  2    National National  1997    41      1.20007        1.28064     199        NA       151      242        NA     23
-    ##  3    National National  1997    42      1.37876        1.23906     228        NA       153      266        NA     34
-    ##  4    National National  1997    43      1.19920        1.14473     188        NA       193      236        NA     36
-    ##  5    National National  1997    44      1.65618        1.26112     217        NA       162      280        NA     41
-    ##  6    National National  1997    45      1.41326        1.28275     178        NA       148      281        NA     48
-    ##  7    National National  1997    46      1.98680        1.44579     294        NA       240      328        NA     70
-    ##  8    National National  1997    47      2.44749        1.64796     288        NA       293      456        NA     63
-    ##  9    National National  1997    48      1.73901        1.67517     268        NA       206      343        NA     69
-    ## 10    National National  1997    49      1.93919        1.61739     299        NA       282      415        NA    102
-    ## # ... with 1,039 more rows, and 4 more variables: ilitotal <dbl>, num_of_providers <dbl>, total_patients <dbl>,
+    ## # A tibble: 1,093 x 16
+    ##    region_type region    year  week weighted_ili unweighted_ili age_0_4 age_25_49 age_25_64 age_5_24 age_50_64 age_65
+    ##    <chr>       <chr>    <int> <int>        <dbl>          <dbl>   <dbl>     <dbl>     <dbl>    <dbl>     <dbl>  <dbl>
+    ##  1 National    National  1997    40         1.10           1.22     179        NA       157      205        NA     29
+    ##  2 National    National  1997    41         1.20           1.28     199        NA       151      242        NA     23
+    ##  3 National    National  1997    42         1.38           1.24     228        NA       153      266        NA     34
+    ##  4 National    National  1997    43         1.20           1.14     188        NA       193      236        NA     36
+    ##  5 National    National  1997    44         1.66           1.26     217        NA       162      280        NA     41
+    ##  6 National    National  1997    45         1.41           1.28     178        NA       148      281        NA     48
+    ##  7 National    National  1997    46         1.99           1.45     294        NA       240      328        NA     70
+    ##  8 National    National  1997    47         2.45           1.65     288        NA       293      456        NA     63
+    ##  9 National    National  1997    48         1.74           1.68     268        NA       206      343        NA     69
+    ## 10 National    National  1997    49         1.94           1.62     299        NA       282      415        NA    102
+    ## # ... with 1,083 more rows, and 4 more variables: ilitotal <dbl>, num_of_providers <dbl>, total_patients <dbl>,
     ## #   week_start <date>
 
-![](README.gfm-ascii_identifiers_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+<img src="README_files/figure-gfm/ili-df-1.png" width="672" />
 
-    ## Observations: 10,490
+    ## Observations: 10,930
     ## Variables: 16
     ## $ region_type      <chr> "HHS Regions", "HHS Regions", "HHS Regions", "HHS Regions", "HHS Regions", "HHS Regions", ...
-    ## $ region           <fctr> Region 1, Region 2, Region 3, Region 4, Region 5, Region 6, Region 7, Region 8, Region 9,...
+    ## $ region           <fct> Region 1, Region 2, Region 3, Region 4, Region 5, Region 6, Region 7, Region 8, Region 9, ...
     ## $ year             <int> 1997, 1997, 1997, 1997, 1997, 1997, 1997, 1997, 1997, 1997, 1997, 1997, 1997, 1997, 1997, ...
     ## $ week             <int> 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 42, 42, 42...
     ## $ weighted_ili     <dbl> 0.498535, 0.374963, 1.354280, 0.400338, 1.229260, 1.018980, 0.871791, 0.516017, 1.807610, ...
@@ -405,25 +403,25 @@ walk(c("national", "hhs", "census", "state"), ~{
     ## $ num_of_providers <dbl> 32, 7, 16, 29, 49, 4, 14, 5, 23, 13, 29, 7, 17, 31, 48, 4, 14, 6, 23, 12, 40, 7, 15, 33, 6...
     ## $ total_patients   <dbl> 7053, 780, 2385, 10222, 9875, 669, 2342, 1183, 10758, 1575, 6987, 872, 2740, 11310, 9618, ...
     ## $ week_start       <date> 1997-10-06, 1997-10-06, 1997-10-06, 1997-10-06, 1997-10-06, 1997-10-06, 1997-10-06, 1997-...
-    ## # A tibble: 10,490 x 16
-    ##    region_type    region  year  week weighted_ili unweighted_ili age_0_4 age_25_49 age_25_64 age_5_24 age_50_64 age_65
-    ##          <chr>    <fctr> <int> <int>        <dbl>          <dbl>   <dbl>     <dbl>     <dbl>    <dbl>     <dbl>  <dbl>
-    ##  1 HHS Regions  Region 1  1997    40     0.498535       0.623848      15        NA         7       22        NA      0
-    ##  2 HHS Regions  Region 2  1997    40     0.374963       0.384615       0        NA         3        0        NA      0
-    ##  3 HHS Regions  Region 3  1997    40     1.354280       1.341720       6        NA         7       15        NA      4
-    ##  4 HHS Regions  Region 4  1997    40     0.400338       0.450010      12        NA        23       11        NA      0
-    ##  5 HHS Regions  Region 5  1997    40     1.229260       0.901266      31        NA        24       30        NA      4
-    ##  6 HHS Regions  Region 6  1997    40     1.018980       0.747384       2        NA         1        2        NA      0
-    ##  7 HHS Regions  Region 7  1997    40     0.871791       1.152860       0        NA         4       18        NA      5
-    ##  8 HHS Regions  Region 8  1997    40     0.516017       0.422654       2        NA         0        3        NA      0
-    ##  9 HHS Regions  Region 9  1997    40     1.807610       2.258780      80        NA        76       74        NA     13
-    ## 10 HHS Regions Region 10  1997    40     4.743520       4.825400      31        NA        12       30        NA      3
-    ## # ... with 10,480 more rows, and 4 more variables: ilitotal <dbl>, num_of_providers <dbl>, total_patients <dbl>,
+    ## # A tibble: 10,930 x 16
+    ##    region_type region     year  week weighted_ili unweighted_ili age_0_4 age_25_49 age_25_64 age_5_24 age_50_64 age_65
+    ##    <chr>       <fct>     <int> <int>        <dbl>          <dbl>   <dbl>     <dbl>     <dbl>    <dbl>     <dbl>  <dbl>
+    ##  1 HHS Regions Region 1   1997    40        0.499          0.624      15        NA         7       22        NA      0
+    ##  2 HHS Regions Region 2   1997    40        0.375          0.385       0        NA         3        0        NA      0
+    ##  3 HHS Regions Region 3   1997    40        1.35           1.34        6        NA         7       15        NA      4
+    ##  4 HHS Regions Region 4   1997    40        0.400          0.450      12        NA        23       11        NA      0
+    ##  5 HHS Regions Region 5   1997    40        1.23           0.901      31        NA        24       30        NA      4
+    ##  6 HHS Regions Region 6   1997    40        1.02           0.747       2        NA         1        2        NA      0
+    ##  7 HHS Regions Region 7   1997    40        0.872          1.15        0        NA         4       18        NA      5
+    ##  8 HHS Regions Region 8   1997    40        0.516          0.423       2        NA         0        3        NA      0
+    ##  9 HHS Regions Region 9   1997    40        1.81           2.26       80        NA        76       74        NA     13
+    ## 10 HHS Regions Region 10  1997    40        4.74           4.83       31        NA        12       30        NA      3
+    ## # ... with 10,920 more rows, and 4 more variables: ilitotal <dbl>, num_of_providers <dbl>, total_patients <dbl>,
     ## #   week_start <date>
 
-![](README.gfm-ascii_identifiers_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
+<img src="README_files/figure-gfm/ili-df-2.png" width="672" />
 
-    ## Observations: 9,441
+    ## Observations: 9,837
     ## Variables: 16
     ## $ region_type      <chr> "Census Regions", "Census Regions", "Census Regions", "Census Regions", "Census Regions", ...
     ## $ region           <chr> "New England", "Mid-Atlantic", "East North Central", "West North Central", "South Atlantic...
@@ -441,25 +439,25 @@ walk(c("national", "hhs", "census", "state"), ~{
     ## $ num_of_providers <dbl> 32, 13, 47, 17, 30, 9, 4, 16, 24, 29, 13, 46, 17, 32, 10, 4, 17, 23, 40, 12, 62, 16, 33, 1...
     ## $ total_patients   <dbl> 7053, 2119, 9649, 2892, 6912, 4356, 669, 10719, 2473, 6987, 2384, 9427, 2823, 7591, 4947, ...
     ## $ week_start       <date> 1997-10-06, 1997-10-06, 1997-10-06, 1997-10-06, 1997-10-06, 1997-10-06, 1997-10-06, 1997-...
-    ## # A tibble: 9,441 x 16
-    ##       region_type             region  year  week weighted_ili unweighted_ili age_0_4 age_25_49 age_25_64 age_5_24
-    ##             <chr>              <chr> <int> <int>        <dbl>          <dbl>   <dbl>     <dbl>     <dbl>    <dbl>
-    ##  1 Census Regions        New England  1997    40    0.4985350      0.6238480      15        NA         7       22
-    ##  2 Census Regions       Mid-Atlantic  1997    40    0.8441440      1.3213800       4        NA         8       12
-    ##  3 Census Regions East North Central  1997    40    0.7924860      0.8187380      28        NA        20       28
-    ##  4 Census Regions West North Central  1997    40    1.7640500      1.2793900       3        NA         8       20
-    ##  5 Census Regions     South Atlantic  1997    40    0.5026620      0.7233800      14        NA        22       14
-    ##  6 Census Regions East South Central  1997    40    0.0542283      0.0688705       0        NA         3        0
-    ##  7 Census Regions West South Central  1997    40    1.0189800      0.7473840       2        NA         1        2
-    ##  8 Census Regions           Mountain  1997    40    2.2587800      2.2763300      87        NA        71       71
-    ##  9 Census Regions            Pacific  1997    40    2.0488300      3.2349400      26        NA        17       36
-    ## 10 Census Regions        New England  1997    41    0.6426690      0.8158010      14        NA        14       29
-    ## # ... with 9,431 more rows, and 6 more variables: age_50_64 <dbl>, age_65 <dbl>, ilitotal <dbl>,
-    ## #   num_of_providers <dbl>, total_patients <dbl>, week_start <date>
+    ## # A tibble: 9,837 x 16
+    ##    region_type  region     year  week weighted_ili unweighted_ili age_0_4 age_25_49 age_25_64 age_5_24 age_50_64 age_65
+    ##    <chr>        <chr>     <int> <int>        <dbl>          <dbl>   <dbl>     <dbl>     <dbl>    <dbl>     <dbl>  <dbl>
+    ##  1 Census Regi… New Engl…  1997    40       0.499          0.624       15        NA         7       22        NA      0
+    ##  2 Census Regi… Mid-Atla…  1997    40       0.844          1.32         4        NA         8       12        NA      4
+    ##  3 Census Regi… East Nor…  1997    40       0.792          0.819       28        NA        20       28        NA      3
+    ##  4 Census Regi… West Nor…  1997    40       1.76           1.28         3        NA         8       20        NA      6
+    ##  5 Census Regi… South At…  1997    40       0.503          0.723       14        NA        22       14        NA      0
+    ##  6 Census Regi… East Sou…  1997    40       0.0542         0.0689       0        NA         3        0        NA      0
+    ##  7 Census Regi… West Sou…  1997    40       1.02           0.747        2        NA         1        2        NA      0
+    ##  8 Census Regi… Mountain   1997    40       2.26           2.28        87        NA        71       71        NA     15
+    ##  9 Census Regi… Pacific    1997    40       2.05           3.23        26        NA        17       36        NA      1
+    ## 10 Census Regi… New Engl…  1997    41       0.643          0.816       14        NA        14       29        NA      0
+    ## # ... with 9,827 more rows, and 4 more variables: ilitotal <dbl>, num_of_providers <dbl>, total_patients <dbl>,
+    ## #   week_start <date>
 
-![](README.gfm-ascii_identifiers_files/figure-gfm/unnamed-chunk-8-3.png)<!-- -->
+<img src="README_files/figure-gfm/ili-df-3.png" width="672" />
 
-    ## Observations: 19,772
+    ## Observations: 22,148
     ## Variables: 16
     ## $ region_type      <chr> "States", "States", "States", "States", "States", "States", "States", "States", "States", ...
     ## $ region           <chr> "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Dela...
@@ -473,27 +471,27 @@ walk(c("national", "hhs", "census", "state"), ~{
     ## $ age_5_24         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
     ## $ age_50_64        <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
     ## $ age_65           <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
-    ## $ ilitotal         <dbl> 249, 15, 172, 18, 632, 134, 3, 4, 73, NA, 647, 20, 19, 505, 65, 10, 39, 19, NA, 22, 117, 1...
-    ## $ num_of_providers <dbl> 35, 7, 49, 15, 112, 14, 12, 13, 4, NA, 62, 18, 12, 74, 44, 6, 40, 14, NA, 30, 17, 56, 47, ...
+    ## $ ilitotal         <dbl> 249, 15, 172, 18, 632, 134, 3, 4, 73, NA, 647, 20, 19, 505, 65, 10, 39, 19, 391, 22, 117, ...
+    ## $ num_of_providers <dbl> 35, 7, 49, 15, 112, 14, 12, 13, 4, NA, 62, 18, 12, 74, 44, 6, 40, 14, 41, 30, 17, 56, 47, ...
     ## $ total_patients   <dbl> 11664, 1714, 25492, 2586, 32342, 20282, 3831, 3995, 2599, NA, 40314, 1943, 4579, 39390, 12...
     ## $ week_start       <date> 2010-10-04, 2010-10-04, 2010-10-04, 2010-10-04, 2010-10-04, 2010-10-04, 2010-10-04, 2010-...
-    ## # A tibble: 19,772 x 16
-    ##    region_type               region  year  week weighted_ili unweighted_ili age_0_4 age_25_49 age_25_64 age_5_24
-    ##          <chr>                <chr> <int> <int>        <dbl>          <dbl>   <dbl>     <dbl>     <dbl>    <dbl>
-    ##  1      States              Alabama  2010    40           NA      2.1347700      NA        NA        NA       NA
-    ##  2      States               Alaska  2010    40           NA      0.8751460      NA        NA        NA       NA
-    ##  3      States              Arizona  2010    40           NA      0.6747210      NA        NA        NA       NA
-    ##  4      States             Arkansas  2010    40           NA      0.6960560      NA        NA        NA       NA
-    ##  5      States           California  2010    40           NA      1.9541200      NA        NA        NA       NA
-    ##  6      States             Colorado  2010    40           NA      0.6606840      NA        NA        NA       NA
-    ##  7      States          Connecticut  2010    40           NA      0.0783085      NA        NA        NA       NA
-    ##  8      States             Delaware  2010    40           NA      0.1001250      NA        NA        NA       NA
-    ##  9      States District of Columbia  2010    40           NA      2.8087700      NA        NA        NA       NA
-    ## 10      States              Florida  2010    40           NA             NA      NA        NA        NA       NA
-    ## # ... with 19,762 more rows, and 6 more variables: age_50_64 <dbl>, age_65 <dbl>, ilitotal <dbl>,
-    ## #   num_of_providers <dbl>, total_patients <dbl>, week_start <date>
+    ## # A tibble: 22,148 x 16
+    ##    region_type region      year  week weighted_ili unweighted_ili age_0_4 age_25_49 age_25_64 age_5_24 age_50_64 age_65
+    ##    <chr>       <chr>      <int> <int>        <dbl>          <dbl>   <dbl>     <dbl>     <dbl>    <dbl>     <dbl>  <dbl>
+    ##  1 States      Alabama     2010    40           NA         2.13        NA        NA        NA       NA        NA     NA
+    ##  2 States      Alaska      2010    40           NA         0.875       NA        NA        NA       NA        NA     NA
+    ##  3 States      Arizona     2010    40           NA         0.675       NA        NA        NA       NA        NA     NA
+    ##  4 States      Arkansas    2010    40           NA         0.696       NA        NA        NA       NA        NA     NA
+    ##  5 States      California  2010    40           NA         1.95        NA        NA        NA       NA        NA     NA
+    ##  6 States      Colorado    2010    40           NA         0.661       NA        NA        NA       NA        NA     NA
+    ##  7 States      Connectic…  2010    40           NA         0.0783      NA        NA        NA       NA        NA     NA
+    ##  8 States      Delaware    2010    40           NA         0.100       NA        NA        NA       NA        NA     NA
+    ##  9 States      District …  2010    40           NA         2.81        NA        NA        NA       NA        NA     NA
+    ## 10 States      Florida     2010    40           NA        NA           NA        NA        NA       NA        NA     NA
+    ## # ... with 22,138 more rows, and 4 more variables: ilitotal <dbl>, num_of_providers <dbl>, total_patients <dbl>,
+    ## #   week_start <date>
 
-![](README.gfm-ascii_identifiers_files/figure-gfm/unnamed-chunk-8-4.png)<!-- -->
+<img src="README_files/figure-gfm/ili-df-4.png" width="672" />
 
 ### Retrieve weekly state-level ILI indicators per-state for a given season
 
@@ -501,21 +499,20 @@ walk(c("national", "hhs", "census", "state"), ~{
 ili_weekly_activity_indicators(2017)
 ```
 
-    ## # A tibble: 270 x 8
-    ##         statename                                                                                 url
-    ##  *          <chr>                                                                               <chr>
-    ##  1 Virgin Islands                                                                  http://doh.vi.gov/
-    ##  2 Virgin Islands                                                                  http://doh.vi.gov/
-    ##  3 Virgin Islands                                                                  http://doh.vi.gov/
-    ##  4    Puerto Rico http://www.salud.gov.pr/Estadisticas-Registros-y-Publicaciones/Pages/Influenza.aspx
-    ##  5 Virgin Islands                                                                  http://doh.vi.gov/
-    ##  6    Puerto Rico http://www.salud.gov.pr/Estadisticas-Registros-y-Publicaciones/Pages/Influenza.aspx
-    ##  7 Virgin Islands                                                                  http://doh.vi.gov/
-    ##  8        Indiana                                                    http://www.in.gov/isdh/22104.htm
-    ##  9           Iowa                                         http://idph.iowa.gov/influenza/surveillance
-    ## 10         Kansas                                          http://www.kdheks.gov/flu/surveillance.htm
-    ## # ... with 260 more rows, and 6 more variables: website <chr>, activity_level <dbl>, activity_level_label <chr>,
-    ## #   weekend <date>, season <chr>, weeknumber <dbl>
+    ## # A tibble: 1,782 x 8
+    ##    statename      url                website   activity_level activity_level_label weekend    season  weeknumber
+    ##  * <chr>          <chr>              <chr>              <dbl> <chr>                <date>     <chr>        <dbl>
+    ##  1 Virgin Islands http://doh.vi.gov/ Influenza              0 Insufficient Data    2017-10-07 2017-18         40
+    ##  2 Virgin Islands http://doh.vi.gov/ Influenza              0 Insufficient Data    2017-10-14 2017-18         41
+    ##  3 Virgin Islands http://doh.vi.gov/ Influenza              0 Insufficient Data    2017-10-21 2017-18         42
+    ##  4 Virgin Islands http://doh.vi.gov/ Influenza              0 Insufficient Data    2017-10-28 2017-18         43
+    ##  5 Virgin Islands http://doh.vi.gov/ Influenza              0 Insufficient Data    2017-11-04 2017-18         44
+    ##  6 Virgin Islands http://doh.vi.gov/ Influenza              0 Insufficient Data    2017-11-11 2017-18         45
+    ##  7 Virgin Islands http://doh.vi.gov/ Influenza              0 Insufficient Data    2017-12-02 2017-18         48
+    ##  8 Virgin Islands http://doh.vi.gov/ Influenza              0 Insufficient Data    2017-12-09 2017-18         49
+    ##  9 Virgin Islands http://doh.vi.gov/ Influenza              0 Insufficient Data    2017-12-23 2017-18         51
+    ## 10 Virgin Islands http://doh.vi.gov/ Influenza              0 Insufficient Data    2017-12-30 2017-18         52
+    ## # ... with 1,772 more rows
 
 ``` r
 xdf <- map_df(2008:2017, ili_weekly_activity_indicators)
@@ -532,7 +529,7 @@ count(xdf, weekend, activity_level_label) %>%
   theme(legend.position="bottom")
 ```
 
-![](README.gfm-ascii_identifiers_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+<img src="README_files/figure-gfm/ili-weekly-activity-1.png" width="960" />
 
 ### Pneumonia and Influenza Mortality Surveillance
 
@@ -540,20 +537,20 @@ count(xdf, weekend, activity_level_label) %>%
 (nat_pi <- pi_mortality("national"))
 ```
 
-    ## # A tibble: 420 x 19
+    ## # A tibble: 464 x 19
     ##    seasonid baseline threshold percent_pni percent_complete number_influenza number_pneumonia all_deaths total_pni
-    ##       <chr>    <dbl>     <dbl>       <dbl>            <dbl>            <dbl>            <dbl>      <dbl>     <dbl>
-    ##  1       57    0.058     0.061       0.056            0.858               12             2276      40834      2288
-    ##  2       57    0.058     0.062       0.056            0.764               14             2025      36328      2039
-    ##  3       57    0.059     0.063       0.058            0.678               17             1844      32279      1861
-    ##  4       56    0.059     0.063       0.059            1.000               18             3022      51404      3040
-    ##  5       56    0.060     0.063       0.061            1.000               11             3193      52130      3204
-    ##  6       56    0.061     0.064       0.062            1.000                7             3178      51443      3185
-    ##  7       56    0.062     0.065       0.061            1.000               17             3129      51865      3146
-    ##  8       56    0.063     0.066       0.060            1.000               16             3099      51753      3115
-    ##  9       56    0.064     0.067       0.061            1.000               19             3208      52541      3227
-    ## 10       56    0.065     0.068       0.060            1.000                7             3192      53460      3199
-    ## # ... with 410 more rows, and 10 more variables: weeknumber <chr>, geo_description <chr>, age_label <chr>,
+    ##    <chr>       <dbl>     <dbl>       <dbl>            <dbl>            <dbl>            <dbl>      <dbl>     <dbl>
+    ##  1 57         0.057      0.06       0.0580                1               16             3020      52110      3036
+    ##  2 57         0.0580     0.061      0.059                 1               18             3000      51572      3018
+    ##  3 57         0.059      0.062      0.061                 1               28             3154      52222      3182
+    ##  4 57         0.06       0.063      0.063                 1               23             3279      52548      3302
+    ##  5 57         0.06       0.063      0.061                 1               36             3214      53679      3250
+    ##  6 57         0.061      0.064      0.06                  1               45             3177      53258      3222
+    ##  7 57         0.062      0.065      0.063                 1               50             3315      53771      3365
+    ##  8 57         0.063      0.066      0.06                  1               48             3200      54120      3248
+    ##  9 57         0.064      0.067      0.065                 1               83             3491      54760      3574
+    ## 10 57         0.065      0.068      0.066                 1              118             3526      55595      3644
+    ## # ... with 454 more rows, and 10 more variables: weeknumber <chr>, geo_description <chr>, age_label <chr>,
     ## #   wk_start <date>, wk_end <date>, year_wk_num <int>, mmwrid <chr>, coverage_area <chr>, region_name <chr>,
     ## #   callout <chr>
 
@@ -570,7 +567,7 @@ select(nat_pi, wk_end, percent_pni, baseline, threshold) %>%
   theme(legend.position="bottom")
 ```
 
-![](README.gfm-ascii_identifiers_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+<img src="README_files/figure-gfm/nat-pi-mortality-1.png" width="672" />
 
 ``` r
 (st_pi <- pi_mortality("state", years=2015))
@@ -578,17 +575,17 @@ select(nat_pi, wk_end, percent_pni, baseline, threshold) %>%
 
     ## # A tibble: 2,704 x 19
     ##    seasonid baseline threshold percent_pni percent_complete number_influenza number_pneumonia all_deaths total_pni
-    ##       <chr>    <dbl>     <dbl>       <dbl>            <dbl>            <dbl>            <dbl>      <dbl>     <dbl>
-    ##  1       55       NA        NA       0.047            1.000                0               46        979        46
-    ##  2       55       NA        NA       0.038            0.963                0               34        889        34
-    ##  3       55       NA        NA       0.053            1.000                0               52        977        52
-    ##  4       55       NA        NA       0.070            1.000                0               68        968        68
-    ##  5       55       NA        NA       0.053            0.981                0               48        906        48
-    ##  6       55       NA        NA       0.058            1.000                0               56        968        56
-    ##  7       55       NA        NA       0.051            1.000                0               53       1041        53
-    ##  8       55       NA        NA       0.062            1.000                1               63       1031        64
-    ##  9       55       NA        NA       0.056            1.000                0               55        976        55
-    ## 10       55       NA        NA       0.054            1.000                0               56       1045        56
+    ##    <chr>       <dbl>     <dbl>       <dbl>            <dbl>            <dbl>            <dbl>      <dbl>     <dbl>
+    ##  1 55             NA        NA      0.047             1                    0               46        979        46
+    ##  2 55             NA        NA      0.038             0.963                0               34        889        34
+    ##  3 55             NA        NA      0.053             1                    0               52        977        52
+    ##  4 55             NA        NA      0.07              1                    0               68        968        68
+    ##  5 55             NA        NA      0.053             0.981                0               48        906        48
+    ##  6 55             NA        NA      0.0580            1                    0               56        968        56
+    ##  7 55             NA        NA      0.051             1                    0               53       1041        53
+    ##  8 55             NA        NA      0.062             1                    1               63       1031        64
+    ##  9 55             NA        NA      0.0560            1                    0               55        976        55
+    ## 10 55             NA        NA      0.054             1                    0               56       1045        56
     ## # ... with 2,694 more rows, and 10 more variables: weeknumber <chr>, geo_description <chr>, age_label <chr>,
     ## #   wk_start <date>, wk_end <date>, year_wk_num <int>, mmwrid <chr>, coverage_area <chr>, region_name <chr>,
     ## #   callout <chr>
@@ -599,17 +596,17 @@ select(nat_pi, wk_end, percent_pni, baseline, threshold) %>%
 
     ## # A tibble: 520 x 19
     ##    seasonid baseline threshold percent_pni percent_complete number_influenza number_pneumonia all_deaths total_pni
-    ##       <chr>    <dbl>     <dbl>       <dbl>            <dbl>            <dbl>            <dbl>      <dbl>     <dbl>
-    ##  1       55    0.065     0.073       0.071                1                0              178       2520       178
-    ##  2       55    0.066     0.073       0.063                1                0              159       2505       159
-    ##  3       55    0.067     0.074       0.058                1                1              141       2452       142
-    ##  4       55    0.068     0.075       0.071                1                0              171       2422       171
-    ##  5       55    0.069     0.076       0.066                1                2              166       2554       168
-    ##  6       55    0.070     0.077       0.067                1                1              160       2404       161
-    ##  7       55    0.071     0.079       0.079                1                0              195       2478       195
-    ##  8       55    0.073     0.080       0.072                1                1              176       2463       177
-    ##  9       55    0.074     0.081       0.067                1                3              154       2347       157
-    ## 10       55    0.075     0.082       0.062                1                0              151       2437       151
+    ##    <chr>       <dbl>     <dbl>       <dbl>            <dbl>            <dbl>            <dbl>      <dbl>     <dbl>
+    ##  1 55          0.066    0.073       0.071                 1                0              178       2520       178
+    ##  2 55          0.067    0.074       0.063                 1                0              159       2505       159
+    ##  3 55          0.067    0.075       0.0580                1                1              141       2452       142
+    ##  4 55          0.068    0.076       0.071                 1                0              171       2422       171
+    ##  5 55          0.07     0.077       0.066                 1                2              166       2554       168
+    ##  6 55          0.071    0.078       0.067                 1                1              160       2404       161
+    ##  7 55          0.072    0.079       0.079                 1                0              195       2478       195
+    ##  8 55          0.073    0.081       0.072                 1                1              176       2463       177
+    ##  9 55          0.074    0.0820      0.067                 1                3              154       2347       157
+    ## 10 55          0.076    0.083       0.062                 1                0              151       2437       151
     ## # ... with 510 more rows, and 10 more variables: weeknumber <chr>, geo_description <chr>, age_label <chr>,
     ## #   wk_start <date>, wk_end <date>, year_wk_num <int>, mmwrid <chr>, coverage_area <chr>, region_name <chr>,
     ## #   callout <chr>
@@ -621,19 +618,19 @@ state_data_providers()
 ```
 
     ## # A tibble: 59 x 5
-    ##               statename                                  statehealthdeptname
-    ##  *                <chr>                                                <chr>
-    ##  1              Alabama                  Alabama Department of Public Health
-    ##  2               Alaska           State of Alaska Health and Social Services
-    ##  3              Arizona                Arizona Department of Health Services
-    ##  4             Arkansas                        Arkansas Department of Health
-    ##  5           California               California Department of Public Health
-    ##  6             Colorado Colorado Department of Public Health and Environment
-    ##  7          Connecticut              Connecticut Department of Public Health
-    ##  8             Delaware                  Delaware Health and Social Services
-    ##  9 District of Columbia            District of Columbia Department of Health
-    ## 10              Florida                         Florida Department of Health
-    ## # ... with 49 more rows, and 3 more variables: url <chr>, statewebsitename <chr>, statefluphonenum <chr>
+    ##    statename            statehealthdeptname                                  url      statewebsitename statefluphonenum
+    ##  * <chr>                <chr>                                                <chr>    <chr>            <chr>           
+    ##  1 Alabama              Alabama Department of Public Health                  http://… Influenza Surve… 334-206-5300    
+    ##  2 Alaska               State of Alaska Health and Social Services           "http:/… Influenza Surve… 907-269-8000    
+    ##  3 Arizona              Arizona Department of Health Services                http://… Influenza & RSV… 602-542-1025    
+    ##  4 Arkansas             Arkansas Department of Health                        http://… Communicable Di… 501-661-2000    
+    ##  5 California           California Department of Public Health               https:/… Influenza (Flu)  916-558-1784    
+    ##  6 Colorado             Colorado Department of Public Health and Environment https:/… Influenza Surve… 303-692-2000    
+    ##  7 Connecticut          Connecticut Department of Public Health              http://… Flu Statistics   860-509-8000    
+    ##  8 Delaware             Delaware Health and Social Services                  http://… Weekly Influenz… 302-744-4700    
+    ##  9 District of Columbia District of Columbia Department of Health            http://… Influenza Infor… 202-442-5955    
+    ## 10 Florida              Florida Department of Health                         "http:/… Weekly Influenz… 850-245-4300    
+    ## # ... with 49 more rows
 
 ### Retrieve WHO/NREVSS Surveillance Data
 
@@ -657,32 +654,32 @@ glimpse(xdat <- who_nrevss("national"))
     ##   ..$ b                        : int [1:940] 0 0 1 0 0 0 1 1 1 1 ...
     ##   ..$ h3n2v                    : int [1:940] 0 0 0 0 0 0 0 0 0 0 ...
     ##   ..$ wk_date                  : Date[1:940], format: "1997-09-28" "1997-10-05" "1997-10-12" "1997-10-19" ...
-    ##  $ public_health_labs       :Classes 'tbl_df', 'tbl' and 'data.frame':   109 obs. of  13 variables:
-    ##   ..$ region_type              : chr [1:109] "National" "National" "National" "National" ...
-    ##   ..$ region                   : chr [1:109] "National" "National" "National" "National" ...
-    ##   ..$ year                     : int [1:109] 2015 2015 2015 2015 2015 2015 2015 2015 2015 2015 ...
-    ##   ..$ week                     : int [1:109] 40 41 42 43 44 45 46 47 48 49 ...
-    ##   ..$ total_specimens          : int [1:109] 1139 1152 1198 1244 1465 1393 1458 1157 1550 1518 ...
-    ##   ..$ a_2009_h1n1              : int [1:109] 4 5 10 9 4 11 17 17 27 38 ...
-    ##   ..$ a_h3                     : int [1:109] 65 41 50 31 23 34 42 24 36 37 ...
-    ##   ..$ a_subtyping_not_performed: int [1:109] 2 2 1 4 4 1 1 0 3 3 ...
-    ##   ..$ b                        : int [1:109] 10 7 8 9 9 10 4 4 9 11 ...
-    ##   ..$ bvic                     : int [1:109] 0 3 3 1 1 4 0 3 3 2 ...
-    ##   ..$ byam                     : int [1:109] 1 0 2 4 4 2 4 9 12 11 ...
-    ##   ..$ h3n2v                    : int [1:109] 0 0 0 0 0 0 0 0 0 0 ...
-    ##   ..$ wk_date                  : Date[1:109], format: "2015-10-04" "2015-10-11" "2015-10-18" "2015-10-25" ...
-    ##  $ clinical_labs            :Classes 'tbl_df', 'tbl' and 'data.frame':   109 obs. of  11 variables:
-    ##   ..$ region_type     : chr [1:109] "National" "National" "National" "National" ...
-    ##   ..$ region          : chr [1:109] "National" "National" "National" "National" ...
-    ##   ..$ year            : int [1:109] 2015 2015 2015 2015 2015 2015 2015 2015 2015 2015 ...
-    ##   ..$ week            : int [1:109] 40 41 42 43 44 45 46 47 48 49 ...
-    ##   ..$ total_specimens : int [1:109] 12029 13111 13441 13537 14687 15048 15250 15234 16201 16673 ...
-    ##   ..$ total_a         : int [1:109] 84 116 97 98 97 122 84 119 145 140 ...
-    ##   ..$ total_b         : int [1:109] 43 54 52 52 68 86 98 92 81 106 ...
-    ##   ..$ percent_positive: num [1:109] 1.06 1.3 1.11 1.11 1.12 ...
-    ##   ..$ percent_a       : num [1:109] 0.698 0.885 0.722 0.724 0.66 ...
-    ##   ..$ percent_b       : num [1:109] 0.357 0.412 0.387 0.384 0.463 ...
-    ##   ..$ wk_date         : Date[1:109], format: "2015-10-04" "2015-10-11" "2015-10-18" "2015-10-25" ...
+    ##  $ public_health_labs       :Classes 'tbl_df', 'tbl' and 'data.frame':   153 obs. of  13 variables:
+    ##   ..$ region_type              : chr [1:153] "National" "National" "National" "National" ...
+    ##   ..$ region                   : chr [1:153] "National" "National" "National" "National" ...
+    ##   ..$ year                     : int [1:153] 2015 2015 2015 2015 2015 2015 2015 2015 2015 2015 ...
+    ##   ..$ week                     : int [1:153] 40 41 42 43 44 45 46 47 48 49 ...
+    ##   ..$ total_specimens          : int [1:153] 1139 1152 1198 1244 1465 1393 1458 1157 1550 1518 ...
+    ##   ..$ a_2009_h1n1              : int [1:153] 4 5 10 9 4 11 17 17 27 38 ...
+    ##   ..$ a_h3                     : int [1:153] 65 41 50 31 23 34 42 24 36 37 ...
+    ##   ..$ a_subtyping_not_performed: int [1:153] 2 2 1 4 4 1 1 0 3 3 ...
+    ##   ..$ b                        : int [1:153] 10 7 8 9 9 10 4 4 9 11 ...
+    ##   ..$ bvic                     : int [1:153] 0 3 3 1 1 4 0 3 3 2 ...
+    ##   ..$ byam                     : int [1:153] 1 0 2 4 4 2 4 9 12 11 ...
+    ##   ..$ h3n2v                    : int [1:153] 0 0 0 0 0 0 0 0 0 0 ...
+    ##   ..$ wk_date                  : Date[1:153], format: "2015-10-04" "2015-10-11" "2015-10-18" "2015-10-25" ...
+    ##  $ clinical_labs            :Classes 'tbl_df', 'tbl' and 'data.frame':   153 obs. of  11 variables:
+    ##   ..$ region_type     : chr [1:153] "National" "National" "National" "National" ...
+    ##   ..$ region          : chr [1:153] "National" "National" "National" "National" ...
+    ##   ..$ year            : int [1:153] 2015 2015 2015 2015 2015 2015 2015 2015 2015 2015 ...
+    ##   ..$ week            : int [1:153] 40 41 42 43 44 45 46 47 48 49 ...
+    ##   ..$ total_specimens : int [1:153] 12029 13111 13441 13537 14687 15048 15250 15234 16201 16673 ...
+    ##   ..$ total_a         : int [1:153] 84 116 97 98 97 122 84 119 145 140 ...
+    ##   ..$ total_b         : int [1:153] 43 54 52 52 68 86 98 92 81 106 ...
+    ##   ..$ percent_positive: num [1:153] 1.06 1.3 1.11 1.11 1.12 ...
+    ##   ..$ percent_a       : num [1:153] 0.698 0.885 0.722 0.724 0.66 ...
+    ##   ..$ percent_b       : num [1:153] 0.357 0.412 0.387 0.384 0.463 ...
+    ##   ..$ wk_date         : Date[1:153], format: "2015-10-04" "2015-10-11" "2015-10-18" "2015-10-25" ...
 
 ``` r
 mutate(xdat$combined_prior_to_2015_16, 
@@ -694,7 +691,7 @@ mutate(xdat$combined_prior_to_2015_16,
   theme_ipsum_rc(grid="XY")
 ```
 
-![](README.gfm-ascii_identifiers_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+<img src="README_files/figure-gfm/who-vrevss-1.png" width="672" />
 
 ``` r
 who_nrevss("hhs", years=2016)
@@ -702,34 +699,34 @@ who_nrevss("hhs", years=2016)
 
     ## $public_health_labs
     ## # A tibble: 520 x 13
-    ##    region_type    region  year  week total_specimens a_2009_h1n1  a_h3 a_subtyping_not_performed     b  bvic  byam
-    ##          <chr>     <chr> <int> <chr>           <int>       <int> <int>                     <int> <int> <int> <int>
-    ##  1 HHS Regions  Region 1  2016  <NA>              31           0     6                         0     0     0     0
-    ##  2 HHS Regions  Region 2  2016  <NA>              31           0     6                         0     0     2     0
-    ##  3 HHS Regions  Region 3  2016  <NA>             112           2     2                         0     0     0     0
-    ##  4 HHS Regions  Region 4  2016  <NA>             112           1    11                         0     1     2     0
-    ##  5 HHS Regions  Region 5  2016  <NA>             204           0     7                         0     0     0     1
-    ##  6 HHS Regions  Region 6  2016  <NA>              39           1     1                         0     0     0     0
-    ##  7 HHS Regions  Region 7  2016  <NA>              24           0     2                         0     0     1     0
-    ##  8 HHS Regions  Region 8  2016  <NA>              46           2     8                         0     0     0     0
-    ##  9 HHS Regions  Region 9  2016  <NA>             186           3    27                         0     0     0     3
-    ## 10 HHS Regions Region 10  2016  <NA>             113           0    17                         0     0     0     0
-    ## # ... with 510 more rows, and 2 more variables: h3n2v <int>, wk_date <date>
+    ##    region_type region  year  week total_specimens a_2009_h1n1  a_h3 a_subtyping_not…     b  bvic  byam h3n2v wk_date   
+    ##    <chr>       <chr>  <int> <int>           <int>       <int> <int>            <int> <int> <int> <int> <int> <date>    
+    ##  1 HHS Regions Regio…  2016    40              31           0     6                0     0     0     0     0 2016-10-02
+    ##  2 HHS Regions Regio…  2016    40              31           0     6                0     0     2     0     0 2016-10-02
+    ##  3 HHS Regions Regio…  2016    40             112           2     2                0     0     0     0     0 2016-10-02
+    ##  4 HHS Regions Regio…  2016    40             112           1    11                0     1     2     0     0 2016-10-02
+    ##  5 HHS Regions Regio…  2016    40             204           0     7                0     0     0     1     0 2016-10-02
+    ##  6 HHS Regions Regio…  2016    40              39           1     1                0     0     0     0     0 2016-10-02
+    ##  7 HHS Regions Regio…  2016    40              24           0     2                0     0     1     0     0 2016-10-02
+    ##  8 HHS Regions Regio…  2016    40              46           2     8                0     0     0     0     0 2016-10-02
+    ##  9 HHS Regions Regio…  2016    40             186           3    27                0     0     0     3     0 2016-10-02
+    ## 10 HHS Regions Regio…  2016    40             113           0    17                0     0     0     0     0 2016-10-02
+    ## # ... with 510 more rows
     ## 
     ## $clinical_labs
     ## # A tibble: 520 x 11
-    ##    region_type    region  year  week total_specimens total_a total_b percent_positive percent_a percent_b    wk_date
-    ##          <chr>     <chr> <int> <int>           <int>   <int>   <int>            <dbl>     <dbl>     <dbl>     <date>
-    ##  1 HHS Regions  Region 1  2016    40             654       5       1         0.917431  0.764526 0.1529050 2016-10-02
-    ##  2 HHS Regions  Region 2  2016    40            1307      10       3         0.994644  0.765111 0.2295330 2016-10-02
-    ##  3 HHS Regions  Region 3  2016    40             941       1       4         0.531350  0.106270 0.4250800 2016-10-02
-    ##  4 HHS Regions  Region 4  2016    40            2758      46      62         3.915880  1.667880 2.2480100 2016-10-02
-    ##  5 HHS Regions  Region 5  2016    40            2386       8       5         0.544845  0.335289 0.2095560 2016-10-02
-    ##  6 HHS Regions  Region 6  2016    40            1914      22      13         1.828630  1.149430 0.6792060 2016-10-02
-    ##  7 HHS Regions  Region 7  2016    40             723       0       0         0.000000  0.000000 0.0000000 2016-10-02
-    ##  8 HHS Regions  Region 8  2016    40             913       8       0         0.876232  0.876232 0.0000000 2016-10-02
-    ##  9 HHS Regions  Region 9  2016    40            1123       7       1         0.712378  0.623330 0.0890472 2016-10-02
-    ## 10 HHS Regions Region 10  2016    40             590      14       0         2.372880  2.372880 0.0000000 2016-10-02
+    ##    region_type region     year  week total_specimens total_a total_b percent_positive percent_a percent_b wk_date   
+    ##    <chr>       <chr>     <int> <int>           <int>   <int>   <int>            <dbl>     <dbl>     <dbl> <date>    
+    ##  1 HHS Regions Region 1   2016    40             654       5       1            0.917     0.765     0.153 2016-10-02
+    ##  2 HHS Regions Region 2   2016    40            1307      10       3            0.995     0.765     0.230 2016-10-02
+    ##  3 HHS Regions Region 3   2016    40             941       1       4            0.531     0.106     0.425 2016-10-02
+    ##  4 HHS Regions Region 4   2016    40            2960      46      63            3.68      1.55      2.13  2016-10-02
+    ##  5 HHS Regions Region 5   2016    40            2386       8       5            0.545     0.335     0.210 2016-10-02
+    ##  6 HHS Regions Region 6   2016    40            1914      22      13            1.83      1.15      0.679 2016-10-02
+    ##  7 HHS Regions Region 7   2016    40             723       0       0            0         0         0     2016-10-02
+    ##  8 HHS Regions Region 8   2016    40             913       8       0            0.876     0.876     0     2016-10-02
+    ##  9 HHS Regions Region 9   2016    40             992       6       1            0.706     0.605     0.101 2016-10-02
+    ## 10 HHS Regions Region 10  2016    40             590      14       0            2.37      2.37      0     2016-10-02
     ## # ... with 510 more rows
 
 ``` r
@@ -738,35 +735,35 @@ who_nrevss("census", years=2016)
 
     ## $public_health_labs
     ## # A tibble: 468 x 13
-    ##       region_type             region  year  week total_specimens a_2009_h1n1  a_h3 a_subtyping_not_performed     b
-    ##             <chr>              <chr> <int> <chr>           <int>       <int> <int>                     <int> <int>
-    ##  1 Census Regions        New England  2016  <NA>              31           0     6                         0     0
-    ##  2 Census Regions       Mid-Atlantic  2016  <NA>              50           0     8                         0     0
-    ##  3 Census Regions East North Central  2016  <NA>             139           0     4                         0     0
-    ##  4 Census Regions West North Central  2016  <NA>             103           0     6                         0     0
-    ##  5 Census Regions     South Atlantic  2016  <NA>             181           3    11                         0     1
-    ##  6 Census Regions East South Central  2016  <NA>              24           0     0                         0     0
-    ##  7 Census Regions West South Central  2016  <NA>              27           0     1                         0     0
-    ##  8 Census Regions           Mountain  2016  <NA>              54           3    10                         0     0
-    ##  9 Census Regions            Pacific  2016  <NA>             289           3    41                         0     0
-    ## 10 Census Regions        New England  2016  <NA>              14           0     2                         0     0
-    ## # ... with 458 more rows, and 4 more variables: bvic <int>, byam <int>, h3n2v <int>, wk_date <date>
+    ##    region_type region  year  week total_specimens a_2009_h1n1  a_h3 a_subtyping_not…     b  bvic  byam h3n2v wk_date   
+    ##    <chr>       <chr>  <int> <int>           <int>       <int> <int>            <int> <int> <int> <int> <int> <date>    
+    ##  1 Census Reg… New E…  2016    40              31           0     6                0     0     0     0     0 2016-10-02
+    ##  2 Census Reg… Mid-A…  2016    40              50           0     8                0     0     2     0     0 2016-10-02
+    ##  3 Census Reg… East …  2016    40             139           0     4                0     0     0     1     0 2016-10-02
+    ##  4 Census Reg… West …  2016    40             103           0     6                0     0     1     0     0 2016-10-02
+    ##  5 Census Reg… South…  2016    40             181           3    11                0     1     2     0     0 2016-10-02
+    ##  6 Census Reg… East …  2016    40              24           0     0                0     0     0     0     0 2016-10-02
+    ##  7 Census Reg… West …  2016    40              27           0     1                0     0     0     0     0 2016-10-02
+    ##  8 Census Reg… Mount…  2016    40              54           3    10                0     0     0     1     0 2016-10-02
+    ##  9 Census Reg… Pacif…  2016    40             289           3    41                0     0     0     2     0 2016-10-02
+    ## 10 Census Reg… New E…  2016    41              14           0     2                0     0     0     0     0 2016-10-09
+    ## # ... with 458 more rows
     ## 
     ## $clinical_labs
     ## # A tibble: 468 x 11
-    ##       region_type             region  year  week total_specimens total_a total_b percent_positive percent_a percent_b
-    ##             <chr>              <chr> <int> <int>           <int>   <int>   <int>            <dbl>     <dbl>     <dbl>
-    ##  1 Census Regions        New England  2016    40             654       5       1         0.917431  0.764526 0.1529050
-    ##  2 Census Regions       Mid-Atlantic  2016    40            1579      10       4         0.886637  0.633312 0.2533250
-    ##  3 Census Regions East North Central  2016    40            2176       6       5         0.505515  0.275735 0.2297790
-    ##  4 Census Regions West North Central  2016    40            1104       3       0         0.271739  0.271739 0.0000000
-    ##  5 Census Regions     South Atlantic  2016    40            2610      43      62         4.022990  1.647510 2.3754800
-    ##  6 Census Regions East South Central  2016    40             817       4       3         0.856793  0.489596 0.3671970
-    ##  7 Census Regions West South Central  2016    40            1738      21      13         1.956270  1.208290 0.7479860
-    ##  8 Census Regions           Mountain  2016    40            1067       8       0         0.749766  0.749766 0.0000000
-    ##  9 Census Regions            Pacific  2016    40            1564      21       1         1.406650  1.342710 0.0639386
-    ## 10 Census Regions        New England  2016    41             810       5       1         0.740741  0.617284 0.1234570
-    ## # ... with 458 more rows, and 1 more variables: wk_date <date>
+    ##    region_type    region     year  week total_specimens total_a total_b percent_positive percent_a percent_b wk_date   
+    ##    <chr>          <chr>     <int> <int>           <int>   <int>   <int>            <dbl>     <dbl>     <dbl> <date>    
+    ##  1 Census Regions New Engl…  2016    40             654       5       1            0.917     0.765    0.153  2016-10-02
+    ##  2 Census Regions Mid-Atla…  2016    40            1579      10       4            0.887     0.633    0.253  2016-10-02
+    ##  3 Census Regions East Nor…  2016    40            2176       6       5            0.506     0.276    0.230  2016-10-02
+    ##  4 Census Regions West Nor…  2016    40            1104       3       0            0.272     0.272    0      2016-10-02
+    ##  5 Census Regions South At…  2016    40            2785      43      62            3.77      1.54     2.23   2016-10-02
+    ##  6 Census Regions East Sou…  2016    40             844       4       4            0.948     0.474    0.474  2016-10-02
+    ##  7 Census Regions West Sou…  2016    40            1738      21      13            1.96      1.21     0.748  2016-10-02
+    ##  8 Census Regions Mountain   2016    40            1067       8       0            0.750     0.750    0      2016-10-02
+    ##  9 Census Regions Pacific    2016    40            1433      20       1            1.47      1.40     0.0698 2016-10-02
+    ## 10 Census Regions New Engl…  2016    41             810       5       1            0.741     0.617    0.123  2016-10-09
+    ## # ... with 458 more rows
 
 ``` r
 who_nrevss("state", years=2016)
@@ -774,35 +771,35 @@ who_nrevss("state", years=2016)
 
     ## $public_health_labs
     ## # A tibble: 54 x 12
-    ##    region_type               region season_description total_specimens a_2009_h1n1  a_h3 a_subtyping_not_performed
-    ##          <chr>                <chr>              <chr>           <chr>       <chr> <chr>                     <chr>
-    ##  1      States              Alabama     Season 2016-17             549           3   222                         0
-    ##  2      States               Alaska     Season 2016-17            5226          14   905                         3
-    ##  3      States              Arizona     Season 2016-17            2974          63  1630                         0
-    ##  4      States             Arkansas     Season 2016-17             121           0    51                         0
-    ##  5      States           California     Season 2016-17           14033         184  4694                       120
-    ##  6      States             Colorado     Season 2016-17             715           3   267                         2
-    ##  7      States          Connecticut     Season 2016-17            1347          19   968                         0
-    ##  8      States             Delaware     Season 2016-17            3090           5   659                         4
-    ##  9      States District of Columbia     Season 2016-17              69           1    32                         0
-    ## 10      States              Florida     Season 2016-17            <NA>        <NA>  <NA>                      <NA>
-    ## # ... with 44 more rows, and 5 more variables: b <chr>, bvic <chr>, byam <chr>, h3n2v <chr>, wk_date <date>
+    ##    region_type region     season_descript… total_specimens a_2009_h1n1 a_h3  a_subtyping_not_p… b     bvic  byam  h3n2v
+    ##    <chr>       <chr>      <chr>            <chr>           <chr>       <chr> <chr>              <chr> <chr> <chr> <chr>
+    ##  1 States      Alabama    Season 2016-17   570             3           227   1                  2     15    14    0    
+    ##  2 States      Alaska     Season 2016-17   5222            14          905   3                  252   2     11    0    
+    ##  3 States      Arizona    Season 2016-17   2975            63          1630  0                  5     227   578   0    
+    ##  4 States      Arkansas   Season 2016-17   121             0           51    0                  0     4     0     0    
+    ##  5 States      California Season 2016-17   14074           184         4696  120                116   28    152   0    
+    ##  6 States      Colorado   Season 2016-17   714             3           267   2                  4     31    219   0    
+    ##  7 States      Connectic… Season 2016-17   1348            19          968   0                  0     62    263   0    
+    ##  8 States      Delaware   Season 2016-17   3090            5           659   4                  11    27    127   1    
+    ##  9 States      District … Season 2016-17   73              1           34    0                  3     0     4     0    
+    ## 10 States      Florida    Season 2016-17   <NA>            <NA>        <NA>  <NA>               <NA>  <NA>  <NA>  <NA> 
+    ## # ... with 44 more rows, and 1 more variable: wk_date <date>
     ## 
     ## $clinical_labs
     ## # A tibble: 2,808 x 11
-    ##    region_type               region  year  week total_specimens total_a total_b percent_positive percent_a percent_b
-    ##          <chr>                <chr> <int> <int>           <chr>   <chr>   <chr>            <chr>     <chr>     <chr>
-    ##  1      States              Alabama  2016    40             379       4       0             1.06      1.06         0
-    ##  2      States               Alaska  2016    40            <NA>    <NA>    <NA>             <NA>      <NA>      <NA>
-    ##  3      States              Arizona  2016    40             133       0       0                0         0         0
-    ##  4      States             Arkansas  2016    40              47       0       0                0         0         0
-    ##  5      States           California  2016    40             799       3       0             0.38      0.38         0
-    ##  6      States             Colorado  2016    40             260       0       0                0         0         0
-    ##  7      States          Connecticut  2016    40             199       3       0             1.51      1.51         0
-    ##  8      States             Delaware  2016    40              40       0       0                0         0         0
-    ##  9      States District of Columbia  2016    40            <NA>    <NA>    <NA>             <NA>      <NA>      <NA>
-    ## 10      States              Florida  2016    40            <NA>    <NA>    <NA>             <NA>      <NA>      <NA>
-    ## # ... with 2,798 more rows, and 1 more variables: wk_date <date>
+    ##    region_type region        year  week total_specimens total_a total_b percent_positive percent_a percent_b wk_date   
+    ##    <chr>       <chr>        <int> <int> <chr>           <chr>   <chr>   <chr>            <chr>     <chr>     <date>    
+    ##  1 States      Alabama       2016    40 406             4       1       1.23             0.99      0.25      2016-10-02
+    ##  2 States      Alaska        2016    40 <NA>            <NA>    <NA>    <NA>             <NA>      <NA>      2016-10-02
+    ##  3 States      Arizona       2016    40 133             0       0       0                0         0         2016-10-02
+    ##  4 States      Arkansas      2016    40 47              0       0       0                0         0         2016-10-02
+    ##  5 States      California    2016    40 668             2       0       0.3              0.3       0         2016-10-02
+    ##  6 States      Colorado      2016    40 260             0       0       0                0         0         2016-10-02
+    ##  7 States      Connecticut   2016    40 199             3       0       1.51             1.51      0         2016-10-02
+    ##  8 States      Delaware      2016    40 40              0       0       0                0         0         2016-10-02
+    ##  9 States      District of…  2016    40 <NA>            <NA>    <NA>    <NA>             <NA>      <NA>      2016-10-02
+    ## 10 States      Florida       2016    40 <NA>            <NA>    <NA>    <NA>             <NA>      <NA>      2016-10-02
+    ## # ... with 2,798 more rows
 
 ## Code of Conduct
 

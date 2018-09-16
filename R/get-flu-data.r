@@ -84,7 +84,7 @@ get_flu_data <- function(region="hhs", sub_region=1:10,
                                                   "New York City",
                                                   "Los Angeles")),
                                 num = 1:57,
-                                stringsAsFactors = F)
+                                stringsAsFactors = FALSE)
 
       sub_region_inpt <- state_match$num[state_match$state %in% sub_region]
 
