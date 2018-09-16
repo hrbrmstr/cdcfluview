@@ -1,10 +1,9 @@
 ## Test environments
 
-* local OS X install, R 3.4.2
-* local Ubuntu 16.04 R 3.4.1
+* local OS X install, R 3.5.1
+* local Ubuntu 16.04 R 3.5.1
 * ubuntu 14.04 (on travis-ci), R old/current/devel
 * win-builder (devel and release)
-* rhub Windows (devel and release)
 
 ## R CMD check results
 
@@ -18,14 +17,9 @@ None
 
 ---
 
-The CDC changed most of their API endpoints to support a new HTML interface and 
-re-jiggered the back-end API. Craig McGowan updated the old cdcfluview API function
-to account for the changes. However, the new API endpoints provided additional
-data features and it seemed to make sense to revamp the package to fit more in line
-with the way the APIs were structured. Legacy cdcfluview functions have been deprecated
-and will display deprecation messages when run. The new cdcfluview package API
-changes a few things about how you work with the data but the README and examples
-show how to work with it. 
+The CDC changed their endpoints again and remove support for one of them. The
+function had been deprecated in the previous version submitted to CRAN and
+had been removed in this version due to the removal from the CDC.
 
 Only some examples run on CRAN due to their time consuming nature and the need
 to make external calls. Weekly tests are performed on Travis-CI 

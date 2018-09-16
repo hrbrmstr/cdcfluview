@@ -2,8 +2,8 @@ Package: cdcfluview
 Type: Package
 Encoding: UTF-8
 Title: Retrieve 'U.S'. Flu Season Data from the 'CDC' 'FluView' Portal
-Version: 0.7.0
-Date: 2017-11-04
+Version: 0.8.0
+Date: 2018-09-16
 Authors@R: c(
     person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"), 
            comment = c(ORCID = "0000-0001-5670-2640")),
@@ -39,4 +39,4 @@ Imports:
     readr,
     MMWRweek,
     units (>= 0.4-6)
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000

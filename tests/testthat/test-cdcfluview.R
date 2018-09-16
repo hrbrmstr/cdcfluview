@@ -75,11 +75,3 @@ test_that("Old API works", {
   invisible(get_weekly_flu_report())
 
 })
-
-test_that("these are potentially time-consuming calls", {
-
-  skip_on_cran()
-
-  invisible(get_mortality_surveillance_data())
-
-})
