@@ -8,7 +8,9 @@ Authors@R: c(
     person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"), 
            comment = c(ORCID = "0000-0001-5670-2640")),
     person("Craig", "McGowan", email = "mcgowan.cj@gmail.com", role = "ctb",
-           comment = c(ORCID = "0000-0002-6298-0185"))
+           comment = c(ORCID = "0000-0002-6298-0185")),
+    person("JJ", "Chen", email = "jiajia.chern@gmail.com", role = "ctb",
+           comment = c(ORCID = "0000-0001-8482-8398"))
   )
 Maintainer: Bob Rudis <bob@rud.is>
 Description: The 'U.S.' Centers for Disease Control ('CDC') maintains a portal
