@@ -16,6 +16,13 @@ test_that("New API works", {
 
   skip_on_cran()
 
+  nat_dat <- ilinet(region="national", years=1997:2018)
+  expect_equal(unique(diff(nat_dat$week_start)), 7)
+  expect_equal(
+    as.character(unique(lubridate::wday(unique(nat_dat$week_start), label=TRUE))),
+    "Sun"
+  )
+
   expect_that(ilinet("national", years=2017), is_a("data.frame"))
   expect_that(ilinet("hhs", years=2017), is_a("data.frame"))
   expect_that(ilinet("census", years=2017), is_a("data.frame"))
