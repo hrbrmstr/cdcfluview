@@ -5,9 +5,10 @@
 # @author Jarad Niemi \email{niemi@@iastate.edu}
 .start_date = function(year) {
   # Finds start state for this calendar year
-  jan1 = as.Date(paste(year, '-01-01', sep=''))
-  wday = as.numeric(MMWRweekday(jan1))
-  jan1 - (wday-1) + 7*(wday>4)
+  # Fix by @bastistician
+  jan1 <- as.Date(paste0(year, '-01-01'))
+  wday <- as.numeric(strftime(jan1, "%w"))  # Sunday is 0
+  jan1 - wday + 7*(wday>3)
 }
 
 # I discovered why 1962!: https://www.cdc.gov/mmwr/preview/mmwrhtml/su6004a9.htm
