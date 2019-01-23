@@ -1,7 +1,7 @@
 ---
-title: ""
-pagetitle: ""
 output: rmarkdown::github_document
+editor_options: 
+  chunk_output_type: console
 ---
 ```{r message=FALSE, warning=FALSE, error=FALSE, include=FALSE}
 knitr::opts_chunk$set(message=FALSE, warning=FALSE, fig.retina=2)
@@ -21,7 +21,7 @@ If there's a particular data set from https://www.cdc.gov/flu/weekly/fluviewinte
 
 # :mask: cdcfluview
 
-Retrieve U.S. Flu Season Data from the CDC FluView Portal
+Retrieve Flu Season Data from the United States Centers for Disease Control and Prevention ('CDC') 'FluView' Portal
 
 ## Description
 
@@ -63,9 +63,22 @@ The following data sets are included:
 - `census_regions`:	Census Region Table (a data frame with 51 rows and 2 variables)
 - `mmwrid_map`:	MMWR ID to Calendar Mappings (it is exported & available, no need to use `data()`)
 
+## NOTE
+
+All development happens in branches now with only critical fixes being back-ported to the master branch when necessary.
+
 ## Installation
 
 ```{r eval=FALSE}
+# CRAN
+install.packages("cdcfluview")
+# 0.9.0 branch (where all fixes are)
+devtools::install_git("https://sr.ht/~hrbrmstr/cdcfluview", ref= "0.9.0")
+devtools::install_git("https://gitlab.com/hrbrmstr/cdcfluview", ref = "0.9.0")
+devtools::install_github("hrbrmstr/cdcfluview", ref = "0.9.0")
+# master branch
+devtools::install_git("https://sr.ht/~hrbrmstr/cdcfluview")
+devtools::install_git("https://gitlab.com/hrbrmstr/cdcfluview")
 devtools::install_github("hrbrmstr/cdcfluview")
 ```
 
@@ -212,6 +225,12 @@ who_nrevss("hhs", years=2016)
 who_nrevss("census", years=2016)
 
 who_nrevss("state", years=2016)
+```
+
+## cdcfluview Metrics
+
+```{r echo=FALSE}
+cloc::cloc_pkg_md()
 ```
 
 ## Code of Conduct

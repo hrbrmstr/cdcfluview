@@ -20,5 +20,5 @@ to_num <- function(x) {
   x <- gsub("<", "", x, fixed=TRUE)
   x <- gsub(",", "", x, fixed=TRUE)
   x <- gsub(" ", "", x, fixed=TRUE)
-  as.numeric(x)
+  suppressWarnings(as.numeric(x))
 }

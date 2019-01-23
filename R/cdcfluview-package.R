@@ -1,4 +1,4 @@
-#' Retrieve 'U.S'.' Flu Season Data from the 'CDC' 'FluView' Portal
+#' Retrieve Flu Season Data from the United States Centers for Disease Control and Prevention ('CDC') 'FluView' Portal
 #'
 #' The U.S. Centers for Disease Control (CDC) maintains a portal
 #' <http://gis.cdc.gov/grasp/fluview/fluportaldashboard.html> for
@@ -17,7 +17,7 @@
 #' @importFrom purrr map map_df map_chr map_lgl discard keep
 #' @importFrom readr read_csv type_convert
 #' @importFrom tools file_path_sans_ext
-#' @importFrom dplyr left_join bind_rows mutate filter data_frame %>%
+#' @importFrom dplyr left_join bind_rows mutate filter data_frame %>% arrange
 #' @importFrom jsonlite fromJSON
 #' @importFrom stats setNames
 #' @importFrom sf st_read
