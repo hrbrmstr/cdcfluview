@@ -11,9 +11,7 @@
 #' @name cdcfluview
 #' @docType package
 #' @author Bob Rudis (bob@@rud.is)
-#' @import httr
-#' @import MMWRweek
-#' @import xml2
+#' @import httr MMWRweek xml2 units
 #' @importFrom purrr map map_df map_chr map_lgl discard keep
 #' @importFrom readr read_csv type_convert
 #' @importFrom tools file_path_sans_ext
