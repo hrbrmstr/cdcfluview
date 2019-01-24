@@ -71,6 +71,3 @@ after_success:
   - createdb empty
   - psql -d empty -c "CREATE EXTENSION postgis;"
   - R -q -e 'covr::codecov(quiet = FALSE)'
-
-install: R -q -e 'tic::install()'
-script: R -q -e 'tic::script()'
