@@ -4,7 +4,7 @@
 \name{cdcfluview}
 \alias{cdcfluview}
 \alias{cdcfluview-package}
-\title{Retrieve 'U.S'.' Flu Season Data from the 'CDC' 'FluView' Portal}
+\title{Retrieve Flu Season Data from the United States Centers for Disease Control and Prevention ('CDC') 'FluView' Portal}
 \description{
 The U.S. Centers for Disease Control (CDC) maintains a portal
 \url{http://gis.cdc.gov/grasp/fluview/fluportaldashboard.html} for

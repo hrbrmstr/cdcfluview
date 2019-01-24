@@ -4,7 +4,8 @@
 \alias{who_nrevss}
 \title{Retrieve WHO/NREVSS Surveillance Data}
 \usage{
-who_nrevss(region = c("national", "hhs", "census", "state"), years = NULL)
+who_nrevss(region = c("national", "hhs", "census", "state"),
+  years = NULL)
 }
 \arguments{
 \item{region}{one of "\code{national}", "\code{hhs}", "\code{census}", or "\code{state}"}

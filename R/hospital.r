@@ -16,7 +16,7 @@
 #' @references
 #' - [Hospital Portal](https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html)
 #' @export
-#' @examples 
+#' @examples
 #' hosp_fs <- hospitalizations("flusurv", years=2015)
 #' \dontrun{
 #' hosp_eip <- hospitalizations("eip")
@@ -76,16 +76,17 @@ hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp"),
 
   ser_names <- unlist(hosp$res$busdata$datafields, use.names = FALSE)
 
-  mmwr_df <- bind_rows(hosp$res$mmwr)
+  suppressWarnings(suppressMessages(mmwr_df <- dplyr::bind_rows(hosp$res$mmwr)))
   mmwr_df <- mmwr_df[,c("mmwrid", "weekend", "weeknumber", "weekstart", "year",
                         "yearweek", "seasonid", "weekendlabel", "weekendlabel2")]
 
+  suppressMessages(suppressWarnings(
   dplyr::bind_rows(lapply(hosp$res$busdata$dataseries, function(.x) {
     tdf <- dplyr::bind_rows(lapply(.x$data, function(.x) setNames(.x, ser_names)))
     tdf$age <- .x$age
     tdf$season <- .x$season
     tdf
-  })) -> xdf
+  })) -> xdf))
 
   dplyr::left_join(xdf, mmwr_df, c("mmwrid", "weeknumber")) %>%
     dplyr::left_join(age_df, "age") %>%
@@ -137,7 +138,7 @@ hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp"),
 #' @md
 #' @export
 #' @examples
-#' surveillance_areas()
+#' sa <- surveillance_areas()
 surveillance_areas <- function() {
   meta <- jsonlite::fromJSON("https://gis.cdc.gov/GRASP/Flu3/GetPhase03InitApp?appVersion=Public")
   xdf <- setNames(meta$catchments[,c("name", "area")], c("surveillance_area", "region"))

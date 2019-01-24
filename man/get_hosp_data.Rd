@@ -38,6 +38,6 @@ There is often a noticeable delay when making the API request to the CDC.
 \examples{
 \dontrun{
 # All of FluSurv-NET, 50-64 years old, 2010/11-2014/15 flu seasons
-flu <- get_hosp_data("flusurvnet", "50-64y", years=2010:2014)
+hosp <- get_hosp_data("flusurvnet", "50-64y", years=2010:2014)
 }
 }

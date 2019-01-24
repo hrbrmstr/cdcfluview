@@ -21,19 +21,19 @@
 #' - [ILINet Portal](https://wwwn.cdc.gov/ilinet/) (Login required)
 #' - [WHO/NREVSS](https://www.cdc.gov/surveillance/nrevss/index.html)
 #' @export
-#' @examples 
-#' national_ili <- ilinet("national", years=2017)
+#' @examples
+#' national_ili <- ilinet("national", years = 2017)
 #' \dontrun{
 #' hhs_ili <- ilinet("hhs")
 #' census_ili <- ilinet("census")
 #' state_ili <- ilinet("state")
-#' 
-#' library(purrr)
-#' map_df(
-#'   c("national", "hhs", "census", "state"),
-#'   ~ilinet(.x))
+#'
+#' all_ili <- suppressWarnings(
+#'   suppressMessages(purrr::map_df(c("national", "hhs", "census", "state"), ilinet)))
 #' }
-ilinet <- function(region=c("national", "hhs", "census", "state"), years=NULL) {
+ilinet <- function(region = c("national", "hhs", "census", "state"), years = NULL) {
+
+  #region="national"; years=1997:2018
 
   region <- match.arg(tolower(region), c("national", "hhs", "census", "state"))
 
@@ -46,10 +46,18 @@ ilinet <- function(region=c("national", "hhs", "census", "state"), years=NULL) {
   ) -> params
 
   params$SubRegionsDT <- switch(region,
-    national = { list(list(ID=0, Name="")) },
-    hhs = { lapply(1:10, function(i) list(ID=i, Name=as.character(i))) },
-    census = { lapply(1:9, function(i) list(ID=i, Name=as.character(i))) },
-    state = { lapply(1:59, function(i) list(ID=i, Name=as.character(i))) }
+    national = {
+      list(list(ID = 0, Name = ""))
+    },
+    hhs = {
+      lapply(1:10, function(i) list(ID = i, Name = as.character(i)))
+    },
+    census = {
+      lapply(1:9, function(i) list(ID = i, Name = as.character(i)))
+    },
+    state = {
+      lapply(1:59, function(i) list(ID = i, Name = as.character(i)))
+    }
   )
 
   available_seasons <- sort(meta$seasons$seasonid)
@@ -66,13 +74,14 @@ ilinet <- function(region=c("national", "hhs", "census", "state"), years=NULL) {
     if (length(years) == 0) {
       years <- rev(sort(meta$seasons$seasonid))[1]
       curr_season_descr <- meta$seasons[meta$seasons$seasonid == years, "description"]
-      message(sprintf("No valid years specified, defaulting to this flu season => ID: %s [%s]",
-                      years, curr_season_descr))
+      message(sprintf(
+        "No valid years specified, defaulting to this flu season => ID: %s [%s]",
+        years, curr_season_descr
+      ))
     }
-
   }
 
-  params$SeasonsDT <- lapply(years, function(i) list(ID=i, Name=as.character(i)))
+  params$SeasonsDT <- lapply(years, function(i) list(ID = i, Name = as.character(i)))
 
   tf <- tempfile(fileext = ".zip")
   td <- tempdir()
@@ -97,27 +106,27 @@ ilinet <- function(region=c("national", "hhs", "census", "state"), years=NULL) {
 
   nm <- unzip(tf, overwrite = TRUE, exdir = td)
 
-  xdf <- read.csv(nm, skip = 1, stringsAsFactors=FALSE)
+  xdf <- read.csv(nm, skip = 1, stringsAsFactors = FALSE)
   xdf <- .mcga(xdf)
 
-  suppressWarnings(xdf$weighted_ili <- to_num(xdf$weighted_ili))
-  suppressWarnings(xdf$unweighted_ili <- to_num(xdf$unweighted_ili))
-  suppressWarnings(xdf$age_0_4 <- to_num(xdf$age_0_4))
-  suppressWarnings(xdf$age_25_49 <- to_num(xdf$age_25_49))
-  suppressWarnings(xdf$age_25_64 <- to_num(xdf$age_25_64))
-  suppressWarnings(xdf$age_5_24 <- to_num(xdf$age_5_24))
-  suppressWarnings(xdf$age_50_64 <- to_num(xdf$age_50_64))
-  suppressWarnings(xdf$age_65 <- to_num(xdf$age_65))
-  suppressWarnings(xdf$ilitotal <- to_num(xdf$ilitotal))
-  suppressWarnings(xdf$num_of_providers <- to_num(xdf$num_of_providers))
-  suppressWarnings(xdf$total_patients <- to_num(xdf$total_patients))
-  suppressWarnings(xdf$week_start <- as.Date(sprintf("%s-%02d-1", xdf$year, xdf$week), "%Y-%U-%u"))
+  xdf$weighted_ili <- to_num(xdf$weighted_ili)
+  xdf$unweighted_ili <- to_num(xdf$unweighted_ili)
+  xdf$age_0_4 <- to_num(xdf$age_0_4)
+  xdf$age_25_49 <- to_num(xdf$age_25_49)
+  xdf$age_25_64 <- to_num(xdf$age_25_64)
+  xdf$age_5_24 <- to_num(xdf$age_5_24)
+  xdf$age_50_64 <- to_num(xdf$age_50_64)
+  xdf$age_65 <- to_num(xdf$age_65)
+  xdf$ilitotal <- to_num(xdf$ilitotal)
+  xdf$num_of_providers <- to_num(xdf$num_of_providers)
+  xdf$total_patients <- to_num(xdf$total_patients)
+  xdf$week_start <- MMWRweek::MMWRweek2Date(xdf$year, xdf$week)
 
   if (region == "national") xdf$region <- "National"
-  if (region == "hhs") xdf$region <- factor(xdf$region, levels=sprintf("Region %s", 1:10))
+  if (region == "hhs") xdf$region <- factor(xdf$region, levels = sprintf("Region %s", 1:10))
 
   class(xdf) <- c("tbl_df", "tbl", "data.frame")
 
-  suppressMessages(readr::type_convert(xdf))
+  arrange(suppressMessages(readr::type_convert(xdf)), week_start)
 
 }

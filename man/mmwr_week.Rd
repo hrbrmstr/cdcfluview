@@ -17,5 +17,5 @@ This is a reformat and re-export of a function in the \code{MMWRweek} package.
 It provides a snake case version of its counterpart, produces a \code{tibble}
 }
 \examples{
-mmwr_week(Sys.Date())
+mwk <- mmwr_week(Sys.Date())
 }

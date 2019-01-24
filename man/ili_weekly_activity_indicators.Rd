@@ -35,7 +35,7 @@ with data presented by the state likely being the more complete.
 }
 \examples{
 \dontrun{
-ili_weekly_activity_indicators(2016)
+iwai <- ili_weekly_activity_indicators(2016)
 }
 }
 \references{

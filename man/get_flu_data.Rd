@@ -4,8 +4,9 @@
 \alias{get_flu_data}
 \title{Retrieves state, regional or national influenza statistics from the CDC (deprecated)}
 \usage{
-get_flu_data(region = "hhs", sub_region = 1:10, data_source = "ilinet",
-  years = as.numeric(format(Sys.Date(), "\%Y")))
+get_flu_data(region = "hhs", sub_region = 1:10,
+  data_source = "ilinet", years = as.numeric(format(Sys.Date(),
+  "\%Y")))
 }
 \arguments{
 \item{region}{one of "\code{hhs}", "\code{census}", "\code{national}",
@@ -46,9 +47,4 @@ There is often a noticeable delay when making the API request to the CDC.
       This is not due to a large download size, but the time it takes for their
       servers to crunch the data. Wrap the function call in \code{httr::with_verbose}
       if you would like to see what's going on.
-}
-\examples{
-\dontrun{
-flu <- get_flu_data("hhs", 1:10, c("who", "ilinet"), years=2000:2014)
-}
 }

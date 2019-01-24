@@ -22,7 +22,7 @@
 #' @export
 #' @examples \dontrun{
 #' # All of FluSurv-NET, 50-64 years old, 2010/11-2014/15 flu seasons
-#' flu <- get_hosp_data("flusurvnet", "50-64y", years=2010:2014)
+#' hosp <- get_hosp_data("flusurvnet", "50-64y", years=2010:2014)
 #' }
 get_hosp_data <- function(area="flusurvnet", age_group="overall",
                           years=as.numeric(format(Sys.Date(), "%Y")) - 1) {

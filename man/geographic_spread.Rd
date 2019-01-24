@@ -20,6 +20,6 @@ State and Territorial Epidemiologists Reports of Geographic Spread of Influenza
 }
 \examples{
 \dontrun{
-geographic_spread()
+gs <- geographic_spread()
 }
 }

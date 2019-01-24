@@ -1,3 +1,9 @@
+# cdcfluview 0.9.0
+
+- fix bug in epiweek computation in ilinet() thanks to a bug report by @jturtle (#19)
+- included cloc metrics and refreshed README
+- 
+
 # cdcfluview 0.7.0
 
 * The CDC changed most of their API endpoints to support a new HTML interface and 

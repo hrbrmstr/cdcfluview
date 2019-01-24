@@ -114,11 +114,11 @@ pi_mortality <- function(coverage_area=c("national", "state", "region"), years=N
 
   res <- httr::content(res, as="parsed", flatten=TRUE)
 
-  dplyr::bind_rows(res$seasons) %>%
+  suppressWarnings(suppressMessages(dplyr::bind_rows(res$seasons) %>%
     dplyr::left_join(mapcode_df, "map_code") %>%
     dplyr::left_join(geo_df, "geoid") %>%
     dplyr::left_join(age_df, "ageid") %>%
-    dplyr::left_join(dplyr::mutate(mmwrid_map, mmwrid=as.character(mmwrid)), "mmwrid") -> xdf
+    dplyr::left_join(dplyr::mutate(mmwrid_map, mmwrid=as.character(mmwrid)), "mmwrid") -> xdf))
 
   xdf <- dplyr::mutate(xdf, coverage_area = coverage_area)
 
@@ -136,15 +136,14 @@ pi_mortality <- function(coverage_area=c("national", "state", "region"), years=N
          "age_label", "wk_start", "wk_end", "year_wk_num", "mmwrid",
          "coverage_area", "region_name", "callout")] -> xdf
 
-  suppressWarnings(xdf$baseline <- to_num(xdf$baseline) / 100)
-  suppressWarnings(xdf$threshold <- to_num(xdf$threshold) / 100)
-  suppressWarnings(xdf$percent_pni <- to_num(xdf$percent_pni) / 100)
-  suppressWarnings(xdf$percent_complete <- to_num(xdf$percent_complete) / 100)
-  suppressWarnings(xdf$number_influenza <- to_num(xdf$number_influenza))
-  suppressWarnings(xdf$number_pneumonia <- to_num(xdf$number_pneumonia))
-  suppressWarnings(xdf$all_deaths <- to_num(xdf$all_deaths))
-  suppressWarnings(xdf$Total_PnI <- to_num(xdf$Total_PnI))
-
+  xdf$baseline <- to_num(xdf$baseline) / 100
+  xdf$threshold <- to_num(xdf$threshold) / 100
+  xdf$percent_pni <- to_num(xdf$percent_pni) / 100
+  xdf$percent_complete <- to_num(xdf$percent_complete) / 100
+  xdf$number_influenza <- to_num(xdf$number_influenza)
+  xdf$number_pneumonia <- to_num(xdf$number_pneumonia)
+  xdf$all_deaths <- to_num(xdf$all_deaths)
+  xdf$Total_PnI <- to_num(xdf$Total_PnI)
   xdf <- .mcga(xdf)
 
   xdf

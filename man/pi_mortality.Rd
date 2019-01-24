@@ -4,7 +4,8 @@
 \alias{pi_mortality}
 \title{Pneumonia and Influenza Mortality Surveillance}
 \usage{
-pi_mortality(coverage_area = c("national", "state", "region"), years = NULL)
+pi_mortality(coverage_area = c("national", "state", "region"),
+  years = NULL)
 }
 \arguments{
 \item{coverage_area}{coverage area for data (national, state or region)}
