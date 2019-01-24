@@ -94,10 +94,6 @@ back-ported to the master branch when necessary.
 ``` r
 # CRAN
 install.packages("cdcfluview")
-# 0.9.0 branch (where all fixes are)
-devtools::install_git("https://sr.ht/~hrbrmstr/cdcfluview", ref= "0.9.0")
-devtools::install_git("https://gitlab.com/hrbrmstr/cdcfluview", ref = "0.9.0")
-devtools::install_github("hrbrmstr/cdcfluview", ref = "0.9.0")
 # master branch
 devtools::install_git("https://sr.ht/~hrbrmstr/cdcfluview")
 devtools::install_git("https://gitlab.com/hrbrmstr/cdcfluview")
