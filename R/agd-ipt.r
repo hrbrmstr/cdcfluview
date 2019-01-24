@@ -16,7 +16,7 @@
 #'        to a year.
 #' @export
 #' @examples
-#' age_group_distribution(years=2015)
+#' agd <- age_group_distribution(years=2015)
 age_group_distribution <- function(years = NULL) {
 
   httr::GET(

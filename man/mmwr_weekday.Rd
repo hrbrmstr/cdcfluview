@@ -25,5 +25,5 @@ Weekday names are explicitly mapped to "Sunday-Saturday" or "Sun-Sat" and
 do not change with your locale.
 }
 \examples{
-mmwr_weekday(Sys.Date())
+mwday <- mmwr_weekday(Sys.Date())
 }

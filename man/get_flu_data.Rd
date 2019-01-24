@@ -48,8 +48,3 @@ There is often a noticeable delay when making the API request to the CDC.
       servers to crunch the data. Wrap the function call in \code{httr::with_verbose}
       if you would like to see what's going on.
 }
-\examples{
-\dontrun{
-flu <- get_flu_data("hhs", 1:10, c("who", "ilinet"), years=2000:2014)
-}
-}

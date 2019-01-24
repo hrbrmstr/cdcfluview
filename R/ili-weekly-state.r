@@ -25,7 +25,7 @@
 #' with data presented by the state likely being the more complete.
 #' @export
 #' @examples \dontrun{
-#' ili_weekly_activity_indicators(2016)
+#' iwai <- ili_weekly_activity_indicators(2016)
 #' }
 ili_weekly_activity_indicators <- function(years=NULL) {
 
@@ -78,7 +78,7 @@ ili_weekly_activity_indicators <- function(years=NULL) {
 #' @md
 #' @export
 #' @examples
-#' state_data_providers()
+#' sdp <- state_data_providers()
 state_data_providers <- function() {
 
   jsonlite::fromJSON("https://gis.cdc.gov/grasp/fluView1/Phase1IniP") %>%

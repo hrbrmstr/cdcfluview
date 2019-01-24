@@ -10,7 +10,7 @@
 #'        to a year.
 #' @export
 #' @examples \dontrun{
-#' geographic_spread()
+#' gs <- geographic_spread()
 #' }
 geographic_spread <- function(years=NULL) {
 
@@ -57,7 +57,7 @@ geographic_spread <- function(years=NULL) {
 
   res <- httr::content(res, as="parsed", flatten=TRUE)
 
-  xdf <- dplyr::bind_rows(res$datadownload)
+  suppressMessages(suppressWarnings(xdf <- dplyr::bind_rows(res$datadownload)))
   xdf$weekend <- as.Date(xdf$weekend, format="%B-%d-%Y")
 
   xdf

@@ -15,7 +15,7 @@
 #'         \code{label}, \code{subtitle}
 #' @export
 #' @examples \dontrun{
-#' get_weekly_flu_report()
+#' wfr <- get_weekly_flu_report()
 #' }
 get_weekly_flu_report <- function() {
 
@@ -28,6 +28,8 @@ get_weekly_flu_report <- function() {
   # for each period extract the state information and
   # shove it all into a data frame
   pb <- dplyr::progress_estimated(length(periods))
+
+  suppressWarnings(suppressMessages(
   purrr::map_df(periods, function(period) {
 
     pb$tick()$print()
@@ -51,7 +53,7 @@ get_weekly_flu_report <- function() {
       subtitle = period["subtitle"]
     )
 
-  }) -> out
+  }) -> out))
 
   class(out) <- c("cdcweeklyreport", class(out))
 

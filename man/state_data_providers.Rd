@@ -10,5 +10,5 @@ state_data_providers()
 Retrieve metadata about U.S. State CDC Provider Data
 }
 \examples{
-state_data_providers()
+sdp <- state_data_providers()
 }

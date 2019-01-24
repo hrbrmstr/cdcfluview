@@ -33,11 +33,8 @@ hhs_ili <- ilinet("hhs")
 census_ili <- ilinet("census")
 state_ili <- ilinet("state")
 
-library(purrr)
-map_df(
-  c("national", "hhs", "census", "state"),
-  ~ ilinet(.x)
-)
+all_ili <- suppressWarnings(
+  suppressMessages(purrr::map_df(c("national", "hhs", "census", "state"), ilinet)))
 }
 }
 \references{

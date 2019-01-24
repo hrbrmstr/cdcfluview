@@ -114,11 +114,11 @@ pi_mortality <- function(coverage_area=c("national", "state", "region"), years=N
 
   res <- httr::content(res, as="parsed", flatten=TRUE)
 
-  dplyr::bind_rows(res$seasons) %>%
+  suppressWarnings(suppressMessages(dplyr::bind_rows(res$seasons) %>%
     dplyr::left_join(mapcode_df, "map_code") %>%
     dplyr::left_join(geo_df, "geoid") %>%
     dplyr::left_join(age_df, "ageid") %>%
-    dplyr::left_join(dplyr::mutate(mmwrid_map, mmwrid=as.character(mmwrid)), "mmwrid") -> xdf
+    dplyr::left_join(dplyr::mutate(mmwrid_map, mmwrid=as.character(mmwrid)), "mmwrid") -> xdf))
 
   xdf <- dplyr::mutate(xdf, coverage_area = coverage_area)
 

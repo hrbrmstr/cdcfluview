@@ -18,12 +18,11 @@
 #'       is not due to a large download size, but the time it takes for their
 #'       servers to crunch the data. Wrap the function call in \code{httr::with_verbose}
 #'       if you would like to see what's going on.
-#' @examples 
-#' get_state_data(2014)
+#' @examples
+#' state_data <- get_state_data(2014)
 #' \dontrun{
-#' get_state_data(c(2013, 2014))
-#' get_state_data(2010:2014)
-#' httr::with_verbose(get_state_data(2009:2015))
+#' gsd <- get_state_data(c(2013, 2014))
+#' gsd <- get_state_data(2010:2014)
 #' }
 get_state_data <- function(years=as.numeric(format(Sys.Date(), "%Y"))) {
 

@@ -28,11 +28,8 @@
 #' census_ili <- ilinet("census")
 #' state_ili <- ilinet("state")
 #'
-#' library(purrr)
-#' map_df(
-#'   c("national", "hhs", "census", "state"),
-#'   ~ ilinet(.x)
-#' )
+#' all_ili <- suppressWarnings(
+#'   suppressMessages(purrr::map_df(c("national", "hhs", "census", "state"), ilinet)))
 #' }
 ilinet <- function(region = c("national", "hhs", "census", "state"), years = NULL) {
 

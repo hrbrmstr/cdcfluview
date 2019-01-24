@@ -23,7 +23,7 @@ the reporting source metadata and a limit on the historical flu information.
 }
 \examples{
 \dontrun{
-get_weekly_flu_report()
+wfr <- get_weekly_flu_report()
 }
 }
 \references{

@@ -31,10 +31,9 @@ There is often a noticeable delay when making the API request to the CDC. This
       if you would like to see what's going on.
 }
 \examples{
-get_state_data(2014)
+state_data <- get_state_data(2014)
 \dontrun{
-get_state_data(c(2013, 2014))
-get_state_data(2010:2014)
-httr::with_verbose(get_state_data(2009:2015))
+gsd <- get_state_data(c(2013, 2014))
+gsd <- get_state_data(2010:2014)
 }
 }

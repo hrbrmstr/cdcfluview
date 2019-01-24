@@ -20,7 +20,7 @@ public health laboratories by influenza virus type and subtype/lineage. Laborato
 from multiple seasons and different age groups is provided.
 }
 \examples{
-age_group_distribution(years=2015)
+agd <- age_group_distribution(years=2015)
 }
 \references{
 \itemize{
