@@ -14,7 +14,8 @@ Authors@R: c(
            comment = c(ORCID = "0000-0001-8482-8398")),
     person("Sebastian", "Meyer", email = "seb.meyer@fau.de", role = "ctb",
            comment = c(ORCID = "0000-0002-1791-9449")),
-    person("James", "Turtle", email = "jturtle@predsci.com", role = "ctb")
+    person("James", "Turtle", email = "jturtle@predsci.com", role = "ctb",
+           comment = c(ORCID = "0000-0003-0735-7769"))
   )
 Maintainer: Bob Rudis <bob@rud.is>
 Description: The 'U.S.' Centers for Disease Control and Prevention (CDC) maintain
