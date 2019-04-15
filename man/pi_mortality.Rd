@@ -48,6 +48,8 @@ calculated at the national and regional level and by age group.
 }
 \note{
 Queries for "state" and "region" are not necessarily as "instantaneous" as other API endpoints and can near or over 30s retrieval delays.
+
+For consistency with \code{\link{ilinet}} columns indicating the week now contain 'week' instead of the previously abbreviation 'wk'.
 }
 \examples{
 \dontrun{

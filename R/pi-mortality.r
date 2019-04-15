@@ -37,6 +37,8 @@
 #'        the function is smart enough to retrieve by season ID vs convert that
 #'        to a year.
 #' @note Queries for "state" and "region" are not necessarily as "instantaneous" as other API endpoints and can near or over 30s retrieval delays.
+#'
+#' For consistency with \code{\link{ilinet}} columns indicating the week now contain 'week' instead of the previously abbreviation 'wk'.
 #' @references
 #' - [Pneumonia and Influenza Mortality Surveillance Portal](https://gis.cdc.gov/grasp/fluview/mortality.html)
 #' @export
@@ -144,6 +146,12 @@ pi_mortality <- function(coverage_area=c("national", "state", "region"), years=N
   xdf$number_pneumonia <- to_num(xdf$number_pneumonia)
   xdf$all_deaths <- to_num(xdf$all_deaths)
   xdf$Total_PnI <- to_num(xdf$Total_PnI)
+  xdf <- xdf %>%
+    dplyr::rename(
+      week_start = wk_start,
+      week_end = wk_end,
+      year_week_num = year_wk_num
+    )
   xdf <- .mcga(xdf)
 
   xdf
