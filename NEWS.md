@@ -1,3 +1,8 @@
+#cdcfluview 0.9.1
+
+- renamed `pi_mortality` columns regarding the week to `week_*` instead of `wk_*`
+  for consistency with `ilinet` (#21).
+
 # cdcfluview 0.9.0
 
 - fix bug in epiweek computation in ilinet() thanks to a bug report by @jturtle (#19)

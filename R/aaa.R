@@ -1,4 +1,4 @@
-utils::globalVariables(c(".", "mmwrid", "season", "seasonid", "week_start"))
+utils::globalVariables(c(".", "mmwrid", "season", "seasonid", "week_start", "wk_start", "wk_end", "year_wk_num"))
 
 # CDC U.S. region names to ID map
 .region_map <- c(national=3, hhs=1, census=2, state=5)
