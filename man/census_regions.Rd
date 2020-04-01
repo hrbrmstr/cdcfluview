@@ -4,7 +4,9 @@
 \name{census_regions}
 \alias{census_regions}
 \title{Census Region Table}
-\format{A data frame with 51 rows and 2 variables}
+\format{
+A data frame with 51 rows and 2 variables
+}
 \usage{
 data(census_regions)
 }

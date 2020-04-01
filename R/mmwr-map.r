@@ -15,7 +15,7 @@
 .tmp <- lapply(1962:2050, .start_date)
 
 mapply(function(.x, .y) {
-  data_frame(
+  tibble::tibble(
     wk_start = seq(.tmp[[.x]], .tmp[[.y]], "1 week"),
     wk_end = wk_start + 6,
     year_wk_num = 1:length(wk_start)

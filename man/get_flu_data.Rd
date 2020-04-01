@@ -4,9 +4,12 @@
 \alias{get_flu_data}
 \title{Retrieves state, regional or national influenza statistics from the CDC (deprecated)}
 \usage{
-get_flu_data(region = "hhs", sub_region = 1:10,
-  data_source = "ilinet", years = as.numeric(format(Sys.Date(),
-  "\%Y")))
+get_flu_data(
+  region = "hhs",
+  sub_region = 1:10,
+  data_source = "ilinet",
+  years = as.numeric(format(Sys.Date(), "\%Y"))
+)
 }
 \arguments{
 \item{region}{one of "\code{hhs}", "\code{census}", "\code{national}",

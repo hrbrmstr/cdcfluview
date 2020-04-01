@@ -3,8 +3,8 @@ Type: Package
 Encoding: UTF-8
 Title: Retrieve Flu Season Data from the United States Centers for Disease Control 
     and Prevention ('CDC') 'FluView' Portal
-Version: 0.9.0
-Date: 2019-01-23
+Version: 0.9.1
+Date: 2020-04-01
 Authors@R: c(
     person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"), 
            comment = c(ORCID = "0000-0001-5670-2640")),
@@ -20,12 +20,12 @@ Authors@R: c(
   )
 Maintainer: Bob Rudis <bob@rud.is>
 Description: The 'U.S.' Centers for Disease Control and Prevention (CDC) maintain
-    a portal <http://gis.cdc.gov/grasp/fluview/fluportaldashboard.html> for
+    a portal <https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html> for
     accessing state, regional and national influenza statistics as well as
     mortality surveillance data. The web interface makes it difficult and
     time-consuming to select and retrieve influenza data. Tools are provided 
     to access the data provided by the portal's underlying 'API'.
-URL: https://gitlab.com/hrbrmstr/cdcfluview
+URL: https://git.rud.is/hrbrmstr/cdcfluview
 BugReports: https://gitlab.com/hrbrmstr/cdcfluview/issues
 License: MIT + file LICENSE
 LazyData: true
@@ -39,6 +39,7 @@ Imports:
     tools,
     dplyr,
     jsonlite,
+    tibble,
     stats,
     utils,
     sf,
@@ -47,4 +48,4 @@ Imports:
     readr,
     MMWRweek,
     units (>= 0.4-6)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0

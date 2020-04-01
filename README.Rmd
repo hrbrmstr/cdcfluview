@@ -3,13 +3,13 @@ output: rmarkdown::github_document
 editor_options: 
   chunk_output_type: console
 ---
-```{r message=FALSE, warning=FALSE, error=FALSE, include=FALSE}
-knitr::opts_chunk$set(message=FALSE, warning=FALSE, fig.retina=2)
-options(width=120)
+```{r pkg-knitr-opts, include=FALSE}
+hrbrpkghelpr::global_opts()
 ```
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/cdcfluview)](https://cran.r-project.org/package=cdcfluview)
-[![Travis-CI Build Status](https://travis-ci.org/hrbrmstr/cdcfluview.svg?branch=master)](https://travis-ci.org/hrbrmstr/cdcfluview)
-[![Coverage Status](https://img.shields.io/codecov/c/github/hrbrmstr/cdcfluview/master.svg)](https://codecov.io/github/hrbrmstr/cdcfluview?branch=master)
+
+```{r badges, results='asis', echo=FALSE, cache=FALSE}
+hrbrpkghelpr::stinking_badges()
+```
 
 # I M P O R T A N T
 
@@ -181,9 +181,9 @@ count(xdf, weekend, activity_level_label) %>%
 ```{r nat-pi-mortality}
 (nat_pi <- pi_mortality("national"))
 
-select(nat_pi, wk_end, percent_pni, baseline, threshold) %>% 
-  gather(measure, value, -wk_end) %>% 
-  ggplot(aes(wk_end, value)) + 
+select(nat_pi, week_end, percent_pni, baseline, threshold) %>% 
+  gather(measure, value, -week_end) %>% 
+  ggplot(aes(week_end, value)) + 
   geom_line(aes(group=measure, color=measure)) + 
   scale_y_percent() +
   scale_color_ipsum(name = NULL, labels=c("Baseline", "Percent P&I", "Threshold")) +
@@ -231,4 +231,4 @@ cloc::cloc_pkg_md()
 
 ## Code of Conduct
 
-Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by its terms.

@@ -4,8 +4,11 @@
 \alias{hospitalizations}
 \title{Laboratory-Confirmed Influenza Hospitalizations}
 \usage{
-hospitalizations(surveillance_area = c("flusurv", "eip", "ihsp"),
-  region = "all", years = NULL)
+hospitalizations(
+  surveillance_area = c("flusurv", "eip", "ihsp"),
+  region = "all",
+  years = NULL
+)
 }
 \arguments{
 \item{surveillance_area}{one of "\code{flusurv}", "\code{eip}", or "\code{ihsp}"}

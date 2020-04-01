@@ -4,8 +4,7 @@
 \alias{pi_mortality}
 \title{Pneumonia and Influenza Mortality Surveillance}
 \usage{
-pi_mortality(coverage_area = c("national", "state", "region"),
-  years = NULL)
+pi_mortality(coverage_area = c("national", "state", "region"), years = NULL)
 }
 \arguments{
 \item{coverage_area}{coverage area for data (national, state or region)}
@@ -29,7 +28,7 @@ NCHS Mortality Surveillance System data are presented by the week the death occu
 at the national, state, and HHS Region levels. Data on the percentage of deaths due
 to P&I on a national level are released two weeks after the week of death to allow
 for collection of enough data to produce a stable percentage.  States and HHS regions
-with less than 20% of the expected total deaths (average number of total deaths
+with less than 20\% of the expected total deaths (average number of total deaths
 reported by week during 2008-2012) will be marked as insufficient data. Collection
 of complete data is not expected at the time of initial report, and a reliable
 percentage of deaths due to P&I is not anticipated at the U.S. Department of Health

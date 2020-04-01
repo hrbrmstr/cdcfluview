@@ -2,6 +2,7 @@
 
 - renamed `pi_mortality` columns regarding the week to `week_*` instead of `wk_*`
   for consistency with `ilinet` (#21).
+- fixed CRAN check errors
 
 # cdcfluview 0.9.0
 

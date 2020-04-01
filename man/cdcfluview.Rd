@@ -3,7 +3,6 @@
 \docType{package}
 \name{cdcfluview}
 \alias{cdcfluview}
-\alias{cdcfluview-package}
 \title{Retrieve Flu Season Data from the United States Centers for Disease Control and Prevention ('CDC') 'FluView' Portal}
 \description{
 The U.S. Centers for Disease Control (CDC) maintains a portal

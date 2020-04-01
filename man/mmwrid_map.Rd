@@ -4,7 +4,9 @@
 \name{mmwrid_map}
 \alias{mmwrid_map}
 \title{MMWR ID to Calendar Mappings}
-\format{A data frame with 4,592 rows and 4 columns}
+\format{
+A data frame with 4,592 rows and 4 columns
+}
 \description{
 The CDC uses a unique "Morbidity and Mortality Weekly Report" identifier
 for each week that starts at 1 (Ref: < https://www.cdc.gov/mmwr/preview/mmwrhtml/su6004a9.htm>).

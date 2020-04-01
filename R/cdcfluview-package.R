@@ -15,6 +15,7 @@
 #' @importFrom purrr map map_df map_chr map_lgl discard keep
 #' @importFrom readr read_csv type_convert
 #' @importFrom tools file_path_sans_ext
+#' @importFrom tibble tibble
 #' @importFrom dplyr left_join bind_rows mutate filter data_frame %>% arrange
 #' @importFrom jsonlite fromJSON
 #' @importFrom stats setNames

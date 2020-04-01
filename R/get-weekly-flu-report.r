@@ -44,7 +44,7 @@ get_weekly_flu_report <- function() {
     color <- xml2::xml_text(xml2::xml_find_all(kids, "color"), TRUE)
     label <- xml2::xml_text(xml2::xml_find_all(kids, "label"), TRUE)
 
-    dplyr::data_frame(
+    tibble::tibble(
       year = period["year"],
       week_number = period["number"],
       state = abbrev,

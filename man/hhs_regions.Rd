@@ -4,7 +4,9 @@
 \name{hhs_regions}
 \alias{hhs_regions}
 \title{HHS Region Table}
-\format{A data frame with 59 rows and 4 variables}
+\format{
+A data frame with 59 rows and 4 variables
+}
 \usage{
 data(hhs_regions)
 }

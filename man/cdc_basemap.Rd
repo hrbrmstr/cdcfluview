@@ -4,8 +4,9 @@
 \alias{cdc_basemap}
 \title{Retrieve CDC U.S. Basemaps}
 \usage{
-cdc_basemap(basemap = c("national", "hhs", "census", "states", "spread",
-  "surv"))
+cdc_basemap(
+  basemap = c("national", "hhs", "census", "states", "spread", "surv")
+)
 }
 \arguments{
 \item{basemap}{select the CDC basemap. One of:

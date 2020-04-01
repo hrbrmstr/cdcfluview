@@ -4,8 +4,11 @@
 \alias{get_hosp_data}
 \title{Retrieves influenza hospitalization statistics from the CDC (deprecated)}
 \usage{
-get_hosp_data(area = "flusurvnet", age_group = "overall",
-  years = as.numeric(format(Sys.Date(), "\%Y")) - 1)
+get_hosp_data(
+  area = "flusurvnet",
+  age_group = "overall",
+  years = as.numeric(format(Sys.Date(), "\%Y")) - 1
+)
 }
 \arguments{
 \item{area}{one of "\code{flusurvnet}", "\code{eip}", "\code{ihsp}", or two
