@@ -27,12 +27,12 @@ get_weekly_flu_report <- function() {
 
   # for each period extract the state information and
   # shove it all into a data frame
-  pb <- dplyr::progress_estimated(length(periods))
+  pb <- progress::progress_bar$new(total = length(periods))
 
   suppressWarnings(suppressMessages(
   purrr::map_df(periods, function(period) {
 
-    pb$tick()$print()
+    pb$tick()
 
     tp <- sprintf("//timeperiod[@number='%s' and @year='%s']",
                   period["number"], period["year"])

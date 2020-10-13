@@ -3,8 +3,8 @@ Type: Package
 Encoding: UTF-8
 Title: Retrieve Flu Season Data from the United States Centers for Disease Control 
     and Prevention ('CDC') 'FluView' Portal
-Version: 0.9.1
-Date: 2020-04-01
+Version: 0.9.2
+Date: 2020-10-13
 Authors@R: c(
     person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"), 
            comment = c(ORCID = "0000-0001-5670-2640")),
@@ -25,17 +25,18 @@ Description: The 'U.S.' Centers for Disease Control and Prevention (CDC) maintai
     mortality surveillance data. The web interface makes it difficult and
     time-consuming to select and retrieve influenza data. Tools are provided 
     to access the data provided by the portal's underlying 'API'.
-URL: https://git.rud.is/hrbrmstr/cdcfluview
-BugReports: https://gitlab.com/hrbrmstr/cdcfluview/issues
+URL: https://github.com/hrbrmstr/cdcfluview
+BugReports: https://github.com/hrbrmstr/cdcfluview/issues
 License: MIT + file LICENSE
 LazyData: true
 Suggests:
     testthat,
     covr
 Depends:
-    R (>= 3.2.0)
+    R (>= 3.5.0)
 Imports:
     httr,
+    progress,
     tools,
     dplyr,
     jsonlite,
@@ -48,4 +49,4 @@ Imports:
     readr,
     MMWRweek,
     units (>= 0.4-6)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1

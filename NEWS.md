@@ -1,4 +1,9 @@
-#cdcfluview 0.9.1
+# cdcfluview 0.9.2
+
+- Underlying hidden API changed (h/t @Ian-McGovern — #25 & CRAN & Travis) for `age_group_distribution()` so
+  this has been fixed and the warnings for `dplyr::progress_estimated()` were also fixed.
+
+# cdcfluview 0.9.1
 
 - renamed `pi_mortality` columns regarding the week to `week_*` instead of `wk_*`
   for consistency with `ilinet` (#21).

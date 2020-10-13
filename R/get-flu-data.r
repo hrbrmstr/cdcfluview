@@ -142,9 +142,9 @@ get_flu_data <- function(region="hhs", sub_region=1:10,
 
   files <- unzip(out_file, exdir=out_dir, overwrite=TRUE)
 
-  pb <- dplyr::progress_estimated(length(files))
+  pb <- progress::progress_bar$new(total = length(files))
   lapply(files, function(x) {
-    pb$tick()$print()
+    pb$tick()
     ct <- ifelse(grepl("who", x, ignore.case=TRUE), 1, 1)
     suppressMessages(readr::read_csv(x, skip=ct))
   }) -> file_list

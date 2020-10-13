@@ -72,10 +72,12 @@ All development happens in branches now with only critical fixes being back-port
 ```{r eval=FALSE}
 # CRAN
 install.packages("cdcfluview")
-# master branch
-devtools::install_git("https://sr.ht/~hrbrmstr/cdcfluview")
-devtools::install_git("https://gitlab.com/hrbrmstr/cdcfluview")
-devtools::install_github("hrbrmstr/cdcfluview")
+
+# main branch
+remotes::install_git("https://git.rud.is/hrbrmstr/cdcfluview.git")
+remotes::install_git("https://sr.ht/~hrbrmstr/cdcfluview")
+remotes::install_git("https://gitlab.com/hrbrmstr/cdcfluview")
+remotes::install_github("hrbrmstr/cdcfluview")
 ```
 
 ## Usage
@@ -85,7 +87,7 @@ library(cdcfluview)
 library(hrbrthemes)
 library(tidyverse)
 
-# current verison
+# current version
 packageVersion("cdcfluview")
 ```
 

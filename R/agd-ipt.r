@@ -41,7 +41,7 @@ age_group_distribution <- function(years = NULL) {
   typ_names <- c("virusid", "vir_description", "vir_label", "vir_startmmwrid", "vir_endmmwrid",
                  "vir_displayorder", "vir_colorname", "vir_color_hexvalue", "vir_labtypeid",
                  "vir_sortid")
-  vir_names <- c("virusid", "ageid", "count", "mmwrid", "seasonid", "publishyearweekid", "loaddatetime")
+  vir_names <- c("virusid", "ageid", "count", "mmwrid", "seasonid")
 
   sea_df <- stats::setNames(xdat$Season, sea_names)
   age_df <- stats::setNames(xdat$Age, age_names)
@@ -54,7 +54,7 @@ age_group_distribution <- function(years = NULL) {
   class(vir_df) <- c("tbl_df", "tbl", "data.frame")
 
   vir_df_cols <- c("sea_label", "age_label", "vir_label", "count", "mmwrid", "seasonid",
-                   "publishyearweekid", "sea_description", "sea_startweek",
+                   "sea_description", "sea_startweek",
                    "sea_endweek", "vir_description",  "vir_startmmwrid", "vir_endmmwrid")
 
   vir_df <- vir_df[,vir_df_cols]

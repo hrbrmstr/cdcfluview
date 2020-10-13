@@ -1,7 +1,7 @@
 #' Retrieve Flu Season Data from the United States Centers for Disease Control and Prevention ('CDC') 'FluView' Portal
 #'
 #' The U.S. Centers for Disease Control (CDC) maintains a portal
-#' <http://gis.cdc.gov/grasp/fluview/fluportaldashboard.html> for
+#' <https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html> for
 #' accessing state, regional and national influenza statistics as well as
 #' Mortality Surveillance Data. The Flash interface makes it difficult and
 #' time-consuming to select and retrieve influenza data. This package
@@ -11,7 +11,7 @@
 #' @name cdcfluview
 #' @docType package
 #' @author Bob Rudis (bob@@rud.is)
-#' @import httr MMWRweek xml2 units
+#' @import httr MMWRweek xml2 units progress
 #' @importFrom purrr map map_df map_chr map_lgl discard keep
 #' @importFrom readr read_csv type_convert
 #' @importFrom tools file_path_sans_ext

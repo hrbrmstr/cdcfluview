@@ -42,7 +42,7 @@ Control and Prevention (‘CDC’) ‘FluView’ Portal
 ## Description
 
 The U.S. Centers for Disease Control (CDC) maintains a portal
-<http://gis.cdc.gov/grasp/fluview/fluportaldashboard.html> for accessing
+<https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html> for accessing
 state, regional and national influenza statistics as well as Mortality
 Surveillance Data. The Flash interface makes it difficult and
 time-consuming to select and retrieve influenza data. This package
@@ -107,10 +107,12 @@ back-ported to the master branch when necessary.
 ``` r
 # CRAN
 install.packages("cdcfluview")
-# master branch
-devtools::install_git("https://sr.ht/~hrbrmstr/cdcfluview")
-devtools::install_git("https://gitlab.com/hrbrmstr/cdcfluview")
-devtools::install_github("hrbrmstr/cdcfluview")
+
+# main branch
+remotes::install_git("https://git.rud.is/hrbrmstr/cdcfluview.git")
+remotes::install_git("https://sr.ht/~hrbrmstr/cdcfluview")
+remotes::install_git("https://gitlab.com/hrbrmstr/cdcfluview")
+remotes::install_github("hrbrmstr/cdcfluview")
 ```
 
 ## Usage
@@ -120,9 +122,9 @@ library(cdcfluview)
 library(hrbrthemes)
 library(tidyverse)
 
-# current verison
+# current versoon
 packageVersion("cdcfluview")
-## [1] '0.9.1'
+## [1] '0.9.2'
 ```
 
 ### Age Group Distribution of Influenza Positive Tests Reported by Public Health Laboratories
@@ -137,7 +139,6 @@ glimpse(age_group_distribution(years=2015))
 ## $ count             <int> 0, 1, 0, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 3, 2, 2, 3, 3, 3, 0, 0, 2, 0, 1, 1, 0, 0…
 ## $ mmwrid            <int> 2806, 2807, 2808, 2809, 2810, 2811, 2812, 2813, 2814, 2815, 2816, 2817, 2818, 2819, 2820, 2…
 ## $ seasonid          <int> 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55,…
-## $ publishyearweekid <int> 3038, 3038, 3038, 3038, 3038, 3038, 3038, 3038, 3038, 3038, 3038, 3038, 3038, 3038, 3038, 3…
 ## $ sea_description   <chr> "Season 2015-16", "Season 2015-16", "Season 2015-16", "Season 2015-16", "Season 2015-16", "…
 ## $ sea_startweek     <int> 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2806, 2…
 ## $ sea_endweek       <int> 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2857, 2…
