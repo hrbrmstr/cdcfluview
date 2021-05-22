@@ -26,7 +26,7 @@ str(hhs_regions)
 library(rvest)
 library(magrittr)
 
-pg <- html("http://www.cdc.gov/std/stats11/census.htm")
+  pg <- html("https://www.cdc.gov/std/stats18/census.htm")
 pg %>% html_table() %>% extract2(1) %>% as.list -> cens
 do.call(rbind.data.frame, lapply(names(cens), function(x) {
   data.frame(region=x,

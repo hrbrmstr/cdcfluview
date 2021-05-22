@@ -12,7 +12,7 @@ test_that("New API works", {
   expect_that(hospitalizations("eip", years=2017), is_a("data.frame"))
   expect_that(hospitalizations("eip", "Colorado", years=2017), is_a("data.frame"))
   expect_that(hospitalizations("ihsp", years=2017), is_a("data.frame"))
-  expect_that(hospitalizations("ihsp", "Oklahoma", years=2017), is_a("data.frame"))
+  expect_that(hospitalizations("ihsp", "Oklahoma", years=2010), is_a("data.frame"))
 
   skip_on_cran()
 
@@ -63,15 +63,15 @@ context("old API functionality")
 
 test_that("Old API works", {
 
-  expect_that(dim(get_flu_data("hhs", years=2015)), equals(c(520L, 15L)))
-
   skip_on_cran()
+
+  expect_that(dim(get_flu_data("hhs", years=2015)), equals(c(520L, 15L)))
 
   expect_that(dim(get_state_data(2008)), equals(c(2494L, 8L)))
 
   invisible(get_flu_data())
 
-  invisible(get_hosp_data())
+  invisible(get_hosp_data(years = 2019))
 
   invisible(get_flu_data(data_source="all"))
 

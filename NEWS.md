@@ -1,3 +1,9 @@
+# cdcfluview 0.9.4
+- the CDC FluView hidden API changed the returned value structure for the
+  `age_group_distribution()` function endpoint. There is now a new column
+  `incl_wkly_rates_and_strata` in the returned data frame. Fixes #28 and
+  CRAN failures.
+
 # cdcfluview 0.9.2
 
 - Underlying hidden API changed (h/t @Ian-McGovern — #25 & CRAN & Travis) for `age_group_distribution()` so

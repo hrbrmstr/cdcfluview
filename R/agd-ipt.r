@@ -36,7 +36,7 @@ age_group_distribution <- function(years = NULL) {
   xdat <- jsonlite::fromJSON(xdat, flatten=TRUE)
 
   sea_names <- c("seasonid", "sea_description", "sea_startweek", "sea_endweek", "sea_enabled",
-                 "sea_label", "sea_showlabtype")
+                 "sea_label", "sea_showlabtype", "incl_wkly_rates_and_strata")
   age_names <- c("ageid", "age_label", "age_color_hexvalue", "age_enabled")
   typ_names <- c("virusid", "vir_description", "vir_label", "vir_startmmwrid", "vir_endmmwrid",
                  "vir_displayorder", "vir_colorname", "vir_color_hexvalue", "vir_labtypeid",
@@ -51,6 +51,7 @@ age_group_distribution <- function(years = NULL) {
   vir_df <- dplyr::left_join(vir_df, sea_df, "seasonid")
   vir_df <- dplyr::left_join(vir_df, age_df, "ageid")
   vir_df <- dplyr::left_join(vir_df, typ_df, "virusid")
+
   class(vir_df) <- c("tbl_df", "tbl", "data.frame")
 
   vir_df_cols <- c("sea_label", "age_label", "vir_label", "count", "mmwrid", "seasonid",
