@@ -3,6 +3,9 @@
   `age_group_distribution()` function endpoint. There is now a new column
   `incl_wkly_rates_and_strata` in the returned data frame. Fixes #28 and
   CRAN failures.
+- fixed `age_label` in `hospitalizations()` (different calls to 
+  the hidden API for this function return different levels depending
+  on the input parameters so it is no longer a factor.)
 
 # cdcfluview 0.9.2
 

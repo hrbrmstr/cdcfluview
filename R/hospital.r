@@ -71,22 +71,51 @@ hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp"),
 
   sea_df <- setNames(
     hosp$meta$seasons,
-    c("sea_description", "sea_endweek", "sea_label", "seasonid", "sea_startweek", "color", "color_hexvalue"))
+    c("sea_description", "sea_endweek", "sea_label", "seasonid", "sea_startweek", "color", "color_hexvalue")
+  )
   sea_df <- sea_df[,c("seasonid", "sea_label", "sea_description", "sea_startweek", "sea_endweek")]
 
   ser_names <- unlist(hosp$res$busdata$datafields, use.names = FALSE)
 
-  suppressWarnings(suppressMessages(mmwr_df <- dplyr::bind_rows(hosp$res$mmwr)))
+  suppressWarnings(
+    suppressMessages(
+      mmwr_df <- dplyr::bind_rows(hosp$res$mmwr)
+    )
+  )
+
   mmwr_df <- mmwr_df[,c("mmwrid", "weekend", "weeknumber", "weekstart", "year",
                         "yearweek", "seasonid", "weekendlabel", "weekendlabel2")]
 
-  suppressMessages(suppressWarnings(
-  dplyr::bind_rows(lapply(hosp$res$busdata$dataseries, function(.x) {
-    tdf <- dplyr::bind_rows(lapply(.x$data, function(.x) setNames(.x, ser_names)))
-    tdf$age <- .x$age
-    tdf$season <- .x$season
-    tdf
-  })) -> xdf))
+  suppressMessages(
+    suppressWarnings(
+
+      dplyr::bind_rows(
+        lapply(hosp$res$busdata$dataseries, function(.x) {
+
+          dplyr::bind_rows(
+            lapply(.x$data, function(.x) setNames(.x, ser_names))
+          ) -> tdf
+
+          tdf$age <- .x$age
+          tdf$season <- .x$season
+
+          tdf
+
+        })
+      ) -> xdf
+
+    )
+  )
+
+  if (length(unique(xdf$age)) > 9) {
+    data.frame(
+      age = 1:12,
+      age_label = c("0-4 yr", "5-17 yr", "18-49 yr", "50-64 yr", "65+ yr", "Overall",
+                    "65-74 yr", "75-84 yr", "85+", "18-29 yr", "30-39 yr", "40-49 yr"
+      )
+    ) -> age_df
+    age_df$age_label <- factor(age_df$age_label, levels = age_df$age_label)
+  }
 
   dplyr::left_join(xdf, mmwr_df, c("mmwrid", "weeknumber")) %>%
     dplyr::left_join(age_df, "age") %>%
@@ -96,10 +125,6 @@ hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp"),
       region = reg
     ) %>%
     dplyr::left_join(mmwrid_map, "mmwrid") -> xdf
-
-  xdf$age_label <- factor(xdf$age_label,
-                          levels=c("0-4 yr", "5-17 yr", "18-49 yr", "50-64 yr",
-                                   "65+ yr", "Overall"))
 
   xdf <- xdf[,c("surveillance_area", "region", "year", "season", "wk_start", "wk_end",
                 "year_wk_num", "rate", "weeklyrate", "age", "age_label", "sea_label",

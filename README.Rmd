@@ -28,7 +28,7 @@ The U.S. Centers for Disease Control (CDC) maintains a portal <https://gis.cdc.g
 The following functions are implemented:
 
 - `age_group_distribution`:	Age Group Distribution of Influenza Positive Tests Reported by Public Health Laboratories
-- `cdc_basemap`:	Retrieve CDC U.S. Basemaps
+- `cdc_basemap`:	Retrieve CDC U.S. base maps
 - `geographic_spread`:	State and Territorial Epidemiologists Reports of Geographic Spread of Influenza
 - `get_weekly_flu_report`:	Retrieves (high-level) weekly (XML) influenza surveillance report from the CDC
 - `hospitalizations`:	Laboratory-Confirmed Influenza Hospitalizations
@@ -52,16 +52,11 @@ Deprecated functions:
 - `get_hosp_data`:	Retrieves influenza hospitalization statistics from the CDC (deprecated)
 - `get_state_data`:	Retrieves state/territory-level influenza statistics from the CDC (deprecated)
 
-
 The following data sets are included:
 
 - `hhs_regions`:	HHS Region Table (a data frame with 59 rows and 4 variables)
 - `census_regions`:	Census Region Table (a data frame with 51 rows and 2 variables)
 - `mmwrid_map`:	MMWR ID to Calendar Mappings (it is exported & available, no need to use `data()`)
-
-## NOTE
-
-All development happens in branches now with only critical fixes being back-ported to the master branch when necessary.
 
 ## Installation
 
@@ -120,7 +115,7 @@ glimpse(fs_nat <- hospitalizations("flusurv"))
 ggplot(fs_nat, aes(wk_end, rate)) + 
   geom_line(aes(color=age_label, group=age_label)) +
   facet_wrap(~sea_description, scales="free_x") +
-  scale_color_ipsum(name=NULL) +
+  scale_color_viridis_d(name=NULL) +
   labs(x=NULL, y="Rates per 100,000 population",
        title="FluSurv-NET :: Entire Network :: All Seasons :: Cumulative Rate") +
   theme_ipsum_rc()
@@ -131,7 +126,7 @@ glimpse(hospitalizations("eip", "Colorado", years=2015))
 
 glimpse(hospitalizations("ihsp", years=2015))
 
-glimpse(hospitalizations("ihsp", "Oklahoma", years=2015))
+glimpse(hospitalizations("ihsp", "Oklahoma", years=2010))
 ```
 
 ### Retrieve ILINet Surveillance Data
