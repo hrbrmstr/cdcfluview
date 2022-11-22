@@ -28,7 +28,9 @@ hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp"),
   sarea <- match.arg(tolower(surveillance_area), choices = c("flusurv", "eip", "ihsp"))
   sarea <- .surv_rev_map[sarea]
 
-  meta <- jsonlite::fromJSON("https://gis.cdc.gov/GRASP/Flu3/GetPhase03InitApp?appVersion=Public")
+  meta <- .get_meta()
+
+  # meta <- jsonlite::fromJSON("https://gis.cdc.gov/GRASP/Flu3/GetPhase03InitApp?appVersion=Public")
   areas <- setNames(meta$catchments[,c("networkid", "name", "area", "catchmentid")],
                     c("networkid", "surveillance_area", "region", "id"))
 
@@ -42,95 +44,61 @@ hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp"),
          call.=FALSE)
   }
 
-  httr::POST(
-    url = "https://gis.cdc.gov/GRASP/Flu3/PostPhase03GetData",
-    httr::user_agent(.cdcfluview_ua),
-    httr::add_headers(
-      Origin = "https://gis.cdc.gov",
-      Accept = "application/json, text/plain, */*",
-      Referer = "https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html"
-    ),
-    encode = "json",
-    body = list(
-      appversion = "Public",
-      networkid = tgt$networkid,
-      cacthmentid = tgt$id
-    ),
-    # httr::verbose(),
-    httr::timeout(.httr_timeout)
-  ) -> res
+  hosp <- list(res = res$default_data, meta = meta)
 
-  httr::stop_for_status(res)
+  age_df <- setNames(hosp$meta$master_lookup, c("variable", "value_id", "parent_id", "label", "color", "enabled"))
+  age_df <- age_df[(age_df$variable == "Age" | age_df$value_id == 0) & !is.na(age_df$value_id),]
+  age_df <- setNames(age_df[,c("value_id", "label")], c("ageid", "age_label"))
+  age_df <- age_df[order(age_df$ageid),]
 
-  res <- httr::content(res)
+  race_df <- setNames(hosp$meta$master_lookup, c("variable", "value_id", "parent_id", "label", "color", "enabled"))
+  race_df <- race_df[(race_df$variable == "Race" | race_df$value_id == 0) & !is.na(race_df$value_id),]
+  race_df <- setNames(race_df[,c("value_id", "label")], c("raceid", "race_label"))
 
-  hosp <- list(res = res, meta = meta)
-
-  age_df <- setNames(hosp$meta$ages, c("age_label", "age", "color"))
-  age_df <- age_df[,c("age", "age_label")]
-
-  sea_df <- setNames(
+  season_df <- setNames(
     hosp$meta$seasons,
-    c("sea_description", "sea_endweek", "sea_label", "seasonid", "sea_startweek", "color", "color_hexvalue")
+    c("season_description", "season_enabled", "season_endweek", "season_label", "seasonid", "season_startweek", "include_weekly")
   )
-  sea_df <- sea_df[,c("seasonid", "sea_label", "sea_description", "sea_startweek", "sea_endweek")]
+  season_df <- season_df[,c("seasonid", "season_label", "season_description", "season_startweek", "season_endweek")]
 
-  ser_names <- unlist(hosp$res$busdata$datafields, use.names = FALSE)
-
-  suppressWarnings(
-    suppressMessages(
-      mmwr_df <- dplyr::bind_rows(hosp$res$mmwr)
-    )
-  )
-
+  mmwr_df <- hosp$meta$mmwr
   mmwr_df <- mmwr_df[,c("mmwrid", "weekend", "weeknumber", "weekstart", "year",
                         "yearweek", "seasonid", "weekendlabel", "weekendlabel2")]
 
-  suppressMessages(
-    suppressWarnings(
+  catchments_df <- hosp$meta$catchments[,c("catchmentid", "beginseasonid", "endseasonid", "networkid", "name", "area")]
 
-      dplyr::bind_rows(
-        lapply(hosp$res$busdata$dataseries, function(.x) {
+  # if (length(unique(xdf$age)) > 9) {
+  #   data.frame(
+  #     age = 1:12,
+  #     age_label = c("0-4 yr", "5-17 yr", "18-49 yr", "50-64 yr", "65+ yr", "Overall",
+  #                   "65-74 yr", "75-84 yr", "85+", "18-29 yr", "30-39 yr", "40-49 yr"
+  #     )
+  #   ) -> age_df
+  #   age_df$age_label <- factor(age_df$age_label, levels = age_df$age_label)
+  # }
 
-          dplyr::bind_rows(
-            lapply(.x$data, function(.x) setNames(.x, ser_names))
-          ) -> tdf
+  xdf <- hosp$res
 
-          tdf$age <- .x$age
-          tdf$season <- .x$season
+  mmwr_df$seasonid <- NULL
+  xdf <- dplyr::left_join(xdf, mmwr_df, "mmwrid")
 
-          tdf
+  xdf <- dplyr::left_join(xdf, age_df, "ageid")
+  xdf <- dplyr::left_join(xdf, race_df, "raceid")
+  xdf <- dplyr::left_join(xdf, season_df, "seasonid")
 
-        })
-      ) -> xdf
+  xdf$catchmentid <- as.character(xdf$catchmentid)
+  catchments_df$catchmentid <- as.character(catchments_df$catchmentid)
+  catchments_df$networkid <- NULL
+  xdf <- dplyr::left_join(xdf, catchments_df, "catchmentid")
 
-    )
-  )
+  xdf$surveillance_area <- sarea
+  xdf$region <- reg
 
-  if (length(unique(xdf$age)) > 9) {
-    data.frame(
-      age = 1:12,
-      age_label = c("0-4 yr", "5-17 yr", "18-49 yr", "50-64 yr", "65+ yr", "Overall",
-                    "65-74 yr", "75-84 yr", "85+", "18-29 yr", "30-39 yr", "40-49 yr"
-      )
-    ) -> age_df
-    age_df$age_label <- factor(age_df$age_label, levels = age_df$age_label)
-  }
+#   xdf <- xdf[,c("surveillance_area", "region", "year", "season", "wk_start", "wk_end",
+#                 "year_wk_num", "rate", "weeklyrate", "age", "age_label", "sea_label",
+#                 "sea_description", "mmwrid")]
 
-  dplyr::left_join(xdf, mmwr_df, c("mmwrid", "weeknumber")) %>%
-    dplyr::left_join(age_df, "age") %>%
-    dplyr::left_join(sea_df, "seasonid") %>%
-    dplyr::mutate(
-      surveillance_area = sarea,
-      region = reg
-    ) %>%
-    dplyr::left_join(mmwrid_map, "mmwrid") -> xdf
-
-  xdf <- xdf[,c("surveillance_area", "region", "year", "season", "wk_start", "wk_end",
-                "year_wk_num", "rate", "weeklyrate", "age", "age_label", "sea_label",
-                "sea_description", "mmwrid")]
-
-  available_seasons <- sort(unique(xdf$season))
+  available_seasons <- sort(unique(xdf$seasonid))
 
   if (!is.null(years)) { # specified years or seasons or a mix
 
@@ -141,7 +109,7 @@ hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp"),
 
     if (length(years) == 0) {
       years <- rev(available_seasons)[1]
-      curr_season_descr <- xdf[xdf$season == years,]$sea_description[1]
+      curr_season_descr <- xdf[xdf$seasonid == years,]$season_description[1]
       message(
         sprintf(
           "No valid years specified, defaulting to the last available flu season => ID: %s [%s]",
@@ -150,7 +118,7 @@ hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp"),
       )
     }
 
-    xdf <- dplyr::filter(xdf, season %in% years)
+    xdf <- xdf[xdf$seasonid %in% years, ]
 
   }
 
@@ -165,7 +133,7 @@ hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp"),
 #' @examples
 #' sa <- surveillance_areas()
 surveillance_areas <- function() {
-  meta <- jsonlite::fromJSON("https://gis.cdc.gov/GRASP/Flu3/GetPhase03InitApp?appVersion=Public")
+  meta <- .get_meta()
   xdf <- setNames(meta$catchments[,c("name", "area")], c("surveillance_area", "region"))
   xdf$surveillance_area <- .surv_map[xdf$surveillance_area]
   xdf

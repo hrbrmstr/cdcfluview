@@ -31,3 +31,32 @@ utils::globalVariables(c(".", "mmwrid", "season", "seasonid", "week_start", "wk_
 
 # Global HTTR timeout
 .httr_timeout <- 120
+
+.get_meta <- function() {
+
+
+  list(
+    appversion = jsonlite::unbox("Public"),
+    key = jsonlite::unbox(""),
+    injson = I(list())
+  ) -> body
+
+  httr::POST(
+    httr::user_agent(.cdcfluview_ua),
+    url = "https://gis.cdc.gov/GRASP/Flu3/PostPhase03DataTool",
+    body = jsonlite::toJSON(body),
+    encode = "raw",
+    httr::accept_json(),
+    httr::add_headers(
+      `content-type` = "application/json;charset=UTF-8",
+      origin = "https://gis.cdc.gov",
+      referer = "ttps://gis.cdc.gov/GRASP/Fluview/FluHospRates.html"
+    ),
+    httr::timeout(.httr_timeout)
+  ) -> res
+
+  httr::stop_for_status(res)
+
+  jsonlite::fromJSON(httr::content(res, as = "text"))
+
+}
