@@ -3,7 +3,7 @@ Type: Package
 Encoding: UTF-8
 Title: Retrieve Flu Season Data from the United States Centers for Disease Control 
     and Prevention ('CDC') 'FluView' Portal
-Version: 1.0.0.9000
+Version: 1.0.0.9001
 Date: 2022-11-22
 Authors@R: c(
     person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"), 

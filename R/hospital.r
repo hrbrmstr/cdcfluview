@@ -44,7 +44,7 @@ hospitalizations <- function(surveillance_area=c("flusurv", "eip", "ihsp"),
          call.=FALSE)
   }
 
-  hosp <- list(res = res$default_data, meta = meta)
+  hosp <- list(res = meta$default_data, meta = meta)
 
   age_df <- setNames(hosp$meta$master_lookup, c("variable", "value_id", "parent_id", "label", "color", "enabled"))
   age_df <- age_df[(age_df$variable == "Age" | age_df$value_id == 0) & !is.na(age_df$value_id),]
